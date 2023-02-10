@@ -20,13 +20,14 @@ for item in IDO_pools:
 
 pools_info = pd.DataFrame({'accepted_currency':accepted_currency, 'pool_addresses':pool_addresses})
 
-currency = input('Write IDIA or BUSD?:')
-if currency == 'BUSD':
-    pools_array = (pools_info[pools_info["accepted_currency"] == 'BUSD'])['pool_addresses'].to_numpy()
-    BUSD_transactions_to_pools(pools_array)
+for token in ['BUSD', 'IDIA']:
+    if token == 'BUSD':
+        pools_array = (pools_info[pools_info["accepted_currency"] == 'BUSD'])['pool_addresses'].to_numpy()
 
-if currency == 'IDIA':
-    pools_array = (pools_info[pools_info["accepted_currency"] == 'IDIA'])['pool_addresses'].to_numpy()
-    IDIA_transactions_to_pools(pools_array)
+    if token == 'IDIA':
+        pools_array = (pools_info[pools_info["accepted_currency"] == 'IDIA'])['pool_addresses'].to_numpy()
+    
+    
+    transactions_to_pools(pools_array, token)
 
 f.close()

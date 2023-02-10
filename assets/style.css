@@ -1,0 +1,52 @@
+body {
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: auto ; /* Resize the background image to cover the entire container */
+    background-color: #171730;
+}
+
+.card_container {
+    border-radius: 5px;
+    background-color: rgb(156, 84, 224);
+    margin: 15px;
+    padding: 15px;
+    position: relative;
+    box-shadow: 2px 2px 2px rgb(156, 84, 224);
+    font-weight: bold;
+    font-family: "Verdana", sans-serif;
+    width: 29vw;
+}
+
+.card_container_double {
+    border-radius: 5px;
+    background-color: rgb(156, 84, 224);
+    margin: 15px;
+    padding: 15px;
+    position: relative;
+    box-shadow: 2px 2px 2px rgb(156, 84, 224);
+    font-weight: bold;
+    font-family: "Verdana", sans-serif;
+    width: 45.5vw;
+}
+
+.usd_and_users_cards {
+    width: 49%;
+    display: inline-block;
+    padding-top: 50px;
+    padding-bottom: 100px;
+    border: thick double #32a1ce;
+    border-radius: 100px;
+}
+
+.usd_and_users_cards h1 {
+    font-weight: bold;
+    font-family: "Verdana", sans-serif;
+    color:white;
+    font-weight: bold;
+    text-align: center;
+
+}
+
+.container {
+    display: inline-flex;
+}
