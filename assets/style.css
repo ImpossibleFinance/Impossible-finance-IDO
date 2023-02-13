@@ -6,7 +6,7 @@ body {
 }
 
 .card_container {
-    border-radius: 5px;
+    border-radius: 10px;
     background-color: rgb(156, 84, 224);
     margin: 15px;
     padding: 15px;

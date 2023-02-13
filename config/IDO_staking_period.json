@@ -3,96 +3,117 @@
         "launchpad": "Openswap",
         "purchase_date": "2021-08-30",
         "start_staking_period": "2021-08-26",
-        "end_staking_period": "2021-08-26"
+        "end_staking_period": "2021-08-26",
+        "status": "Claim"
     },
     {
         "launchpad": "BLT",
         "purchase_date": "2021-09-28",
         "start_staking_period": "2021-09-14",
-        "end_staking_period": "2021-09-24"
+        "end_staking_period": "2021-09-24",
+        "status": "Claim"
     },
     {
         "launchpad": "HIGH",
         "purchase_date": "2021-10-13",
         "start_staking_period": "2021-09-27",
-        "end_staking_period": "2021-10-09"
+        "end_staking_period": "2021-10-09",
+        "status": "Airdrop",
+        "airdrop_date": "2021-10-14"
     },
     {
         "launchpad": "ARDN",
         "purchase_date": "2021-11-03",
         "start_staking_period": "2021-10-13",
-        "end_staking_period": "2021-10-31"
+        "end_staking_period": "2021-10-31",
+        "status": "Airdrop",
+        "airdrop_date": "2021-11-04"
     },
     {
         "launchpad": "Genopets",
         "purchase_date": "2021-11-16",
         "start_staking_period": "2021-10-31",
-        "end_staking_period": "2021-11-13"
+        "end_staking_period": "2021-11-13",
+        "status": "Claim"
     },
     {
         "launchpad": "Sportium",
         "purchase_date": "2021-12-07",
         "start_staking_period": "2021-11-22",
-        "end_staking_period": "2021-12-03"
+        "end_staking_period": "2021-12-03",
+        "status": "Claim"
     },
     {
         "launchpad": "Fancy Games",
         "purchase_date": "2021-12-13",
         "start_staking_period": "2021-11-26",
-        "end_staking_period": "2021-12-09"
+        "end_staking_period": "2021-12-09",
+        "status": "Claim"
     },
     {
         "launchpad": "Ouro",
         "purchase_date": "2022-01-03",
         "start_staking_period": "2021-11-16",
-        "end_staking_period": "2021-12-30"
+        "end_staking_period": "2021-12-30",
+        "status": "Claim"
     },
     {
         "launchpad": "IDIA",
         "purchase_date": "2022-01-10",
         "start_staking_period": "2021-12-23",
-        "end_staking_period": "2022-02-19"
+        "end_staking_period": "2022-02-19",
+        "status": "Claim"
     },
     {
         "launchpad": "Starbots",
         "purchase_date": "2022-01-11",
         "start_staking_period": "2021-12-08",
-        "end_staking_period": "2022-01-07"
+        "end_staking_period": "2022-01-07",
+        "status": "Claim"
     },
     {
         "launchpad": "Aurigami",
         "purchase_date": "2022-05-03",
         "start_staking_period": "2022-04-14",
-        "end_staking_period": "2022-05-01"
+        "end_staking_period": "2022-05-01",
+        "status": "Airdrop",
+        "airdrop_date": "2022-05-05"
     },
     {
         "launchpad": "Basketballverse",
         "purchase_date": "2022-04-20",
         "start_staking_period": "2022-02-16",
-        "end_staking_period": "2022-04-18"
+        "end_staking_period": "2022-04-18",
+        "status": "Claim"
     },
     {
         "launchpad": "Ruby",
         "purchase_date": "2022-06-13",
         "start_staking_period": "2022-05-13",
-        "end_staking_period": "2022-06-13"
+        "end_staking_period": "2022-06-13",
+        "status": "Airdrop",
+        "airdrop_date": "-"
     },
     {
         "launchpad": "Aura",
         "purchase_date": "2022-07-26",
         "start_staking_period": "2022-06-09",
-        "end_staking_period": "2022-07-25"
+        "end_staking_period": "2022-07-25",
+        "status": "Claim"
     },
     {
         "launchpad": "QUO",
         "purchase_date": "2022-11-01",
         "start_staking_period": "2022-10-25",
-        "end_staking_period": "2022-11-01"
+        "end_staking_period": "2022-11-01",
+        "status": "Claim"
     },
     {
         "launchpad": "Pine",
         "purchase_date": "2023-02-06",
         "start_staking_period": "2022-11-17",
-        "end_staking_period": "2023-02-06"
+        "end_staking_period": "2023-02-06",
+        "status": "Airdrop",
+        "airdrop_date": "2023-02-09"
     }
 ]

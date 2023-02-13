@@ -1,12 +1,12 @@
 import json
 
-from Upload_functions import *
+from scripts.upload_functions import *
 
 
 pool_addresses = []
 accepted_currency = []
 
-f = open('IDO_pools.json')
+f = open('config/IDO_pools.json')
 IDO_pools = json.load(f)
 
 

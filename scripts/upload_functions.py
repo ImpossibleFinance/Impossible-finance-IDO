@@ -38,7 +38,7 @@ def get_transactions(token_contract, address):
 def transactions_to_csv(token_contract ,address):
 
 
-    f = open('IDO_pools.json')
+    f = open('config/IDO_pools.json')
     IDO_config = json.load(f)
 
 

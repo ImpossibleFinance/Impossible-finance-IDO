@@ -3,10 +3,11 @@ from dash.dependencies import Input, Output, State
 import flask
 import pandas as pd
 import json
-import numpy as np
 
 from scripts.main_kpi import *
 from scripts.information_by_pools import *
+from scripts.user_types import *
+from scripts.best_impossible_users import *
 
 config = {
     'displayModeBar': False
@@ -16,7 +17,7 @@ pool_addresses = []
 full_data = pd.DataFrame()
 currency = ['BUSD', 'IDIA']
 
-f = open('IDO_pools.json')
+f = open('config/IDO_pools.json')
 IDO_pools = json.load(f)
 
 
@@ -38,12 +39,16 @@ for token in currency:
     
 full_data = full_data.loc[(full_data['to']).isin(pool_addresses)]
 
-total_unique_users, total_usd_purchased, unique_IDOS, total_unique_purchase_txs, unique_sale_type, last_ido_unique_users, last_ido_usd_purchased, last_ido_name = main_kpis(full_data)
+total_unique_users, total_usd_purchased, unique_IDOS, total_unique_purchase_txs, unique_sale_type = main_kpis(full_data)
 
 
 USD_by_launchpad, Num_participants = purchased_stats_by_launchpad(full_data)
 
 fig_USD_by_sale, fig_participants_by_sale = purchased_stats_by_launchpad_and_sale(full_data)
+
+fig_USD_by_user_type, fig_participants_by_user_type = purchased_stats_by_user_type(full_data)
+
+table_with_all_users, users_distribution = top_users(full_data)
 
 ###############################################################
 ############################# App #############################
@@ -51,8 +56,7 @@ fig_USD_by_sale, fig_participants_by_sale = purchased_stats_by_launchpad_and_sal
 
 server = flask.Flask(__name__)
 app = Dash(__name__, server = server)
-app.title = 'EVM Dashboard'
-
+app.title = 'IDO Dashboard'
 
 app.layout = html.Div([
     html.Div([
@@ -153,64 +157,6 @@ app.layout = html.Div([
 
 
     html.Div([
-        html.Div([
-            html.H6(children = 'Number of participants for last IDO',
-                style = {
-                    'textAlign': 'center',
-                    'color': 'white',
-                    'fontSize': 18,
-                    'margin-top': '15px',
-                    'height': '1px'
-                }
-            ),
-            html.P(f"{last_ido_unique_users:,.0f}",
-                style = {
-                    'textAlign': 'center',
-                    'color': 'blue',
-                    'fontSize': 45,
-                }
-            )
-        ], className = "card_container"),
-        html.Div([
-            html.H6(children = 'Last IDO',
-                style = {
-                    'textAlign': 'center',
-                    'color': 'white',
-                    'fontSize': 18,
-                    'margin-top': '15px',
-                    'height': '1px'
-                }
-            ),
-            html.P(last_ido_name,
-                style = {
-                    'textAlign': 'center',
-                    'color': 'white',
-                    'fontSize': 45,
-                }
-            )
-        ], className = "card_container"),
-        html.Div([
-            html.H6(children = 'Total purchased for last IDO',
-                style = {
-                    'textAlign': 'center',
-                    'color': 'white',
-                    'fontSize': 18,
-                    'margin-top': '15px',
-                    'height': '1px'
-                }
-            ),
-            html.P(f"${last_ido_usd_purchased:,.1f}",
-                style = {
-                    'textAlign': 'center',
-                    'color': 'yellow',
-                    'fontSize': 45,
-                }
-            )
-        ], className = "card_container"),
-    ], className = "container"),
-
-
-    html.Div([
         html.H1('Analysis of USD tokens purchased'),
         dcc.Graph(
             id = 'usd-by-launchpad',
@@ -220,6 +166,11 @@ app.layout = html.Div([
         dcc.Graph(
             id = 'usd-by-launchpad-by-sale',
             figure = fig_USD_by_sale,
+            config = config
+        ),
+        dcc.Graph(
+            id = 'usd-by-launchpad-by-user-type',
+            figure = fig_USD_by_user_type,
             config = config
         )
     ],className = "usd_and_users_cards"
@@ -235,9 +186,30 @@ app.layout = html.Div([
             id = 'number-of-participants-by-sale',
             figure = fig_participants_by_sale,
             config = config
+        ),
+        dcc.Graph(
+            id = 'num-users-by-launchpad-by-user-type',
+            figure = fig_participants_by_user_type,
+            config = config
         )
     ],className = "usd_and_users_cards"
-    )
+    ),
+
+
+    #html.Div(children = dcc.Graph(
+    #    id = 'users-table',
+    #    figure = table_with_all_users,
+    #    config = config
+    #),
+    #style={'width': '65%', 'display': 'inline-block'},
+    #),
+    #html.Div(children = dcc.Graph(
+    #    id = 'users-histogram',
+    #    figure = users_distribution,
+    #    config = config
+    #),
+    #style={'width': '35%', 'display': 'inline-block'},
+    #)
 ])
 
 if __name__ == '__main__':

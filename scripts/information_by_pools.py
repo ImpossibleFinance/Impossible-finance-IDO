@@ -75,7 +75,7 @@ def purchased_stats_by_launchpad(full_data):
 
 def purchased_stats_by_launchpad_and_sale(full_data):
 
-    f = open('IDO_pools.json')
+    f = open('config/IDO_pools.json')
     sales_config = json.load(f)
 
     df = pd.DataFrame(full_data.groupby(['launchpad', 'sale_type'])['USD_amount'].sum())
@@ -164,7 +164,8 @@ def purchased_stats_by_launchpad_and_sale(full_data):
         categoryorder = 'array', 
         categoryarray = result_data['launchpad'].unique()
     )
-    
+
+    f.close()
 
     return fig_USD_by_sale, fig_participants_by_sale
     
