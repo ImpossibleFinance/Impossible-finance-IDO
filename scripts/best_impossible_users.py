@@ -58,8 +58,7 @@ def top_users(full_data):
             ))
 
     fig_table.update_layout(
-        height = 500,
-        #width = 100,
+        height = 1000,
         plot_bgcolor = '#171730',
         paper_bgcolor = '#171730',
         font = dict(color = 'white'),
