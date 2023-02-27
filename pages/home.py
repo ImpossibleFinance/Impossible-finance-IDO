@@ -167,4 +167,27 @@ layout = html.Div([
             ),
         ], className = "flex_user_table"
     ),
+
+    dcc.Graph(
+        id = 'total-purchased-rate',
+        figure = total_purchased_rate,
+        config = config
+    ),
+
+    html.Div(children = dcc.Graph(
+        id = 'max-pool-size',
+        figure = max_pool_size,
+        config = config
+        ),
+        style={'width': '50%', 'display': 'inline-block'},
+    ),
+
+    html.Div(children = dcc.Graph(
+        id = 'purchased-rate',
+        figure = purchased_rate,
+        config = config
+        ),
+        style={'width': '50%', 'display': 'inline-block'},
+    ),
+
 ])

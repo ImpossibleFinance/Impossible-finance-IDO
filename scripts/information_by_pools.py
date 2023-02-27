@@ -137,6 +137,7 @@ def purchased_stats_by_launchpad_and_sale(full_data):
                 ))
     
     fig_USD_by_sale.update_layout(
+        title = 'Tokens purchased (USD)',
         barmode = 'stack',
         height = 600,
         hovermode = "x unified",
@@ -146,6 +147,7 @@ def purchased_stats_by_launchpad_and_sale(full_data):
         showlegend = False
     )
     fig_participants_by_sale.update_layout(
+        title = 'IDO participants',
         barmode = 'stack',
         height = 600,
         hovermode = "x unified",

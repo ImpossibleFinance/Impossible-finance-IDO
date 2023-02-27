@@ -1,0 +1,66 @@
+[
+    {
+        "launchpad": "Openswap",
+        "ido_price": "0.04"
+    },
+    {
+        "launchpad": "BLT",
+        "ido_price": "0.4"
+    },
+    {
+        "launchpad": "HIGH",
+        "ido_price": "1"
+    },
+    {
+        "launchpad": "ARDN",
+        "ido_price": "0.5"
+    },
+    {
+        "launchpad": "Genopets",
+        "ido_price": "0.8"
+    },
+    {
+        "launchpad": "Sportium",
+        "ido_price": "0.03"
+    },
+    {
+        "launchpad": "Fancy Games",
+        "ido_price": "0.05"
+    },
+    {
+        "launchpad": "Ouro",
+        "ido_price": "0.025"
+    },
+    {
+        "launchpad": "IDIA",
+        "ido_price": "0.075"
+    },
+    {
+        "launchpad": "Starbots",
+        "ido_price": "0.1"
+    },
+    {
+        "launchpad": "Aurigami",
+        "ido_price": "0.005"
+    },
+    {
+        "launchpad": "Basketballverse",
+        "ido_price": "0.15"
+    },
+    {
+        "launchpad": "Ruby",
+        "ido_price": "0.25"
+    },
+    {
+        "launchpad": "Aura",
+        "ido_price": "0.065"
+    },
+    {
+        "launchpad": "QUO",
+        "ido_price": "0.01"
+    },
+    {
+        "launchpad": "Pine",
+        "ido_price": "0.2"
+    }
+]

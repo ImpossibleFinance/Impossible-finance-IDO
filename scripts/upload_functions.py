@@ -54,11 +54,10 @@ def transactions_to_csv(token_contract ,address):
         df['amount'] = df['value'].astype(float)/10**(df['tokenDecimal'].astype(int))
 
         df = df.drop(['blockNumber', 'timeStamp', 'nonce', 'blockHash', 'tokenName', 'transactionIndex', 'gas', 'gasPrice', 'gasUsed', 'cumulativeGasUsed', 'input', 'confirmations', 'value', 'tokenDecimal'], axis=1)
-        df['launchpad'] = ((list(filter(lambda x:x["pool_address"] == address, IDO_config)))[0]["launchpad"])
-        df['sale_type'] = ((list(filter(lambda x:x["pool_address"] == address, IDO_config)))[0]["sale_type"])
+        df['launchpad'] = ((list(filter(lambda x:(x["pool_address"]).lower() == address, IDO_config)))[0]["launchpad"])
+        df['sale_type'] = ((list(filter(lambda x:(x["pool_address"]).lower() == address, IDO_config)))[0]["sale_type"])
         print(df)
-        print((list(filter(lambda x:x["pool_address"] == address, IDO_config)))[0]["sale_type"])
-        print((list(filter(lambda x:x["pool_address"] == address, IDO_config)))[0]["launchpad"])
+        print(df['launchpad'].unique(), '--', df['sale_type'].unique())
 
         return df
 
@@ -72,12 +71,19 @@ def transactions_to_pools(pool_addresses, token):
         token_contract = '0x0b15Ddf19D47E6a86A56148fb4aFFFc6929BcB89'
 
     for j in range(len(pool_addresses)):
-        time.sleep(0.2)
 
         print(str(j) + '/' + str(len(pool_addresses)))
 
         address = pool_addresses[j]
 
-        full_data = pd.concat([full_data, transactions_to_csv(token_contract, address)])
+        file_path = 'data/' + str(token) +'_to_pools_transactions.csv'
+        if os.stat(file_path).st_size == 0 or os.stat(file_path).st_size == 1:
+            csv_data = pd.DataFrame()
+        else:
+            csv_data = pd.read_csv(file_path)
 
-    full_data.to_csv('transactions_data/' + token +'_to_pools_transactions.csv', index = False)
+        full_data = pd.concat([csv_data, transactions_to_csv(token_contract, address)])
+
+        full_data.to_csv('data/' + token +'_to_pools_transactions.csv', index = False)
+
+        time.sleep(0.3)

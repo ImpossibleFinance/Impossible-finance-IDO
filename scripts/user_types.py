@@ -64,7 +64,7 @@ def purchased_stats_by_user_type(full_data):
 
 
     fig_USD_by_sale.update_layout(
-        #barmode = 'stack',
+        title = 'User type per category (USD amount)',
         height = 600,
         hovermode = "x unified",
         plot_bgcolor = '#171730',
@@ -73,7 +73,7 @@ def purchased_stats_by_user_type(full_data):
         showlegend = False
     )
     fig_participants_by_sale.update_layout(
-        #barmode = 'stack',
+        title = 'User type per category (Number of users)',
         height = 600,
         hovermode = "x unified",
         plot_bgcolor = '#171730',

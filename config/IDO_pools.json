@@ -5,7 +5,8 @@
       "launchpad": "Openswap",
       "project_name": "Openswap",
       "sale_type": "Standard Sale",
-      "launch_order": "1"
+      "launch_order": "1",
+      "size": "4_112_500"
     },
     {
         "blockchain": "bnb",
@@ -13,7 +14,8 @@
         "launchpad": "Openswap",
         "project_name": "Openswap",
         "sale_type": "Unlimited Sale",
-        "launch_order": "1"
+        "launch_order": "1",
+        "size": "4_112_500"
     },
     {
         "blockchain": "bnb",
@@ -21,7 +23,8 @@
         "launchpad": "Openswap",
         "project_name": "Openswap",
         "sale_type": "Whitelist $100",
-        "launch_order": "1"
+        "launch_order": "1",
+        "size": "150_000"
     },
     {
         "blockchain": "bnb",
@@ -29,7 +32,8 @@
         "launchpad": "Openswap",
         "project_name": "Openswap",
         "sale_type": "Whitelist $50",
-        "launch_order": "1"
+        "launch_order": "1",
+        "size": "125_000"
     },
 
 
@@ -40,7 +44,8 @@
         "launchpad": "BLT",
         "project_name": "Blocto",
         "sale_type": "Standard Sale",
-        "launch_order": "2"
+        "launch_order": "2",
+        "size": "250_000"
     },
     {
         "blockchain": "bnb",
@@ -48,7 +53,8 @@
         "launchpad": "BLT",
         "project_name": "Blocto",
         "sale_type": "Unlimited Sale",
-        "launch_order": "2"
+        "launch_order": "2",
+        "size": "250_000"
     },
 
 
@@ -59,7 +65,8 @@
         "launchpad": "HIGH",
         "project_name": "Highstreet",
         "sale_type": "Standard Sale",
-        "launch_order": "3"
+        "launch_order": "3",
+        "size": "500_000"
     },
     {
         "blockchain": "bnb",
@@ -67,23 +74,26 @@
         "launchpad": "HIGH",
         "project_name": "Highstreet",
         "sale_type": "Unlimited Sale",
-        "launch_order": "3"
+        "launch_order": "3",
+        "size": "500_000"
     },
     {
         "blockchain": "bnb",
         "pool_address": "0xb20278fe899a4aE271a81CA4D70E8D2FA57b24cF",
         "launchpad": "HIGH",
         "project_name": "Highstreet",
-        "sale_type": "Whitelist $100",
-        "launch_order": "3"
+        "sale_type": "Whitelist $100 (1)",
+        "launch_order": "3",
+        "size": "105_000"
     },
     {
         "blockchain": "bnb",
         "pool_address": "0x35De9fDa52B41E77b442416eeAE5FFC16Cd9e2FF",
         "launchpad": "HIGH",
         "project_name": "Highstreet",
-        "sale_type": "Whitelist $100",
-        "launch_order": "3"
+        "sale_type": "Whitelist $100 (2)",
+        "launch_order": "3",
+        "size": "500"
     },
     {
         "blockchain": "bnb",
@@ -91,7 +101,8 @@
         "launchpad": "HIGH",
         "project_name": "Highstreet",
         "sale_type": "Whitelist $200",
-        "launch_order": "3"
+        "launch_order": "3",
+        "size": "1600"
     },
     {
         "blockchain": "bnb",
@@ -99,7 +110,8 @@
         "launchpad": "HIGH",
         "project_name": "Highstreet",
         "sale_type": "Whitelist $500",
-        "launch_order": "3"
+        "launch_order": "3",
+        "size": "21_500"
     },
 
 
@@ -110,7 +122,8 @@
         "launchpad": "ARDN",
         "project_name": "Ariadne",
         "sale_type": "Standard Sale",
-        "launch_order": "4"
+        "launch_order": "4",
+        "size": "200_000"
     },
     {
         "blockchain": "bnb",
@@ -118,7 +131,8 @@
         "launchpad": "ARDN",
         "project_name": "Ariadne",
         "sale_type": "Unlimited Sale",
-        "launch_order": "4"
+        "launch_order": "4",
+        "size": "200_000"
     },
 
 
@@ -128,7 +142,8 @@
         "launchpad": "Genopets",
         "project_name": "Genopets",
         "sale_type": "Standard Sale",
-        "launch_order": "5"
+        "launch_order": "5",
+        "size": "225_000"
     },
     {
         "blockchain": "bnb",
@@ -136,7 +151,8 @@
         "launchpad": "Genopets",
         "project_name": "Genopets",
         "sale_type": "Unlimited Sale",
-        "launch_order": "5"
+        "launch_order": "5",
+        "size": "225_000"
     },
     {
         "blockchain": "bnb",
@@ -144,7 +160,8 @@
         "launchpad": "Genopets",
         "project_name": "Genopets",
         "sale_type": "Whitelist $100",
-        "launch_order": "5"
+        "launch_order": "5",
+        "size": "50_000"
     },
 
 
@@ -155,7 +172,8 @@
         "launchpad": "Sportium",
         "project_name": "Sportium",
         "sale_type": "Standard Sale",
-        "launch_order": "6"
+        "launch_order": "6",
+        "size": "5_000_000"
     },
     {
         "blockchain": "bnb",
@@ -163,7 +181,8 @@
         "launchpad": "Sportium",
         "project_name": "Sportium",
         "sale_type": "Unlimited Sale",
-        "launch_order": "6"
+        "launch_order": "6",
+        "size": "5_000_000"
     },
     {
         "blockchain": "bnb",
@@ -171,7 +190,8 @@
         "launchpad": "Sportium",
         "project_name": "Sportium",
         "sale_type": "Whitelist $100",
-        "launch_order": "6"
+        "launch_order": "6",
+        "size": "800_000"
     },
 
 
@@ -181,7 +201,8 @@
         "launchpad": "Fancy Games",
         "project_name": "Fancy Games",
         "sale_type": "Standard Sale",
-        "launch_order": "7"
+        "launch_order": "7",
+        "size": "3_000_000"
     },
     {
         "blockchain": "bnb",
@@ -189,7 +210,8 @@
         "launchpad": "Fancy Games",
         "project_name": "Fancy Games",
         "sale_type": "Unlimited Sale",
-        "launch_order": "7"
+        "launch_order": "7",
+        "size": "3_000_000"
     },
     {
         "blockchain": "bnb",
@@ -197,7 +219,8 @@
         "launchpad": "Fancy Games",
         "project_name": "Fancy Games",
         "sale_type": "Whitelist $100",
-        "launch_order": "7"
+        "launch_order": "7",
+        "size": "500_000"
     },
 
 
@@ -208,15 +231,17 @@
         "launchpad": "Ouro",
         "project_name": "Ouro",
         "sale_type": "Standard Sale",
-        "launch_order": "8"
+        "launch_order": "8",
+        "size": "20_000_000"
     },
     {
         "blockchain": "bnb",
-        "pool_address": "0x98fF066BB5041DF3e8299Ce2eAf44d5a9E4f32E4",
+        "pool_address": "0x98ff066BB5041Df3e8299Ce2eAf44d5a9e4f32E4",
         "launchpad": "Ouro",
         "project_name": "Ouro",
         "sale_type": "Unlimited BUSD Sale",
-        "launch_order": "8"
+        "launch_order": "8",
+        "size": "15_000_000"
     },
     {
         "blockchain": "bnb",
@@ -224,7 +249,8 @@
         "launchpad": "Ouro",
         "project_name": "Ouro",
         "sale_type": "Unlimited IDIA Sale",
-        "launch_order": "8"
+        "launch_order": "8",
+        "size": "15_000_000"
     },
     {
         "blockchain": "bnb",
@@ -232,7 +258,8 @@
         "launchpad": "Ouro",
         "project_name": "Ouro",
         "sale_type": "Private 100",
-        "launch_order": "8"
+        "launch_order": "8",
+        "size": "1_800_000"
     },
     {
         "blockchain": "bnb",
@@ -240,7 +267,8 @@
         "launchpad": "Ouro",
         "project_name": "Ouro",
         "sale_type": "Private 200",
-        "launch_order": "8"
+        "launch_order": "8",
+        "size": "1_200_000"
     },
 
 
@@ -251,15 +279,8 @@
         "launchpad": "IDIA",
         "project_name": "IDIA",
         "sale_type": "Unlimited Sale",
-        "launch_order": "9"
-    },
-    {
-        "blockchain": "bnb",
-        "pool_address": "0x98fF066BB5041DF3e8299Ce2eAf44d5a9E4f32E4",
-        "launchpad": "IDIA",
-        "project_name": "IDIA",
-        "sale_type": "SDO Standard Sale",
-        "launch_order": "9"
+        "launch_order": "9",
+        "size": "4_000_000"
     },
     {
         "blockchain": "bnb",
@@ -267,7 +288,8 @@
         "launchpad": "IDIA",
         "project_name": "IDIA",
         "sale_type": "Whitelist $10",
-        "launch_order": "9"
+        "launch_order": "9",
+        "size": "4_000"
     },
     {
         "blockchain": "bnb",
@@ -275,7 +297,8 @@
         "launchpad": "IDIA",
         "project_name": "IDIA",
         "sale_type": "Whitelist $100",
-        "launch_order": "9"
+        "launch_order": "9",
+        "size": "628_000"
     },
 
 
@@ -286,7 +309,8 @@
         "launchpad": "Starbots",
         "project_name": "Starbots",
         "sale_type": "Standard Sale",
-        "launch_order": "10"
+        "launch_order": "10",
+        "size": "2_250_000"
     },
     {
         "blockchain": "bnb",
@@ -294,7 +318,8 @@
         "launchpad": "Starbots",
         "project_name": "Starbots",
         "sale_type": "Unlimited Sale",
-        "launch_order": "10"
+        "launch_order": "10",
+        "size": "2_250_000"
     },
     {
         "blockchain": "bnb",
@@ -302,7 +327,8 @@
         "launchpad": "Starbots",
         "project_name": "Starbots",
         "sale_type": "Whitelist $100",
-        "launch_order": "10"
+        "launch_order": "10",
+        "size": "250_000"
     },
 
 
@@ -312,7 +338,8 @@
         "launchpad": "Aurigami",
         "project_name": "Aurigami",
         "sale_type": "Standard Sale",
-        "launch_order": "11"
+        "launch_order": "11",
+        "size": "50_000_000"
     },
     {
         "blockchain": "bnb",
@@ -320,7 +347,8 @@
         "launchpad": "Aurigami",
         "project_name": "Aurigami",
         "sale_type": "Unlimited Sale",
-        "launch_order": "11"
+        "launch_order": "11",
+        "size": "50_000_000"
     },
     {
         "blockchain": "bnb",
@@ -328,7 +356,8 @@
         "launchpad": "Aurigami",
         "project_name": "Aurigami",
         "sale_type": "Whitelist $100",
-        "launch_order": "11"
+        "launch_order": "11",
+        "size": "10_000_000"
     },
 
 
@@ -339,7 +368,8 @@
         "launchpad": "Basketballverse",
         "project_name": "Basketballverse",
         "sale_type": "Standard Sale",
-        "launch_order": "12"
+        "launch_order": "12",
+        "size": "1_000_000"
     },
     {
         "blockchain": "bnb",
@@ -347,23 +377,26 @@
         "launchpad": "Basketballverse",
         "project_name": "Basketballverse",
         "sale_type": "Unlimited Sale",
-        "launch_order": "12"
+        "launch_order": "12",
+        "size": "1_000_000"
     },
     {
         "blockchain": "bnb",
         "pool_address": "0xE08750f8217b8025DB3d60B13683420cAabD6980",
         "launchpad": "Basketballverse",
         "project_name": "Basketballverse",
-        "sale_type": "Whitelist $100",
-        "launch_order": "12"
+        "sale_type": "Whitelist $100 (1)",
+        "launch_order": "12",
+        "size": "166_667"
     },
     {
         "blockchain": "bnb",
         "pool_address": "0x974aDe2A5c5065c9a24F87a257788A6b0CEB7712",
         "launchpad": "Basketballverse",
         "project_name": "Basketballverse",
-        "sale_type": "Whitelist $100",
-        "launch_order": "12"
+        "sale_type": "Whitelist $100 (2)",
+        "launch_order": "12",
+        "size": "66_667"
     },
 
 
@@ -373,7 +406,8 @@
         "launchpad": "Ruby",
         "project_name": "Ruby",
         "sale_type": "Standard Sale",
-        "launch_order": "13"
+        "launch_order": "13",
+        "size": "1_000_000"
     },
     {
         "blockchain": "bnb",
@@ -381,7 +415,8 @@
         "launchpad": "Ruby",
         "project_name": "Ruby",
         "sale_type": "Unlimited Sale",
-        "launch_order": "13"
+        "launch_order": "13",
+        "size": "1_000_000"
     },
     {
         "blockchain": "bnb",
@@ -389,7 +424,8 @@
         "launchpad": "Ruby",
         "project_name": "Ruby",
         "sale_type": "Whitelist $100",
-        "launch_order": "13"
+        "launch_order": "13",
+        "size": "200_000"
     },
 
 
@@ -399,7 +435,8 @@
         "launchpad": "Aura",
         "project_name": "Aura",
         "sale_type": "Standard Sale",
-        "launch_order": "14"
+        "launch_order": "14",
+        "size": "6_000_000"
     },
     {
         "blockchain": "bnb",
@@ -407,7 +444,8 @@
         "launchpad": "Aura",
         "project_name": "Aura",
         "sale_type": "Unlimited Sale",
-        "launch_order": "14"
+        "launch_order": "14",
+        "size": "4_000_000"
     },
     {
         "blockchain": "bnb",
@@ -415,7 +453,8 @@
         "launchpad": "Aura",
         "project_name": "Aura",
         "sale_type": "vIDIA Sale",
-        "launch_order": "14"
+        "launch_order": "14",
+        "size": "1_000_000"
     },
 
 
@@ -425,7 +464,8 @@
         "launchpad": "QUO",
         "project_name": "Quoll Finance",
         "sale_type": "Standard Sale",
-        "launch_order": "15"
+        "launch_order": "15",
+        "size": "2_500_000"
     },
     {
         "blockchain": "bnb",
@@ -433,7 +473,8 @@
         "launchpad": "QUO",
         "project_name": "Quoll Finance",
         "sale_type": "vIDIA Standart Sale",
-        "launch_order": "15"
+        "launch_order": "15",
+        "size": "24_500_000"
     },
     {
         "blockchain": "bnb",
@@ -441,7 +482,8 @@
         "launchpad": "QUO",
         "project_name": "Quoll Finance",
         "sale_type": "vIDIA Unlimited Sale",
-        "launch_order": "15"
+        "launch_order": "15",
+        "size": "18_000_000"
     },
     {
         "blockchain": "bnb",
@@ -449,7 +491,8 @@
         "launchpad": "QUO",
         "project_name": "Quoll Finance",
         "sale_type": "Whitelist $250",
-        "launch_order": "15"
+        "launch_order": "15",
+        "size": "5_000_000"
     },
 
 
@@ -461,7 +504,8 @@
         "launchpad": "Pine",
         "project_name": "Pine Protocol",
         "sale_type": "IDIA Standard Sale",
-        "launch_order": "16"
+        "launch_order": "16",
+        "size": "65_000"
     },
     {
         "blockchain": "bnb",
@@ -469,7 +513,8 @@
         "launchpad": "Pine",
         "project_name": "Pine Protocol",
         "sale_type": "vIDIA Standard Sale",
-        "launch_order": "16"
+        "launch_order": "16",
+        "size": "600_000"
     },
     {
         "blockchain": "bnb",
@@ -477,7 +522,8 @@
         "launchpad": "Pine",
         "project_name": "Pine Protocol",
         "sale_type": "vIDIA Unlimited Sale",
-        "launch_order": "16"
+        "launch_order": "16",
+        "size": "475_000"
     },
     {
         "blockchain": "bnb",
@@ -485,7 +531,8 @@
         "launchpad": "Pine",
         "project_name": "Pine Protocol",
         "sale_type": "Whitelist $50",
-        "launch_order": "16"
+        "launch_order": "16",
+        "size": "131_500"
     },
     {
         "blockchain": "bnb",
@@ -493,7 +540,8 @@
         "launchpad": "Pine",
         "project_name": "Pine Protocol",
         "sale_type": "Whitelist $100",
-        "launch_order": "16"
+        "launch_order": "16",
+        "size": "34_500"
     },
     {
         "blockchain": "bnb",
@@ -501,7 +549,8 @@
         "launchpad": "Pine",
         "project_name": "Pine Protocol",
         "sale_type": "Whitelist $200",
-        "launch_order": "16"
+        "launch_order": "16",
+        "size": "8_000"
     },
     {
         "blockchain": "bnb",
@@ -509,7 +558,8 @@
         "launchpad": "Pine",
         "project_name": "Pine Protocol",
         "sale_type": "Whitelist $250",
-        "launch_order": "16"
+        "launch_order": "16",
+        "size": "6_250"
     },
     {
         "blockchain": "bnb",
@@ -517,7 +567,8 @@
         "launchpad": "Pine",
         "project_name": "Pine Protocol",
         "sale_type": "Whitelist $500",
-        "launch_order": "16"
+        "launch_order": "16",
+        "size": "5_000"
     },
     {
         "blockchain": "bnb",
@@ -525,6 +576,7 @@
         "launchpad": "Pine",
         "project_name": "Pine Protocol",
         "sale_type": "Whitelist $2000",
-        "launch_order": "16"
+        "launch_order": "16",
+        "size": "10_000"
     }
 ]
