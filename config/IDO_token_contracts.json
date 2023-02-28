@@ -1,66 +1,82 @@
 [
     {
         "launchpad": "Openswap",
-        "ido_price": "0.04"
+        "ido_price": "0.04",
+        "api_token": "openswap"
     },
     {
         "launchpad": "BLT",
-        "ido_price": "0.4"
+        "ido_price": "0.4",
+        "api_token": "blocto-token"
     },
     {
         "launchpad": "HIGH",
-        "ido_price": "1"
+        "ido_price": "1",
+        "api_token": "highstreet"
     },
     {
         "launchpad": "ARDN",
-        "ido_price": "0.5"
+        "ido_price": "0.5",
+        "api_token": "ariadne"
     },
     {
         "launchpad": "Genopets",
-        "ido_price": "0.8"
+        "ido_price": "0.8",
+        "api_token": "genopets"
     },
     {
         "launchpad": "Sportium",
-        "ido_price": "0.03"
+        "ido_price": "0.03",
+        "api_token": "sportium"
     },
     {
         "launchpad": "Fancy Games",
-        "ido_price": "0.05"
+        "ido_price": "0.05",
+        "api_token": "fancy-games"
     },
     {
         "launchpad": "Ouro",
-        "ido_price": "0.025"
+        "ido_price": "0.025",
+        "api_token": "ouro-governance-share"
     },
     {
         "launchpad": "IDIA",
-        "ido_price": "0.075"
+        "ido_price": "0.075",
+        "api_token": "idia"
     },
     {
         "launchpad": "Starbots",
-        "ido_price": "0.1"
+        "ido_price": "0.1",
+        "api_token": "starbots"
     },
     {
         "launchpad": "Aurigami",
-        "ido_price": "0.005"
+        "ido_price": "0.005",
+        "api_token": "aurigami"
     },
     {
         "launchpad": "Basketballverse",
-        "ido_price": "0.15"
+        "ido_price": "0.15",
+        "api_token": "basketballverse"
     },
     {
         "launchpad": "Ruby",
-        "ido_price": "0.25"
+        "ido_price": "0.25",
+        "api_token": "ruby"
     },
     {
         "launchpad": "Aura",
-        "ido_price": "0.065"
+        "ido_price": "0.065",
+        "api_token": "aura-network"
     },
     {
         "launchpad": "QUO",
-        "ido_price": "0.01"
+        "ido_price": "0.01",
+        "api_token": "quo"
     },
     {
         "launchpad": "Pine",
-        "ido_price": "0.2"
+        "ido_price": "0.2",
+        "api_token": "pine"
     }
 ]
