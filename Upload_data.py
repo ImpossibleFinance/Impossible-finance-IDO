@@ -3,7 +3,7 @@ import requests
 
 
 from scripts.upload_functions import *
-from scripts.functions import *
+from scripts.Functions import *
 
 
 
@@ -28,7 +28,7 @@ def upload_transactions():
     f = open('config/IDO_pools.json')
     IDO_pools = json.load(f)
 
-    csv_data = load_full_csv_data()
+    csv_data = load_full_csv_data_ido()
     if csv_data.empty == False:
         all_uploaded_IDOs = csv_data['launchpad'].unique()
     else:
@@ -83,7 +83,8 @@ def get_price(token):
     url = 'https://api.coingecko.com/api/v3/coins/'+ token +'/market_chart'
     params = {
         'vs_currency': 'usd',
-        'days': 'max'
+        'days': 'max',
+        'interval': 'daily'
     }
 
     response = requests.get(url, params=params)
@@ -113,20 +114,25 @@ def upload_prices():
         token = str(item['api_token'])
         ido_price = float(item['ido_price'])
 
-        price_data = get_price(token)
-        price_data['roi'] = price_data['Price']/ido_price
-
         file_path = 'data/Prices.csv'
         if os.stat(file_path).st_size == 0 or os.stat(file_path).st_size == 1:
             csv_data = pd.DataFrame()
+            existing_tokens = []
         else:
             csv_data = pd.read_csv(file_path)
+            existing_tokens = csv_data['token'].unique()
 
-        data = pd.concat([csv_data, price_data])
+        if token not in existing_tokens:
+            if token != '-':
+                price_data = get_price(token)
+                price_data['roi'] = price_data['Price']/ido_price
 
-        data.to_csv('data/Prices.csv', index = False)
+                data = pd.concat([csv_data, price_data])
 
-        time.sleep(0.4)
+                data.to_csv('data/Prices.csv', index = False)
+
+                time.sleep(0.5)
+
 
         k += 1
 

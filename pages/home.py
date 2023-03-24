@@ -16,100 +16,44 @@ dash.register_page(
 
 layout = html.Div([
     html.Div([
-        html.Div([
-            html.H6(children = 'Total unique IDO participants',
-                style = {
-                    'textAlign': 'center',
-                    'color': 'white',
-                    'fontSize': 18,
-                    'margin-top': '15px',
-                    'height': '1px'
-                }
-            ),
-            html.P(f"{total_unique_users:,.0f}",
-                style = {
-                    'textAlign': 'center',
-                    'color': 'blue',
-                    'fontSize': 45,
-                }
-            )
-        ], className = "card_container"),
-        html.Div([
-            html.H6(children = 'Total tokens purchased',
-                style = {
-                    'textAlign': 'center',
-                    'color': 'white',
-                    'fontSize': 18,
-                    'margin-top': '15px',
-                    'height': '1px'
-                }
-            ),
-            html.P(f"${total_usd_purchased:,.1f}",
-                style = {
-                    'textAlign': 'center',
-                    'color': 'yellow',
-                    'fontSize': 45,
-                }
-            )
-        ], className = "card_container"),
-        html.Div([
-            html.H6(children = 'Number of IDOs',
-                style = {
-                    'textAlign': 'center',
-                    'color': 'white',
-                    'fontSize': 18,
-                    'margin-top': '15px',
-                    'height': '1px'
-                }
-            ),
-            html.P(f"{unique_IDOS:,.0f}",
-                style = {
-                    'textAlign': 'center',
-                    'color': 'orange',
-                    'fontSize': 45,
-                }
-            )
-        ], className = "card_container"),
-    ], className = "container"),
+        html.Img(src = "assets/DataLab.svg", alt = " ", className = "if-ico"),
+    ],className = "header-title"),
 
     html.Div([
-        html.Div([
-            html.H6(children = 'Total purchase transactions',
-                style = {
-                    'textAlign': 'center',
-                    'color': 'white',
-                    'fontSize': 18,
-                    'margin-top': '15px',
-                    'height': '1px'
-                }
-            ),
-            html.P(f"{total_unique_purchase_txs:,.0f}",
-                style = {
-                    'textAlign': 'center',
-                    'color': 'blue',
-                    'fontSize': 45,
-                }
-            )
-        ], className = "card_container_double"),
-        html.Div([
-            html.H6(children = 'Unique Sale Types',
-                style = {
-                    'textAlign': 'center',
-                    'color': 'white',
-                    'fontSize': 18,
-                    'margin-top': '15px',
-                    'height': '1px'
-                }
-            ),
-            html.P(f"{unique_sale_type:,.0f}",
-                style = {
-                    'textAlign': 'center',
-                    'color': 'orange',
-                    'fontSize': 45,
-                }
-            )
-        ], className = "card_container_double"),
-    ], className = "container"),
+        html.Iframe(
+            src = "assets/other_dashboards_list.html",
+            className = "list-dash"
+        )
+    ], id = 'dashboard-list'),
+
+    html.Div([
+        html.H1([' Impossible IDO Launchpad'], 
+                className = "main-header-title"),
+        html.H2(["The comparison of ..."],
+                className = "description-main"),
+    ]),
+
+    html.Div([
+        html.Div(
+            children = kpi_single(total_unique_users, 'Total unique IDO participants', ''), 
+            className = "kpi_container"
+        ),
+
+        html.Div(
+            children = kpi_single(total_usd_purchased, 'Total tokens bought', ''), 
+            className = "kpi_container"
+        ),
+
+        html.Div(
+            children = kpi_single(unique_IDOS, 'Unique IDOs', ''), 
+            className = "kpi_container"
+        ),
+
+        html.Div(
+            children = kpi_single(total_unique_purchase_txs, 'Total purchase transactions', ''), 
+            className = "kpi_container"
+        ),
+    ], className = "card_container"),
 
 
     html.Div([
@@ -150,23 +94,8 @@ layout = html.Div([
         )
     ],className = "usd_and_users_cards"
     ),
-
-    html.Div(
-        [
-            html.Div([
-                dcc.Link(
-                    "User Database", href = '/user-table'
-                )
-            ], className = "user_table"),
-
-            html.Div(children = dcc.Graph(
-                id = 'users-histogram',
-                figure = users_distribution,
-                config = config
-            ), style={'width': '50%', 'display': 'inline-block'},
-            ),
-        ], className = "flex_user_table"
-    ),
+###### WIP ##########
+    html.H1('Total purchase rate', className = 'left_container_h1'),
 
     dcc.Graph(
         id = 'total-purchased-rate',
@@ -188,6 +117,23 @@ layout = html.Div([
         config = config
         ),
         style={'width': '50%', 'display': 'inline-block'},
+    ),
+
+    html.Div(
+        [
+            html.Div([
+                dcc.Link(
+                    "User Database", href = '/user-table'
+                )
+            ], className = "user_table"),
+
+            html.Div(children = dcc.Graph(
+                id = 'users-histogram',
+                figure = users_distribution,
+                config = config
+            ), style={'width': '50%', 'display': 'inline-block'},
+            ),
+        ], className = "flex_user_table"
     ),
 
 ])

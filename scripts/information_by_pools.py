@@ -1,7 +1,8 @@
 import pandas as pd
 import json
-import plotly.graph_objects as go
+import numpy as np
 
+from scripts.Functions import *
 
 def purchased_stats_by_launchpad(full_data):
 
@@ -10,65 +11,14 @@ def purchased_stats_by_launchpad(full_data):
     df['launchpad'] = df.index.get_level_values(0)
     df = df.reset_index(drop=True)
 
-    USD_fig = go.Figure(data=[
-        go.Pie(
-            labels = df['launchpad'], 
-            values = df['USD_amount'],
-            text = df['USD_amount'],
-            #hoverinfo = 'label+value+percent',
-            textinfo = 'label',
-            textfont = dict(size = 13),
-            hole = 0.7,
-            hovertemplate = '%{text:,.2f}$<extra></extra>',
-            rotation = 90)
-        ])
-
-    USD_fig.update_layout(
-        height = 700,
-        plot_bgcolor = '#171730',
-        paper_bgcolor = '#171730',
-        font = dict(color = 'white'),
-        hovermode = 'closest',
-        legend = {
-            'orientation': 'h',
-            'xanchor': 'center',
-            'yanchor': 'top',
-            'x': 0.5,
-            'y': 1.25
-        }
-    )
-
     ##### Participants ######
     df2 = pd.DataFrame(full_data.groupby('launchpad')['from'].nunique())
     df2['launchpad'] = df2.index.get_level_values(0)
     df2 = df2.reset_index(drop=True)
 
-    Participants_fig = go.Figure(data=[
-        go.Pie(
-            labels = df2['launchpad'], 
-            values = df2['from'],
-            text = df2['from'],
-            textinfo = 'label+value',
-            textfont = dict(size = 13),
-            hovertemplate = '%{text:,.0f}<extra></extra>',
-            hole = 0.7,
-            rotation = 90)
-        ])
+    USD_fig = pie_distribution(df, 'launchpad', 'USD_amount', '{text:,.2f}$')
 
-    Participants_fig.update_layout(
-        height = 700,
-        plot_bgcolor = '#171730',
-        paper_bgcolor = '#171730',
-        font = dict(color = 'white'),
-        hovermode = 'closest',
-        legend = {
-            'orientation': 'h',
-            'xanchor': 'center',
-            'yanchor': 'top',
-            'x': 0.5,
-            'y': 1.25
-        }
-    )
+    Participants_fig = pie_distribution(df2, 'launchpad', 'from', '{text:,.0f}')
 
     return USD_fig, Participants_fig
 
@@ -94,80 +44,91 @@ def purchased_stats_by_launchpad_and_sale(full_data):
 
     result_data = pd.merge(df, df2, on=['launchpad','sale_type'])
     result_data = result_data.sort_values(by=['order'], ascending = True)
-    unique_sale_type = result_data['sale_type'].unique()
 
-
-    fig_USD_by_sale = go.Figure()
-    fig_participants_by_sale = go.Figure()
-
-    for sale in unique_sale_type:
-        data_sale = result_data[result_data["sale_type"] == sale]
-
-        if sale == 'Standard Sale' or sale == 'Unlimited Sale':
-        
-            fig_USD_by_sale.add_trace(go.Bar(
-                x = data_sale["launchpad"], 
-                y = data_sale["USD_amount"],
-                name = sale,
-                marker_color = 'blue 'if sale == 'Standard Sale' else 'red',
-                hovertemplate = sale + ': $%{y:,.1f}<extra></extra>'
-                ))
-
-            fig_participants_by_sale.add_trace(go.Bar(
-                x = data_sale["launchpad"], 
-                y = data_sale["from"],
-                name = sale,
-                marker_color = 'blue 'if sale == 'Standard Sale' else 'red',
-                hovertemplate = sale + ': %{y:,.0f}<extra></extra>'
-                ))
-        else:
-
-            fig_USD_by_sale.add_trace(go.Bar(
-                x = data_sale["launchpad"], 
-                y = data_sale["USD_amount"],
-                name = sale,
-                hovertemplate = sale + ': $%{y:,.1f}<extra></extra>'
-                ))
-
-            fig_participants_by_sale.add_trace(go.Bar(
-                x = data_sale["launchpad"], 
-                y = data_sale["from"],
-                name = sale,
-                hovertemplate = sale + ': %{y:,.0f}<extra></extra>'
-                ))
-    
-    fig_USD_by_sale.update_layout(
-        title = 'Tokens purchased (USD)',
-        barmode = 'stack',
-        height = 600,
-        hovermode = "x unified",
-        plot_bgcolor = '#171730',
-        paper_bgcolor = '#171730',
-        font = dict(color = 'white'),
-        showlegend = False
+    fig_USD_by_sale = distribution_bars(
+        result_data, 
+        'launchpad', 
+        'USD_amount', 
+        'sale_type', 
+        False,
+        'Tokens purchased (USD)', 
+        'stack', 
+        True
     )
-    fig_participants_by_sale.update_layout(
-        title = 'IDO participants',
-        barmode = 'stack',
-        height = 600,
-        hovermode = "x unified",
-        plot_bgcolor = '#171730',
-        paper_bgcolor = '#171730',
-        font = dict(color = 'white'),
-        showlegend = False
-    )
-
-    fig_USD_by_sale.update_xaxes(
-        categoryorder = 'array', 
-        categoryarray = result_data['launchpad'].unique()
-    )
-
-    fig_participants_by_sale.update_xaxes(
-        categoryorder = 'array', 
-        categoryarray = result_data['launchpad'].unique()
+    fig_participants_by_sale = distribution_bars(
+        result_data, 
+        'launchpad', 
+        'from', 
+        'sale_type',
+        False, 
+        'IDO participants', 
+        'stack', 
+        True
     )
 
     f.close()
 
     return fig_USD_by_sale, fig_participants_by_sale
     
+
+def purchased_stats_by_user_type(full_data):
+
+    f = open('config/IDO_pools.json')
+    sales_config = json.load(f)
+
+    ##### total purchased usd ######
+    df = pd.DataFrame(full_data.groupby(['launchpad', 'from'])['USD_amount'].sum())
+    df['launchpad'] = df.index.get_level_values(0)
+    df['user'] = df.index.get_level_values(1)
+    df = df.reset_index(drop = True)
+
+    df['state'] = np.where(df['USD_amount'] < 10, '0-10 USD',
+        np.where((df['USD_amount'] >= 10) & (df['USD_amount'] < 100), '10-100 USD',
+        np.where((df['USD_amount'] >= 100) & (df['USD_amount'] < 1000), '100-1000 USD', 
+        np.where((df['USD_amount'] >= 1000) & (df['USD_amount'] < 5000), '1000-5000 USD', '>5000 USD'))))
+
+    ###### USD by USD amount ######
+
+    users_usd = pd.DataFrame(df.groupby(['launchpad', 'state'])['USD_amount'].sum())
+    users_usd['launchpad'] = users_usd.index.get_level_values(0)
+    users_usd['state'] = users_usd.index.get_level_values(1)
+    users_usd = users_usd.reset_index(drop = True)
+
+    users_usd['order'] = [(list(filter(lambda x:x["launchpad"] == y, sales_config)))[0]['launch_order'] for y in users_usd['launchpad']]
+    users_usd['order'] = users_usd['order'].astype('int')
+
+    ###### Users by USD amount ######
+
+    users = pd.DataFrame(df.groupby(['launchpad', 'state'])['user'].nunique())
+    users['launchpad'] = users.index.get_level_values(0)
+    users['state'] = users.index.get_level_values(1)
+    users = users.reset_index(drop = True)
+
+    result_data = pd.merge(users_usd, users, on=['launchpad','state'])
+    result_data = result_data.sort_values(by=['order'], ascending = True)
+
+    fig_USD_by_sale = distribution_bars(
+        result_data, 
+        'launchpad', 
+        'USD_amount', 
+        'state', 
+        False, 
+        'User type per category (USD amount)', 
+        False, 
+        True
+    )
+    
+    fig_participants_by_sale = distribution_bars(
+        result_data, 
+        'launchpad', 
+        'user', 
+        'state', 
+        False, 
+        'User type per category (Number of users)', 
+        False, 
+        True
+    )
+
+    f.close()
+
+    return fig_USD_by_sale, fig_participants_by_sale

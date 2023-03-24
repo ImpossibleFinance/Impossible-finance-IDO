@@ -1,11 +1,7 @@
 import pandas as pd
-import json
 import plotly.graph_objects as go
 
 def top_users(full_data):
-
-    f = open('config/IDO_pools.json')
-    sales_config = json.load(f)
 
     ##### total purchased usd ######
     temp_df = pd.DataFrame(full_data.groupby('from')['USD_amount'].sum())
@@ -20,7 +16,7 @@ def top_users(full_data):
     result_data = result_data.sort_values(by = ['launchpad', 'USD_amount'], ascending = False)
     result_data['USD_amount'] = result_data['USD_amount'].map('${:,.2f}'.format)
 
-    #result_data.to_csv('top_if_users.csv', index = False)
+    # ido_distribution -- bar chart
 
     ido_distribution = pd.DataFrame(result_data.groupby('launchpad')['user'].nunique())
     ido_distribution['launchpad'] = ido_distribution.index.get_level_values(0)
