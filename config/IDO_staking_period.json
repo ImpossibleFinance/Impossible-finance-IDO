@@ -115,5 +115,12 @@
         "end_staking_period": "2023-02-06",
         "status": "Airdrop",
         "airdrop_date": "2023-02-09"
+    },
+    {
+        "launchpad": "Humanode",
+        "purchase_date": "2023-03-28",
+        "start_staking_period": "2023-02-21",
+        "end_staking_period": "2023-02-27",
+        "status": "Claim"
     }
 ]

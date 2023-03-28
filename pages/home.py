@@ -1,7 +1,6 @@
 import dash
-from dash import html, dcc
 
-from app import *
+from config import *
 
 ###########################################################################
 ############################# Page ########################################
@@ -18,6 +17,17 @@ layout = html.Div([
     html.Div([
         html.Img(src = "assets/DataLab.svg", alt = " ", className = "if-ico"),
     ],className = "header-title"),
+
+    #html.Div([
+    #    html.Iframe(
+    #        src = 'assets/metamask.html',
+     #       id = 'metamask'
+     #   )
+    #]),
+
+    html.Button(id = 'connect-button', children = 'Metamask Connection'),
+    html.Div(id = 'wallet-address'),
+    
 
     html.Div([
         html.Iframe(
@@ -135,5 +145,4 @@ layout = html.Div([
             ),
         ], className = "flex_user_table"
     ),
-
 ])

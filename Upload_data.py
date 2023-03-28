@@ -4,7 +4,7 @@ import requests
 
 from scripts.upload_functions import *
 from scripts.Functions import *
-
+from scripts.local_functions import *
 
 
 def remove_IDO(name):

@@ -78,5 +78,10 @@
         "launchpad": "Pine",
         "ido_price": "0.2",
         "api_token": "pine"
+    },
+    {
+        "launchpad": "Humanode",
+        "ido_price": "0.15",
+        "api_token": "-"
     }
 ]

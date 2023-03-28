@@ -1,9 +1,7 @@
 import dash
 from dash import html, dcc
 
-
-from app import *
-
+from config import *
 
 dash.register_page(__name__)
 
@@ -24,7 +22,7 @@ layout = html.Div(children=[
 
     html.Div(children = dcc.Graph(
         id = 'users-table',
-        figure = table_with_all_users,
+       figure = table_with_all_users,
         config = config
     )),
 ])

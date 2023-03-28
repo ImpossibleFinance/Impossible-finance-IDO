@@ -578,5 +578,71 @@
         "sale_type": "Whitelist $2000",
         "launch_order": "16",
         "size": "10_000"
+    },
+
+
+
+    {
+        "blockchain": "bnb",
+        "pool_address": "0x27ce3CD4264bfAcd86CcB7c2Ad5748387Faa0746",
+        "launchpad": "Humanode",
+        "project_name": "Humanode",
+        "sale_type": "IDIA standard",
+        "launch_order": "17",
+        "size": "800_000"
+    },
+    {
+        "blockchain": "bnb",
+        "pool_address": "0xd9c0Ca6D9A56fe5D4B8262BED36F6b1F1D32741f",
+        "launchpad": "Humanode",
+        "project_name": "Humanode",
+        "sale_type": "vIDIA standard",
+        "launch_order": "17",
+        "size": "1_040_000"
+    },
+    {
+        "blockchain": "bnb",
+        "pool_address": "0xd724Dc39FAc11B25F364c22BCA8046928822f010",
+        "launchpad": "Humanode",
+        "project_name": "Humanode",
+        "sale_type": "vIDIA unlimited",
+        "launch_order": "17",
+        "size": "800_000"
+    },
+    {
+        "blockchain": "bnb",
+        "pool_address": "0xa4367Be0a694BB3D13fC3373B93B00D850529298",
+        "launchpad": "Humanode",
+        "project_name": "Humanode",
+        "sale_type": "c98 unlimited",
+        "launch_order": "17",
+        "size": "666_666"
+    },
+    {
+        "blockchain": "bnb",
+        "pool_address": "0x996083D5499e6bEB2f88A07654b6DcECeBA3028E",
+        "launchpad": "Humanode",
+        "project_name": "Humanode",
+        "sale_type": "Whitelist $100",
+        "launch_order": "17",
+        "size": "65_335"
+    },
+    {
+        "blockchain": "bnb",
+        "pool_address": "0xb8868D7e83b3DDd34E4b8af9d6E8446372416465",
+        "launchpad": "Humanode",
+        "project_name": "Humanode",
+        "sale_type": "Whitelist $200",
+        "launch_order": "17",
+        "size": "1_333"
+    },
+    {
+        "blockchain": "bnb",
+        "pool_address": "0xB9fC31dFEd66f25CFb03306C5532Bb78c0583d79",
+        "launchpad": "Humanode",
+        "project_name": "Humanode",
+        "sale_type": "Whitelist $400",
+        "launch_order": "17",
+        "size": "13_333"
     }
 ]
