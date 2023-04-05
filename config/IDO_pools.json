@@ -584,7 +584,7 @@
 
     {
         "blockchain": "bnb",
-        "pool_address": "0x27ce3CD4264bfAcd86CcB7c2Ad5748387Faa0746",
+        "pool_address": "0xD29398EA89Ff93513081609063fa196329e2e3DF",
         "launchpad": "Humanode",
         "project_name": "Humanode",
         "sale_type": "IDIA standard",
@@ -644,5 +644,133 @@
         "sale_type": "Whitelist $400",
         "launch_order": "17",
         "size": "13_333"
+    },
+
+
+    {
+        "blockchain": "bnb",
+        "pool_address": "0x0078E4Fb61d29bC6655f106B44Ff29C581b23889",
+        "launchpad": "Arken",
+        "project_name": "Arken",
+        "sale_type": "IDIA standard (BNB Chain)",
+        "launch_order": "18",
+        "size": "5_000_000"
+    },
+    {
+        "blockchain": "bnb",
+        "pool_address": "0x87d148F53826177c2a76877FCf250442BcC2200f",
+        "launchpad": "Arken",
+        "project_name": "Arken",
+        "sale_type": "vIDIA standard (BNB Chain)",
+        "launch_order": "18",
+        "size": "100_000_000"
+    },
+    {
+        "blockchain": "bnb",
+        "pool_address": "0x56C6Be7Fcde5393053B0778628eb25D5C39DA9E1",
+        "launchpad": "Arken",
+        "project_name": "Arken",
+        "sale_type": "vIDIA unlimited (BNB Chain)",
+        "launch_order": "18",
+        "size": "70_000_000"
+    },
+    {
+        "blockchain": "bnb",
+        "pool_address": "0x0a9B02b4fB0e0B149B680b8639c3657691bbca48",
+        "launchpad": "Arken",
+        "project_name": "Arken",
+        "sale_type": "C98 unlimited (BNB Chain)",
+        "launch_order": "18",
+        "size": "75_000_000"
+    },
+    {
+        "blockchain": "bnb",
+        "pool_address": "0x881d614fdea1fe38B1F6c7f5C97ca107258f6d71",
+        "launchpad": "Arken",
+        "project_name": "Arken",
+        "sale_type": "Whitelist $100",
+        "launch_order": "18",
+        "size": "10_375_000"
+    },
+    {
+        "blockchain": "bnb",
+        "pool_address": "0xB81CD85E44dCEeD1EC8B6132eFfe3f80283Df6Af",
+        "launchpad": "Arken",
+        "project_name": "Arken",
+        "sale_type": "Whitelist $200",
+        "launch_order": "18",
+        "size": "1_600_000"
+    },
+    {
+        "blockchain": "bnb",
+        "pool_address": "0x5FF7af2d33E0B74d2333BbB456a33D753AF62B12",
+        "launchpad": "Arken",
+        "project_name": "Arken",
+        "sale_type": "Whitelist $300",
+        "launch_order": "18",
+        "size": "525_000"
+    },
+    {
+        "blockchain": "bnb",
+        "pool_address": "0x37D5eD3419E24E994Bb12AA4f3e1E81906E91822",
+        "launchpad": "Arken",
+        "project_name": "Arken",
+        "sale_type": "Whitelist $400",
+        "launch_order": "18",
+        "size": "400_000"
+    },
+    {
+        "blockchain": "bnb",
+        "pool_address": "0x75072fc181Ab1C1224f7948f39Bf0A64ef78c0a5",
+        "launchpad": "Arken",
+        "project_name": "Arken",
+        "sale_type": "Whitelist $500",
+        "launch_order": "18",
+        "size": "625_000"
+    },
+    {
+        "blockchain": "bnb",
+        "pool_address": "0x0f7Ab6d4EabB8a019E889Cb5F1779DAc180D7174",
+        "launchpad": "Arken",
+        "project_name": "Arken",
+        "sale_type": "Whitelist $600",
+        "launch_order": "18",
+        "size": "150_000"
+    },
+    {
+        "blockchain": "bnb",
+        "pool_address": "0x15A389b521d2731684EBd920315DcC23400581D8",
+        "launchpad": "Arken",
+        "project_name": "Arken",
+        "sale_type": "Whitelist $700",
+        "launch_order": "18",
+        "size": "350_000"
+    },
+    {
+        "blockchain": "bnb",
+        "pool_address": "0x91599fc79235F7942Abc97A9193f3005B06e5f71",
+        "launchpad": "Arken",
+        "project_name": "Arken",
+        "sale_type": "Whitelist $800",
+        "launch_order": "18",
+        "size": "400_000"
+    },
+    {
+        "blockchain": "arbitrum",
+        "pool_address": "0xc5A2fBFAFA03Bb90eFDE3b44Ce13DD99489CDf91",
+        "launchpad": "Arken",
+        "project_name": "Arken",
+        "sale_type": "IDIA standard (Arbitrum)",
+        "launch_order": "18",
+        "size": "12_500_000"
+    },
+    {
+        "blockchain": "arbitrum",
+        "pool_address": "0x1Eb57F5c754A019fe953Ba42fcd80418674b804D",
+        "launchpad": "Arken",
+        "project_name": "Arken",
+        "sale_type": "IDIA unlimited (Arbitrum)",
+        "launch_order": "18",
+        "size": "50_000_000"
     }
 ]

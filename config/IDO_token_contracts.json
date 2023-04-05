@@ -83,5 +83,10 @@
         "launchpad": "Humanode",
         "ido_price": "0.15",
         "api_token": "-"
+    },
+    {
+        "launchpad": "Arken",
+        "ido_price": "0.004",
+        "api_token": "-"
     }
 ]

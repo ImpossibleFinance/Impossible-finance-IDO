@@ -1,25 +1,21 @@
+from math import log, floor
 import pandas as pd
+from plotly.subplots import make_subplots
 import json
 import os
-from math import log, floor
-from datetime import timedelta
 
-from plotly.subplots import make_subplots
 from dash import html
 import plotly.graph_objs as go
-import plotly.express as px
 
 kpi_style = {
     'display': 'flex', 
     'align-items': 'center', 
     'justify-content': 'left',
-    'margin-top': '16px'
+    'margin-top': '10px'
 }
 
 def number_format(number):
-    if number < 1000:
-        return number
-    units = ['', 'K', 'M', 'G', 'T', 'P']
+    units = ['', 'K', 'M', 'B', 'T', 'P']
     k = 1000.0
     magnitude = int(floor(log(number, k)))
     return '%.2f%s' % (number / k**magnitude, units[magnitude])
@@ -42,6 +38,7 @@ def read_data_from_csv(path):
 
     return df
 
+
 def total_sum(data, value, group_by):
     data_sum = data.groupby(group_by).sum()
     data_sum[group_by] = data_sum.index.get_level_values(0)
@@ -59,7 +56,7 @@ def average(data, value, group_by):
 
     return data_average
 
-def find_ath(data, group_by, max_index, max_over_index):
+def find_ath(data, group_by, max_index, max_over_index, title):
 
     groups = data[group_by].unique()
     
@@ -75,12 +72,7 @@ def find_ath(data, group_by, max_index, max_over_index):
         ath.append(ath_stat)
         chains.append(group)
 
-    return kpi(chains, ath, 'ATH of Daily Active Wallets', '')
-
-
-#######################################################
-##################  Charts  ###########################
-#######################################################
+    return kpi(chains, ath, title, '')
 
 
 def creal_graph():
@@ -140,7 +132,7 @@ def kpi(chains, values, title, subtitle):
 
     return counter
 
-def fig_line_over_time_secondary_y(data, x, y, group_by, right_axis_data, title, config):
+def fig_line_over_time_secondary_y(data, x, y, group_by, right_axis_data, config):
 
     if config != False:
         for item in config:
@@ -174,7 +166,6 @@ def fig_line_over_time_secondary_y(data, x, y, group_by, right_axis_data, title,
     )
 
     fig.update_layout(
-        title = title, 
         xaxis_title = x, 
         yaxis_title = y,
         height = 500,
@@ -187,7 +178,7 @@ def fig_line_over_time_secondary_y(data, x, y, group_by, right_axis_data, title,
     return fig
 
 
-def fig_line_over_time(data, x, y, group_by, config, title, log_scale):
+def fig_line_over_time(data, x, y, group_by, config, log_scale):
     fig_line = go.Figure()
 
     groups = data[group_by].unique()
@@ -213,7 +204,6 @@ def fig_line_over_time(data, x, y, group_by, config, title, log_scale):
                 ))
             
     fig_line.update_layout(
-        title = title, 
         xaxis_title = x, 
         yaxis_title = y,
         height = 500,
@@ -239,7 +229,7 @@ def fig_line_over_time(data, x, y, group_by, config, title, log_scale):
 
 
 
-def distribution_bars(data, x, y, group_by, config, title, stack, log_scale):
+def distribution_bars(data, x, y, group_by, config, stack):
 
     groups = data[group_by].unique()
 
@@ -265,7 +255,6 @@ def distribution_bars(data, x, y, group_by, config, title, stack, log_scale):
                 ))
             
     fig_distribution.update_layout(
-        title = title, 
         xaxis_title = x, 
         yaxis_title = y,
         height = 500,
@@ -280,7 +269,6 @@ def distribution_bars(data, x, y, group_by, config, title, stack, log_scale):
         fig_distribution.update_layout(barmode='stack')
 
     return fig_distribution
-
 
 def pie_distribution(data, x, y, formated):
 

@@ -1,33 +1,31 @@
-
-
 from scripts.Functions import *
+import pathlib
 
 def load_full_csv_data_ido():
     pool_addresses = []
     full_data = pd.DataFrame()
-    currency = ['BUSD', 'IDIA']
+    desktop = pathlib.Path("data")
 
     f = open('config/IDO_pools.json')
     IDO_pools = json.load(f)
-
+    f.close()
 
     for item in IDO_pools:
         pool_addresses.append(item['pool_address'].lower())
 
-    f.close()
+    for item in desktop.iterdir():
+        if str(item) != 'data/.DS_Store' and str(item) != 'data/Prices.csv':
+            file_path = str(item)
+            if os.stat(file_path).st_size == 0 or os.stat(file_path).st_size == 1:
+                print("Empty Data")
+                return full_data
+            df = read_data_from_csv(file_path)
 
-    for token in currency:
-        file_path = 'data/' + str(token) +'_to_pools_transactions.csv'
-        if os.stat(file_path).st_size == 0 or os.stat(file_path).st_size == 1:
-            print("Empty Data")
-            return full_data
-        df = read_data_from_csv(file_path)
-
-        if token == 'BUSD':
-            df['USD_amount'] = df['amount']
-        if token == 'IDIA':
-            df['USD_amount'] = df['amount']*0.025/0.0136
-        full_data = pd.concat([full_data, df])
+            if str(item).split("_")[1] in ['BUSD', 'USDC']:
+                df['USD_amount'] = df['amount']
+            if str(item).split("_")[1] == 'IDIA':
+                df['USD_amount'] = df['amount']*0.025/0.0136
+            full_data = pd.concat([full_data, df])
 
     full_data = full_data.loc[(full_data['to']).isin(pool_addresses)]
 

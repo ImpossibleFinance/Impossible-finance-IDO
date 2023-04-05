@@ -1,29 +1,41 @@
 import json
 import requests
-
+import pathlib
 
 from scripts.upload_functions import *
 from scripts.Functions import *
 from scripts.local_functions import *
 
 
+def unique_currency(item):
+    if item['sale_type'] == 'Unlimited IDIA Sale' and item['launchpad'] == 'Ouro':
+        return 'IDIA'
+    if item['blockchain'] == 'arbitrum' and item['launchpad'] == 'Arken':
+        return 'USDC'
+    
+    return 'BUSD'
+
 def remove_IDO(name):
-    for token in ['BUSD', 'IDIA']:
-        file_path = 'data/' + str(token) +'_to_pools_transactions.csv'
-        if os.stat(file_path).st_size == 0 or os.stat(file_path).st_size == 1:
-            csv_data = pd.DataFrame()
-        else:
-            csv_data = pd.read_csv(file_path)
+    desktop = pathlib.Path("data")
 
-            csv_data = csv_data[csv_data['launchpad'] != name]
+    for item in desktop.iterdir():
+        if str(item) != 'data/.DS_Store' and str(item) != 'data/Prices.csv':
+            file_path = str(item)
+            if os.stat(file_path).st_size == 0 or os.stat(file_path).st_size == 1:
+                csv_data = pd.DataFrame()
+            else:
+                csv_data = pd.read_csv(file_path)
 
-            csv_data.to_csv('data/' + token +'_to_pools_transactions.csv', index = False)
+                csv_data = csv_data[csv_data['launchpad'] != name]
+
+                csv_data.to_csv(file_path, index = False)
 
 
 def upload_transactions():
     pool_addresses = []
     accepted_currency = []
     launchpad = []
+    blockchain = []
 
     f = open('config/IDO_pools.json')
     IDO_pools = json.load(f)
@@ -47,34 +59,29 @@ def upload_transactions():
     for item in IDO_pools:
         if str(item['launchpad']) not in all_uploaded_IDOs and option == 'a':
             pool_addresses.append((item['pool_address']).lower())
+            blockchain.append(item['blockchain'])
             launchpad.append(item['launchpad'])
 
-            if item['sale_type'] != 'Unlimited IDIA Sale':
-                accepted_currency.append('BUSD')
-            else:
-                accepted_currency.append('IDIA')
+            accepted_currency.append(unique_currency(item))
+
         if (option.split())[0] == 'b' and str(item['launchpad']) == (option.split())[1]:
             pool_addresses.append((item['pool_address']).lower())
+            blockchain.append(item['blockchain'])
             launchpad.append(item['launchpad'])
 
-            if item['sale_type'] != 'Unlimited IDIA Sale':
-                accepted_currency.append('BUSD')
-            else:
-                accepted_currency.append('IDIA')
+            accepted_currency.append(unique_currency(item))
 
             remove_IDO((option.split())[1])
 
-    pools_info = pd.DataFrame({'accepted_currency':accepted_currency, 'pool_addresses':pool_addresses, 'launchpad': launchpad})
+    pools_info = pd.DataFrame({'accepted_currency':accepted_currency, 'pool_addresses':pool_addresses, 'launchpad': launchpad, 'blockchain': blockchain})
 
-    for token in ['BUSD', 'IDIA']:
-        if token == 'BUSD':
-            pools_array = (pools_info[pools_info["accepted_currency"] == 'BUSD'])['pool_addresses'].to_numpy()
+    for blockchains in pools_info['blockchain'].unique():
+        pools_array = (pools_info[pools_info["blockchain"] == blockchains])
 
-        if token == 'IDIA':
-            pools_array = (pools_info[pools_info["accepted_currency"] == 'IDIA'])['pool_addresses'].to_numpy()
-        
-        
-        transactions_to_pools(pools_array, token)
+        for token in pools_array['accepted_currency'].unique():
+            pools_array = (pools_array[pools_array["accepted_currency"] == token])['pool_addresses'].to_numpy()
+
+            transactions_to_pools(pools_array, token, blockchains)
 
     f.close()
 

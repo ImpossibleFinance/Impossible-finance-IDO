@@ -51,19 +51,15 @@ def purchased_stats_by_launchpad_and_sale(full_data):
         'USD_amount', 
         'sale_type', 
         False,
-        'Tokens purchased (USD)', 
-        'stack', 
-        True
+        'stack'
     )
     fig_participants_by_sale = distribution_bars(
         result_data, 
         'launchpad', 
         'from', 
         'sale_type',
-        False, 
-        'IDO participants', 
-        'stack', 
-        True
+        False,
+        'stack'
     )
 
     f.close()
@@ -112,10 +108,8 @@ def purchased_stats_by_user_type(full_data):
         'launchpad', 
         'USD_amount', 
         'state', 
-        False, 
-        'User type per category (USD amount)', 
-        False, 
-        True
+        False,
+        False
     )
     
     fig_participants_by_sale = distribution_bars(
@@ -123,10 +117,8 @@ def purchased_stats_by_user_type(full_data):
         'launchpad', 
         'user', 
         'state', 
-        False, 
-        'User type per category (Number of users)', 
-        False, 
-        True
+        False,
+        False
     )
 
     f.close()

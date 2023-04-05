@@ -1,4 +1,11 @@
-[
+[   
+    {
+        "launchpad": "IDIA",
+        "purchase_date": "2021-08-17",
+        "start_staking_period": "2021-08-13",
+        "end_staking_period": "2021-08-13",
+        "status": "Claim"
+    },
     {
         "launchpad": "Openswap",
         "purchase_date": "2021-08-30",
@@ -58,13 +65,6 @@
         "status": "Claim"
     },
     {
-        "launchpad": "IDIA",
-        "purchase_date": "2022-01-10",
-        "start_staking_period": "2021-12-23",
-        "end_staking_period": "2022-02-19",
-        "status": "Claim"
-    },
-    {
         "launchpad": "Starbots",
         "purchase_date": "2022-01-11",
         "start_staking_period": "2021-12-08",
@@ -119,8 +119,15 @@
     {
         "launchpad": "Humanode",
         "purchase_date": "2023-03-28",
-        "start_staking_period": "2023-02-21",
-        "end_staking_period": "2023-02-27",
+        "start_staking_period": "2023-03-21",
+        "end_staking_period": "2023-03-27",
+        "status": "Claim"
+    },
+    {
+        "launchpad": "Arken",
+        "purchase_date": "2023-04-04",
+        "start_staking_period": "2023-03-15",
+        "end_staking_period": "2023-04-04",
         "status": "Claim"
     }
 ]
