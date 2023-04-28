@@ -2,10 +2,17 @@ if (typeof window.ethereum == 'undefined') {
     alert('Please install Metamask to use this feature');
 }
 
+
+async function submitForm(inputValue) {
+  var formData = new FormData();
+  formData.append('myInput', inputValue);
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', '/send_value', true);
+  xhr.send(formData);
+}
+
+
 async function connect() {
-
-    alert('We are here');
-
 
     try {
       await ethereum.request({ method: 'eth_requestAccounts' });
@@ -51,6 +58,8 @@ async function connect() {
 
       document.getElementById('wallet-address').textContent = balance;
       document.getElementById('connect-button').textContent = accounts[0];
+
+      await submitForm(accounts[0])
       
       var button = document.getElementById('connect-button');
       button.addEventListener('click', connect);

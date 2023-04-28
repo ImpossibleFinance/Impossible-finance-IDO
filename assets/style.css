@@ -13,10 +13,16 @@
     font-weight: bold;
     font-family: "Verdana", sans-serif;
     color:white;
-    font-weight: bold;
     text-align: center;
     font-size: 40px;
     padding-bottom: 50px;
+}
+
+.usd_and_users_cards h2 {
+    font-family: "Verdana", sans-serif;
+    color:white;
+    font-size: 20px;
+    margin-left: 40px;
 }
 
 .container {

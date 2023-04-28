@@ -265,6 +265,8 @@ def distribution_bars(data, x, y, group_by, config, stack):
         showlegend = False
     )
 
+    fig_distribution.update_xaxes(tickangle = 45)
+
     if stack == 'stack':
         fig_distribution.update_layout(barmode='stack')
 
@@ -290,13 +292,14 @@ def pie_distribution(data, x, y, formated):
         paper_bgcolor = '#171730',
         font = dict(color = 'white'),
         hovermode = 'closest',
-        legend = {
-            'orientation': 'h',
-            'xanchor': 'center',
-            'yanchor': 'top',
-            'x': 0.5,
-            'y': 1.25
-        }
+        showlegend = False
+        #legend = {
+        #    'orientation': 'h',
+        #    'xanchor': 'center',
+        #    'yanchor': 'top',
+        #    'x': 0.5,
+        #    'y': 1.25
+        #}
     )
 
     return fig_pie

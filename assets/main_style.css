@@ -1,0 +1,230 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+body {
+  line-height: 1;
+  /*filter: blur(10px);*/
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+
+
+body {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: auto ;
+    background-color: #171730;
+    font-family: "roboto", sans-serif;
+}
+
+.if-ico {
+    width: 156px;
+}
+
+.header-title {
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+
+.list-dash {
+    width: 100%;
+    height: 68px;
+    border: none;
+    border-top: 1px solid rgba(46, 52, 102, 0.4);
+    border-bottom: 1px solid rgba(46, 52, 102, 0.4);
+    font-size: 14px;
+    font-family: "roboto";
+    
+}
+#dashboard-list{
+    position: sticky;
+    top:0;
+    z-index: 1;
+    background-color: #171730;
+}
+
+.main-header-title {
+    display: flex;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 32px;
+    line-height: 40px;
+    margin: 36px 0 8px 0;
+}
+
+.description-main {
+    display: flex;
+    justify-content: center;
+    color: rgba(250, 250, 250, 0.7);
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: normal;
+    margin-bottom: 24px;
+}
+
+/*--- main container ---*/
+.left_container {
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid rgba(46, 52, 102, 0.8);
+}
+
+.card_container {
+    padding: 8px;
+    margin: 8px;
+    
+}
+.kpi_container:first-child .card_container {
+    border-right: 1px solid rgba(46, 52, 102, 0.8);
+    box-sizing: border-box;
+    margin-right: 0px;
+}
+
+
+
+.card_container h1 {
+    font-weight: bold;
+    color: white;
+    line-height: 32px;
+    font-size: 22px;
+    margin: 0px;
+}
+
+.card_container h3 {
+    color: rgba(250, 250, 250, 0.7);
+    line-height: 16px;
+    font-size: 14px;
+    margin: 5px 0 0 0;
+}
+
+.card_container p {
+    font-weight: normal;
+    color: rgba(250, 250, 250, 0.7);
+    line-height: 1px;
+    margin: 12px 0 24px 0;
+    font-size: 14px;
+}
+
+.chains_list_kpi{
+    color: rgba(250, 250, 250, 0.7);
+    font-size: 14px;
+    margin-left: 12px;
+    width: 50%;
+}
+
+.values_list_kpi{
+    color: rgba(250, 250, 250, 0.7);
+    font-size: 14px;
+    text-align: right;
+    width: 40%;
+}
+
+.kpi_container {
+    width: 50%;
+    display: inline-block;
+}
+
+.left_container_h1 {
+    margin: 80px 0 16px 0;
+    font-size: 32px;
+    font-weight: bold;
+    color: white;
+}
+
+#transactions-over-time{
+    border-radius: 10px;
+    /* border: 1px solid rgba(46, 52, 102, 0.8); */
+}
+
+
+/*templet*/
+.single_column{
+    margin: 16px 0px 0px 0px;
+    border-radius: 10px;
+    border: 1px solid rgba(46, 52, 102, 0.8);
+    min-height: 293px;
+}
+.two_column_box{
+    display: flex;
+}
+.two_column{
+    margin: 16px 0px 0px 0px;
+    border-radius: 10px;
+    border: 1px solid rgba(46, 52, 102, 0.8);
+    min-height: 293px;
+}
+.big_colune{ 
+    width: 66%;
+    margin: 16px 16px 0 0;
+}
+.small_colune{ width: 34%;}
+
+.title_small{
+    font-size: 18px;
+    line-height: 32px;
+    font-weight: 700;
+    color: #FAFAFA;
+    margin: 24px 24px 0 24px;
+}
+
+.note{
+    text-align: center;
+    color: rgba(46, 52, 102, 0.8);
+}
+
+/*--- Middle Content ---*/
+.grid-container {
+    display: flex;
+    color: rgba(250, 250, 250, 0.7);
+    width: calc(100% - 100px);
+    padding: 0px 50px;
+}
+.grid-container .left{
+    width: calc(100% - 24px);
+    margin-right: 24px;
+}

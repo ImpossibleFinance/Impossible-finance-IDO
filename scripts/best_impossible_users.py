@@ -2,7 +2,6 @@ import pandas as pd
 import plotly.graph_objects as go
 
 def top_users(full_data):
-
     ##### total purchased usd ######
     temp_df = pd.DataFrame(full_data.groupby('from')['USD_amount'].sum())
     temp_df['user'] = temp_df.index.get_level_values(0)

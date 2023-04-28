@@ -1,5 +1,3 @@
-import dash
-
 from config import *
 
 ###########################################################################
@@ -18,14 +16,7 @@ layout = html.Div([
         html.Img(src = "assets/DataLab.svg", alt = " ", className = "if-ico"),
     ],className = "header-title"),
 
-    #html.Div([
-    #    html.Iframe(
-    #        src = 'assets/metamask.html',
-     #       id = 'metamask'
-     #   )
-    #]),
-
-    html.Button(id = 'connect-button', children = 'Metamask Connection'),
+    html.Button(id = 'connect-button', children = 'Metamask Connection'), #Change it <<
     html.Div(id = 'wallet-address'),
     
 
@@ -68,16 +59,25 @@ layout = html.Div([
 
     html.Div([
         html.H1('Analysis of USD tokens purchased'),
+
+        html.H2('Total raised'),
+
         dcc.Graph(
             id = 'usd-by-launchpad',
             figure = USD_by_launchpad,
             config = config
         ),
+
+        html.H2('USD raised by Sale type'),
+
         dcc.Graph(
             id = 'usd-by-launchpad-by-sale',
             figure = fig_USD_by_sale,
             config = config
         ),
+
+        html.H2('USD raised by User type'),
+
         dcc.Graph(
             id = 'usd-by-launchpad-by-user-type',
             figure = fig_USD_by_user_type,
@@ -87,16 +87,26 @@ layout = html.Div([
     ),
     html.Div([
         html.H1('Analysis of participants count'),
+
+        html.H2('Total participants'),
+
         dcc.Graph(
             id = 'number-of-participants',
             figure = Num_participants,
             config = config
         ),
+
+        html.H2('Participants by Sale type'),
+
+
         dcc.Graph(
             id = 'number-of-participants-by-sale',
             figure = fig_participants_by_sale,
             config = config
         ),
+
+        html.H2('Participants by User type'),
+
         dcc.Graph(
             id = 'num-users-by-launchpad-by-user-type',
             figure = fig_participants_by_user_type,
@@ -104,7 +114,8 @@ layout = html.Div([
         )
     ],className = "usd_and_users_cards"
     ),
-###### WIP ##########
+
+
     html.H1('Total purchase rate', className = 'left_container_h1'),
 
     dcc.Graph(
@@ -128,6 +139,8 @@ layout = html.Div([
         ),
         style={'width': '50%', 'display': 'inline-block'},
     ),
+
+######################## WIP ############################
 
     html.Div(
         [
