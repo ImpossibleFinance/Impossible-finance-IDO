@@ -5,11 +5,17 @@ from dotenv import load_dotenv
 import os
 import time
 
+from web3 import Web3
+
+
+BNB_NODE_URL = os.getenv('BNB_NODE_URL')
+
+node_url = BNB_NODE_URL
+web3 = Web3(Web3.HTTPProvider(node_url))
 
 load_dotenv()
 API_KEY_BNB = os.getenv('API_KEY_BNB')
 API_KEY_ARB = os.getenv('API_KEY_ARB')
-
 
 def make_api_url(blockchain, token_contract, address, **kwargs):
     if blockchain == 'bnb':

@@ -1,10 +1,6 @@
-from dash import html, dcc, Input, Output, State, ClientsideFunction
+from dash import html, dcc, Input, Output, State, ClientsideFunction, callback
 import dash
-import urllib.parse
-from http.server import HTTPServer, BaseHTTPRequestHandler
 
-
-from scripts.best_impossible_users import *
 from scripts.prices import *
 
 from scripts.Functions import *
@@ -15,7 +11,8 @@ config = {
 }
 
 full_data = load_full_csv_data_ido()
-#prices_data = load_csv('data/Prices.csv')
+unique_IDO_names = full_data['launchpad'].unique()
+
 
 ######################################################
 #################### MAIN KPI ########################
@@ -44,11 +41,3 @@ p_rate = Purchase_Rate(full_data)
 total_purchased_rate, max_pool_size = p_rate.total_rate()
 
 purchased_rate = p_rate.rate_per_pool()
-
-######################################################
-#################### USER PART #######################
-######################################################
-
-table_with_all_users, users_distribution = top_users(full_data)
-
-#prices_first_period(prices_data)

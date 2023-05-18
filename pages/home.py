@@ -15,11 +15,7 @@ layout = html.Div([
     html.Div([
         html.Img(src = "assets/DataLab.svg", alt = " ", className = "if-ico"),
     ],className = "header-title"),
-
-    html.Button(id = 'connect-button', children = 'Metamask Connection'), #Change it <<
-    html.Div(id = 'wallet-address'),
     
-
     html.Div([
         html.Iframe(
             src = "assets/other_dashboards_list.html",
@@ -149,13 +145,16 @@ layout = html.Div([
                     "User Database", href = '/user-table'
                 )
             ], className = "user_table"),
+        ], className = "flex_user_table"
+    ),
 
-            html.Div(children = dcc.Graph(
-                id = 'users-histogram',
-                figure = users_distribution,
-                config = config
-            ), style={'width': '50%', 'display': 'inline-block'},
-            ),
+    html.Div(
+        [
+            html.Div([
+                dcc.Link(
+                    "IDO FOMO", href = '/ido-fomo'
+                )
+            ], className = "user_table"),
         ], className = "flex_user_table"
     ),
 ])

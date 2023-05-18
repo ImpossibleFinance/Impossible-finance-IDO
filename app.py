@@ -5,16 +5,11 @@ import flask
 ############################# App #############################
 ###############################################################
 
-external_scripts = [
-    'https://cdn.jsdelivr.net/npm/web3@1.6.0/dist/web3.min.js'
-]
-
 server = flask.Flask(__name__)
 app = Dash(
     __name__, 
     server = server, 
-    use_pages = True,
-    external_scripts = external_scripts
+    use_pages = True
 )
 
 
