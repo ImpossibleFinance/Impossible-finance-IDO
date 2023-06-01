@@ -54,7 +54,7 @@ class TopUsers():
                 ], className = "user_rank_card"),
             ),
 
-            html.H1('Analysis of participant:', className = "main-header-title"),
+            html.H1('Analysis of wallet:', className = "main-header-title"),
 
             html.Div(
                 children = kpi_single(self.main_kpis[1], 'Total USD spent', ''), 
@@ -102,16 +102,16 @@ layout = html.Div(children = [
         html.Button('Submit', id = 'submit-wallet', n_clicks = 0),
     ]),
     
-    html.Div(id = 'output-render', className = "description-main"),
+    html.Div(id = 'output-render-user'),
 ])
 
 
 @callback(
-    Output('output-render', 'children'),
+    Output('output-render-user', 'children'),
     Input('submit-wallet', 'n_clicks'),
     State('wallet-address', 'value')
 )
-def update_rerender(n_clicks, input_wallet):
+def update_rerender_user(n_clicks, input_wallet):
 
     if len(input_wallet) == 42:
 

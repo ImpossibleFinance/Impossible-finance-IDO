@@ -26,7 +26,7 @@ layout = html.Div([
     html.Div([
         html.H1([' Impossible IDO Launchpad'], 
                 className = "main-header-title"),
-        html.H2(["The comparison of ..."],
+        html.H2(["The dashboard provides investors with a seamless and transparent IDO process. It allows investors to view all the available IDOs and their details, including the start and end dates of the IDO, the amount being raised, the price of the token, and the allocation limits. Investors can also participate in the IDO through the dashboard by connecting their wallets to the platform."],
                 className = "description-main"),
     ]),
 
@@ -56,85 +56,115 @@ layout = html.Div([
     html.Div([
         html.H1('Analysis of USD tokens purchased'),
 
-        html.H2('Total raised'),
+        html.Div([
+            html.P(["Total USD raised"],className = "title_small"),
+            html.Div([
+                dcc.Graph(
+                    id = 'usd-by-launchpad',
+                    figure = USD_by_launchpad,
+                    config = config
+                ),
+            ], className = "note"),
+        ], className = "single_column"),
 
-        dcc.Graph(
-            id = 'usd-by-launchpad',
-            figure = USD_by_launchpad,
-            config = config
-        ),
+        html.Div([
+            html.P(["USD raised by Sale type"],className = "title_small"),
+            html.Div([
+                dcc.Graph(
+                    id = 'usd-by-launchpad-by-sale',
+                    figure = fig_USD_by_sale,
+                    config = config
+                ),
+            ], className = "note"),
+        ], className = "single_column"),
 
-        html.H2('USD raised by Sale type'),
+        html.Div([
+            html.P(["USD raised by User type"],className = "title_small"),
+            html.Div([
+                dcc.Graph(
+                    id = 'usd-by-launchpad-by-user-type',
+                    figure = fig_USD_by_user_type,
+                    config = config
+                ),
+            ], className = "note"),
+        ], className = "single_column")
 
-        dcc.Graph(
-            id = 'usd-by-launchpad-by-sale',
-            figure = fig_USD_by_sale,
-            config = config
-        ),
-
-        html.H2('USD raised by User type'),
-
-        dcc.Graph(
-            id = 'usd-by-launchpad-by-user-type',
-            figure = fig_USD_by_user_type,
-            config = config
-        )
     ],className = "usd_and_users_cards"
     ),
     html.Div([
         html.H1('Analysis of participants count'),
 
-        html.H2('Total participants'),
+        html.Div([
+            html.P(["Total participants"],className = "title_small"),
+            html.Div([
+                dcc.Graph(
+                    id = 'number-of-participants',
+                    figure = Num_participants,
+                    config = config
+                ),
+            ], className = "note"),
+        ], className = "single_column"),
 
-        dcc.Graph(
-            id = 'number-of-participants',
-            figure = Num_participants,
-            config = config
-        ),
+        html.Div([
+            html.P(["Participants by Sale type"],className = "title_small"),
+            html.Div([
+                dcc.Graph(
+                    id = 'number-of-participants-by-sale',
+                    figure = fig_participants_by_sale,
+                    config = config
+                ),
+            ], className = "note"),
+        ], className = "single_column"),
 
-        html.H2('Participants by Sale type'),
+        html.Div([
+            html.P(["Participants by User type"],className = "title_small"),
+            html.Div([
+                dcc.Graph(
+                    id = 'num-users-by-launchpad-by-user-type',
+                    figure = fig_participants_by_user_type,
+                    config = config
+                ),
+            ], className = "note"),
+        ], className = "single_column")
 
 
-        dcc.Graph(
-            id = 'number-of-participants-by-sale',
-            figure = fig_participants_by_sale,
-            config = config
-        ),
-
-        html.H2('Participants by User type'),
-
-        dcc.Graph(
-            id = 'num-users-by-launchpad-by-user-type',
-            figure = fig_participants_by_user_type,
-            config = config
-        )
     ],className = "usd_and_users_cards"
     ),
 
+    html.Div([
+        html.Div([
+            html.P(["Purchase rate by Pool"],className = "title_small"),
+            html.Div([
+                dcc.Graph(
+                    id = 'total-purchased-rate',
+                    figure = total_purchased_rate,
+                    config = config
+                ),
+            ], className = "note"),
+        ], className = "two_column big_colune"),
+        html.Div([
+            html.P(["Total Purchase Rate"],className = "title_small"),
+            html.Div([
+                html.Div(
+                    children = purchased_rate,
+                    className = "kpi_container", 
+                    id = 'purchased-rate',
+                    style = {'width': '100%', 'display': 'inline-block'}
+                ),
+            ], className = "note"),
+        ], className = "two_column small_colune")
+    ], className = "two_column_box"),
 
-    html.H1('Total purchase rate', className = 'left_container_h1'),
-
-    dcc.Graph(
-        id = 'total-purchased-rate',
-        figure = total_purchased_rate,
-        config = config
-    ),
-
-    html.Div(children = dcc.Graph(
-        id = 'max-pool-size',
-        figure = max_pool_size,
-        config = config
-        ),
-        style={'width': '50%', 'display': 'inline-block'},
-    ),
-
-    html.Div(children = dcc.Graph(
-        id = 'purchased-rate',
-        figure = purchased_rate,
-        config = config
-        ),
-        style={'width': '50%', 'display': 'inline-block'},
-    ),
+    html.Div([
+        html.P(["Tokens for Sale"],className = "title_small"),
+        html.Div([
+            dcc.Graph(
+                id = 'max-pool-size',
+                figure = max_pool_size,
+                config = config
+            ),
+        ], className = "note"),
+    ], className = "single_column"),
 
 ######################## WIP ############################
 

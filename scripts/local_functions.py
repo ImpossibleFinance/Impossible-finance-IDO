@@ -332,32 +332,6 @@ class Purchase_Rate():
 
         total_data['rate'] = 100*total_data['USD_amount']/total_data['max_size']
 
-        total_data = total_data.sort_values(by = ['order'], ascending = True)
+        total_data = total_data.sort_values(by = ['rate'], ascending = True)
 
-        fig_total_purchased_rate = go.Figure()
-
-        fig_total_purchased_rate.add_trace(go.Scatter(
-                    x = total_data["launchpad"], 
-                    y = total_data["rate"],
-                    mode = 'markers',
-                    marker_size = 25,
-                    hovertemplate = '%{y:,.1f} %<extra></extra>'
-                    ))
-
-        fig_total_purchased_rate.update_layout(
-            title = 'Total purchased rate',
-            height = 600,
-            hovermode = "x unified",
-            plot_bgcolor = '#171730',
-            paper_bgcolor = '#171730',
-            font = dict(color = 'white'),
-            showlegend = False
-        )
-
-
-        fig_total_purchased_rate.update_xaxes(
-            categoryorder = 'array', 
-            categoryarray = total_data['launchpad'].unique()
-        )
-
-        return fig_total_purchased_rate
+        return kpi(total_data['launchpad'], total_data['rate'], '', '')

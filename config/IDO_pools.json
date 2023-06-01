@@ -1,9 +1,37 @@
 [
     {
+        "blockchain": "bnb",
+        "pool_address": "0x53E36E2565e8113dF6c1C675B3bC7eC1788cD1C9",
+        "launchpad": "IDIA",
+        "project_name": "IDIA",
+        "sale_type": "Unlimited Sale",
+        "launch_order": "0",
+        "size": "4_000_000"
+    },
+    {
+        "blockchain": "bnb",
+        "pool_address": "0x17AA5354E25922A23B952a28fbdA63a0C7d9B09B",
+        "launchpad": "IDIA",
+        "project_name": "IDIA",
+        "sale_type": "Whitelist $10",
+        "launch_order": "0",
+        "size": "4_000"
+    },
+    {
+        "blockchain": "bnb",
+        "pool_address": "0x843626d70f7F4B9e9a8a56596d34470e347aeb87",
+        "launchpad": "IDIA",
+        "project_name": "IDIA",
+        "sale_type": "Whitelist $100",
+        "launch_order": "0",
+        "size": "628_000"
+    },
+
+    {
       "blockchain": "bnb",
       "pool_address": "0x69b9737aff26bc528ffee4cc3257407be6a13252",
-      "launchpad": "Openswap",
-      "project_name": "Openswap",
+      "launchpad": "OpenSwap",
+      "project_name": "OpenSwap",
       "sale_type": "Standard Sale",
       "launch_order": "1",
       "size": "4_112_500"
@@ -11,8 +39,8 @@
     {
         "blockchain": "bnb",
         "pool_address": "0x0246F87125973ACAb0293BB851dac34f7644344A",
-        "launchpad": "Openswap",
-        "project_name": "Openswap",
+        "launchpad": "OpenSwap",
+        "project_name": "OpenSwap",
         "sale_type": "Unlimited Sale",
         "launch_order": "1",
         "size": "4_112_500"
@@ -20,8 +48,8 @@
     {
         "blockchain": "bnb",
         "pool_address": "0xD7d47a9B298b7e3C5919D376aAd20Fa4970fb73B",
-        "launchpad": "Openswap",
-        "project_name": "Openswap",
+        "launchpad": "OpenSwap",
+        "project_name": "OpenSwap",
         "sale_type": "Whitelist $100",
         "launch_order": "1",
         "size": "150_000"
@@ -29,8 +57,8 @@
     {
         "blockchain": "bnb",
         "pool_address": "0x7fc32F60a92b6C109f3c74Fea3eaaAb9Ad062292",
-        "launchpad": "Openswap",
-        "project_name": "Openswap",
+        "launchpad": "OpenSwap",
+        "project_name": "OpenSwap",
         "sale_type": "Whitelist $50",
         "launch_order": "1",
         "size": "125_000"
@@ -41,7 +69,7 @@
     {
         "blockchain": "bnb",
         "pool_address": "0xb278163B1D2Da632D51190001BBb95d45C3b191a",
-        "launchpad": "BLT",
+        "launchpad": "Blocto",
         "project_name": "Blocto",
         "sale_type": "Standard Sale",
         "launch_order": "2",
@@ -50,7 +78,7 @@
     {
         "blockchain": "bnb",
         "pool_address": "0x9Df80e3DD83C011d1258c6fCD2d723F487751aD7",
-        "launchpad": "BLT",
+        "launchpad": "Blocto",
         "project_name": "Blocto",
         "sale_type": "Unlimited Sale",
         "launch_order": "2",
@@ -62,7 +90,7 @@
     {
         "blockchain": "bnb",
         "pool_address": "0x09d70dB37cEDe94D1664C0B2fBD4d1b7ec9a88E0",
-        "launchpad": "HIGH",
+        "launchpad": "Highstreet",
         "project_name": "Highstreet",
         "sale_type": "Standard Sale",
         "launch_order": "3",
@@ -71,7 +99,7 @@
     {
         "blockchain": "bnb",
         "pool_address": "0xB0b2fD6fe766EaE258e26AdD5E74987E21FA36B2",
-        "launchpad": "HIGH",
+        "launchpad": "Highstreet",
         "project_name": "Highstreet",
         "sale_type": "Unlimited Sale",
         "launch_order": "3",
@@ -80,7 +108,7 @@
     {
         "blockchain": "bnb",
         "pool_address": "0xb20278fe899a4aE271a81CA4D70E8D2FA57b24cF",
-        "launchpad": "HIGH",
+        "launchpad": "Highstreet",
         "project_name": "Highstreet",
         "sale_type": "Whitelist $100 (1)",
         "launch_order": "3",
@@ -89,7 +117,7 @@
     {
         "blockchain": "bnb",
         "pool_address": "0x35De9fDa52B41E77b442416eeAE5FFC16Cd9e2FF",
-        "launchpad": "HIGH",
+        "launchpad": "Highstreet",
         "project_name": "Highstreet",
         "sale_type": "Whitelist $100 (2)",
         "launch_order": "3",
@@ -98,7 +126,7 @@
     {
         "blockchain": "bnb",
         "pool_address": "0xD19EadFF1f68B4b968D26C3B541A9F305B483b01",
-        "launchpad": "HIGH",
+        "launchpad": "Highstreet",
         "project_name": "Highstreet",
         "sale_type": "Whitelist $200",
         "launch_order": "3",
@@ -107,7 +135,7 @@
     {
         "blockchain": "bnb",
         "pool_address": "0x55ce59c6d8ebe7ad7dFFD50821CaB4DB0Fc9D8B5",
-        "launchpad": "HIGH",
+        "launchpad": "Highstreet",
         "project_name": "Highstreet",
         "sale_type": "Whitelist $500",
         "launch_order": "3",
@@ -119,7 +147,7 @@
     {
         "blockchain": "bnb",
         "pool_address": "0x130b6d9ff4470828F220c4056e3EA4a8d20784Eb",
-        "launchpad": "ARDN",
+        "launchpad": "Ariadne",
         "project_name": "Ariadne",
         "sale_type": "Standard Sale",
         "launch_order": "4",
@@ -128,7 +156,7 @@
     {
         "blockchain": "bnb",
         "pool_address": "0x9792ec69629f7db468b05102482a68D547B1F502",
-        "launchpad": "ARDN",
+        "launchpad": "Ariadne",
         "project_name": "Ariadne",
         "sale_type": "Unlimited Sale",
         "launch_order": "4",
@@ -271,45 +299,13 @@
         "size": "1_200_000"
     },
 
-
-
-    {
-        "blockchain": "bnb",
-        "pool_address": "0x53E36E2565e8113dF6c1C675B3bC7eC1788cD1C9",
-        "launchpad": "IDIA",
-        "project_name": "IDIA",
-        "sale_type": "Unlimited Sale",
-        "launch_order": "9",
-        "size": "4_000_000"
-    },
-    {
-        "blockchain": "bnb",
-        "pool_address": "0x17AA5354E25922A23B952a28fbdA63a0C7d9B09B",
-        "launchpad": "IDIA",
-        "project_name": "IDIA",
-        "sale_type": "Whitelist $10",
-        "launch_order": "9",
-        "size": "4_000"
-    },
-    {
-        "blockchain": "bnb",
-        "pool_address": "0x843626d70f7F4B9e9a8a56596d34470e347aeb87",
-        "launchpad": "IDIA",
-        "project_name": "IDIA",
-        "sale_type": "Whitelist $100",
-        "launch_order": "9",
-        "size": "628_000"
-    },
-
-
-
     {
         "blockchain": "bnb",
         "pool_address": "0xBAbC012D1be33e8Ae15aD0034f20eaE07359Fe36",
         "launchpad": "Starbots",
         "project_name": "Starbots",
         "sale_type": "Standard Sale",
-        "launch_order": "10",
+        "launch_order": "9",
         "size": "2_250_000"
     },
     {
@@ -318,7 +314,7 @@
         "launchpad": "Starbots",
         "project_name": "Starbots",
         "sale_type": "Unlimited Sale",
-        "launch_order": "10",
+        "launch_order": "9",
         "size": "2_250_000"
     },
     {
@@ -327,8 +323,45 @@
         "launchpad": "Starbots",
         "project_name": "Starbots",
         "sale_type": "Whitelist $100",
-        "launch_order": "10",
+        "launch_order": "9",
         "size": "250_000"
+    },
+
+    {
+        "blockchain": "bnb",
+        "pool_address": "0x2bEf414A3Ec52B5426b8b9bac329D8CD95dfc916",
+        "launchpad": "Basketballverse",
+        "project_name": "Basketballverse",
+        "sale_type": "Standard Sale",
+        "launch_order": "10",
+        "size": "1_000_000"
+    },
+    {
+        "blockchain": "bnb",
+        "pool_address": "0xc4Afb7B44E6dd7632373A66a8Ce5cF6132f2387E",
+        "launchpad": "Basketballverse",
+        "project_name": "Basketballverse",
+        "sale_type": "Unlimited Sale",
+        "launch_order": "10",
+        "size": "1_000_000"
+    },
+    {
+        "blockchain": "bnb",
+        "pool_address": "0xE08750f8217b8025DB3d60B13683420cAabD6980",
+        "launchpad": "Basketballverse",
+        "project_name": "Basketballverse",
+        "sale_type": "Whitelist $100 (1)",
+        "launch_order": "10",
+        "size": "166_667"
+    },
+    {
+        "blockchain": "bnb",
+        "pool_address": "0x974aDe2A5c5065c9a24F87a257788A6b0CEB7712",
+        "launchpad": "Basketballverse",
+        "project_name": "Basketballverse",
+        "sale_type": "Whitelist $100 (2)",
+        "launch_order": "10",
+        "size": "66_667"
     },
 
 
@@ -361,52 +394,13 @@
     },
 
 
-
-    {
-        "blockchain": "bnb",
-        "pool_address": "0x2bEf414A3Ec52B5426b8b9bac329D8CD95dfc916",
-        "launchpad": "Basketballverse",
-        "project_name": "Basketballverse",
-        "sale_type": "Standard Sale",
-        "launch_order": "12",
-        "size": "1_000_000"
-    },
-    {
-        "blockchain": "bnb",
-        "pool_address": "0xc4Afb7B44E6dd7632373A66a8Ce5cF6132f2387E",
-        "launchpad": "Basketballverse",
-        "project_name": "Basketballverse",
-        "sale_type": "Unlimited Sale",
-        "launch_order": "12",
-        "size": "1_000_000"
-    },
-    {
-        "blockchain": "bnb",
-        "pool_address": "0xE08750f8217b8025DB3d60B13683420cAabD6980",
-        "launchpad": "Basketballverse",
-        "project_name": "Basketballverse",
-        "sale_type": "Whitelist $100 (1)",
-        "launch_order": "12",
-        "size": "166_667"
-    },
-    {
-        "blockchain": "bnb",
-        "pool_address": "0x974aDe2A5c5065c9a24F87a257788A6b0CEB7712",
-        "launchpad": "Basketballverse",
-        "project_name": "Basketballverse",
-        "sale_type": "Whitelist $100 (2)",
-        "launch_order": "12",
-        "size": "66_667"
-    },
-
-
     {
         "blockchain": "bnb",
         "pool_address": "0x8a2F0D1e8EfA123087359AeF356aa31eC0D512C1",
         "launchpad": "Ruby",
         "project_name": "Ruby",
         "sale_type": "Standard Sale",
-        "launch_order": "13",
+        "launch_order": "12",
         "size": "1_000_000"
     },
     {
@@ -415,7 +409,7 @@
         "launchpad": "Ruby",
         "project_name": "Ruby",
         "sale_type": "Unlimited Sale",
-        "launch_order": "13",
+        "launch_order": "12",
         "size": "1_000_000"
     },
     {
@@ -424,9 +418,10 @@
         "launchpad": "Ruby",
         "project_name": "Ruby",
         "sale_type": "Whitelist $100",
-        "launch_order": "13",
+        "launch_order": "12",
         "size": "200_000"
     },
+
 
 
     {
@@ -435,7 +430,7 @@
         "launchpad": "Aura",
         "project_name": "Aura",
         "sale_type": "Standard Sale",
-        "launch_order": "14",
+        "launch_order": "13",
         "size": "6_000_000"
     },
     {
@@ -444,7 +439,7 @@
         "launchpad": "Aura",
         "project_name": "Aura",
         "sale_type": "Unlimited Sale",
-        "launch_order": "14",
+        "launch_order": "13",
         "size": "4_000_000"
     },
     {
@@ -453,7 +448,7 @@
         "launchpad": "Aura",
         "project_name": "Aura",
         "sale_type": "vIDIA Sale",
-        "launch_order": "14",
+        "launch_order": "13",
         "size": "1_000_000"
     },
 
@@ -464,7 +459,7 @@
         "launchpad": "QUO",
         "project_name": "Quoll Finance",
         "sale_type": "Standard Sale",
-        "launch_order": "15",
+        "launch_order": "14",
         "size": "2_500_000"
     },
     {
@@ -473,7 +468,7 @@
         "launchpad": "QUO",
         "project_name": "Quoll Finance",
         "sale_type": "vIDIA Standart Sale",
-        "launch_order": "15",
+        "launch_order": "14",
         "size": "24_500_000"
     },
     {
@@ -482,7 +477,7 @@
         "launchpad": "QUO",
         "project_name": "Quoll Finance",
         "sale_type": "vIDIA Unlimited Sale",
-        "launch_order": "15",
+        "launch_order": "14",
         "size": "18_000_000"
     },
     {
@@ -491,7 +486,7 @@
         "launchpad": "QUO",
         "project_name": "Quoll Finance",
         "sale_type": "Whitelist $250",
-        "launch_order": "15",
+        "launch_order": "14",
         "size": "5_000_000"
     },
 
@@ -504,7 +499,7 @@
         "launchpad": "Pine",
         "project_name": "Pine Protocol",
         "sale_type": "IDIA Standard Sale",
-        "launch_order": "16",
+        "launch_order": "15",
         "size": "65_000"
     },
     {
@@ -513,7 +508,7 @@
         "launchpad": "Pine",
         "project_name": "Pine Protocol",
         "sale_type": "vIDIA Standard Sale",
-        "launch_order": "16",
+        "launch_order": "15",
         "size": "600_000"
     },
     {
@@ -522,7 +517,7 @@
         "launchpad": "Pine",
         "project_name": "Pine Protocol",
         "sale_type": "vIDIA Unlimited Sale",
-        "launch_order": "16",
+        "launch_order": "15",
         "size": "475_000"
     },
     {
@@ -531,7 +526,7 @@
         "launchpad": "Pine",
         "project_name": "Pine Protocol",
         "sale_type": "Whitelist $50",
-        "launch_order": "16",
+        "launch_order": "15",
         "size": "131_500"
     },
     {
@@ -540,7 +535,7 @@
         "launchpad": "Pine",
         "project_name": "Pine Protocol",
         "sale_type": "Whitelist $100",
-        "launch_order": "16",
+        "launch_order": "15",
         "size": "34_500"
     },
     {
@@ -549,7 +544,7 @@
         "launchpad": "Pine",
         "project_name": "Pine Protocol",
         "sale_type": "Whitelist $200",
-        "launch_order": "16",
+        "launch_order": "15",
         "size": "8_000"
     },
     {
@@ -558,7 +553,7 @@
         "launchpad": "Pine",
         "project_name": "Pine Protocol",
         "sale_type": "Whitelist $250",
-        "launch_order": "16",
+        "launch_order": "15",
         "size": "6_250"
     },
     {
@@ -567,7 +562,7 @@
         "launchpad": "Pine",
         "project_name": "Pine Protocol",
         "sale_type": "Whitelist $500",
-        "launch_order": "16",
+        "launch_order": "15",
         "size": "5_000"
     },
     {
@@ -576,7 +571,7 @@
         "launchpad": "Pine",
         "project_name": "Pine Protocol",
         "sale_type": "Whitelist $2000",
-        "launch_order": "16",
+        "launch_order": "15",
         "size": "10_000"
     },
 
@@ -588,7 +583,7 @@
         "launchpad": "Humanode",
         "project_name": "Humanode",
         "sale_type": "IDIA standard",
-        "launch_order": "17",
+        "launch_order": "16",
         "size": "800_000"
     },
     {
@@ -597,7 +592,7 @@
         "launchpad": "Humanode",
         "project_name": "Humanode",
         "sale_type": "vIDIA standard",
-        "launch_order": "17",
+        "launch_order": "16",
         "size": "1_040_000"
     },
     {
@@ -606,7 +601,7 @@
         "launchpad": "Humanode",
         "project_name": "Humanode",
         "sale_type": "vIDIA unlimited",
-        "launch_order": "17",
+        "launch_order": "16",
         "size": "800_000"
     },
     {
@@ -615,7 +610,7 @@
         "launchpad": "Humanode",
         "project_name": "Humanode",
         "sale_type": "c98 unlimited",
-        "launch_order": "17",
+        "launch_order": "16",
         "size": "666_666"
     },
     {
@@ -624,7 +619,7 @@
         "launchpad": "Humanode",
         "project_name": "Humanode",
         "sale_type": "Whitelist $100",
-        "launch_order": "17",
+        "launch_order": "16",
         "size": "65_335"
     },
     {
@@ -633,7 +628,7 @@
         "launchpad": "Humanode",
         "project_name": "Humanode",
         "sale_type": "Whitelist $200",
-        "launch_order": "17",
+        "launch_order": "16",
         "size": "1_333"
     },
     {
@@ -642,7 +637,7 @@
         "launchpad": "Humanode",
         "project_name": "Humanode",
         "sale_type": "Whitelist $400",
-        "launch_order": "17",
+        "launch_order": "16",
         "size": "13_333"
     },
 
@@ -653,7 +648,7 @@
         "launchpad": "Arken",
         "project_name": "Arken",
         "sale_type": "IDIA standard (BNB Chain)",
-        "launch_order": "18",
+        "launch_order": "17",
         "size": "5_000_000"
     },
     {
@@ -662,7 +657,7 @@
         "launchpad": "Arken",
         "project_name": "Arken",
         "sale_type": "vIDIA standard (BNB Chain)",
-        "launch_order": "18",
+        "launch_order": "17",
         "size": "100_000_000"
     },
     {
@@ -671,7 +666,7 @@
         "launchpad": "Arken",
         "project_name": "Arken",
         "sale_type": "vIDIA unlimited (BNB Chain)",
-        "launch_order": "18",
+        "launch_order": "17",
         "size": "70_000_000"
     },
     {
@@ -680,7 +675,7 @@
         "launchpad": "Arken",
         "project_name": "Arken",
         "sale_type": "C98 unlimited (BNB Chain)",
-        "launch_order": "18",
+        "launch_order": "17",
         "size": "75_000_000"
     },
     {
@@ -689,7 +684,7 @@
         "launchpad": "Arken",
         "project_name": "Arken",
         "sale_type": "Whitelist $100",
-        "launch_order": "18",
+        "launch_order": "17",
         "size": "10_375_000"
     },
     {
@@ -698,7 +693,7 @@
         "launchpad": "Arken",
         "project_name": "Arken",
         "sale_type": "Whitelist $200",
-        "launch_order": "18",
+        "launch_order": "17",
         "size": "1_600_000"
     },
     {
@@ -707,7 +702,7 @@
         "launchpad": "Arken",
         "project_name": "Arken",
         "sale_type": "Whitelist $300",
-        "launch_order": "18",
+        "launch_order": "17",
         "size": "525_000"
     },
     {
@@ -716,7 +711,7 @@
         "launchpad": "Arken",
         "project_name": "Arken",
         "sale_type": "Whitelist $400",
-        "launch_order": "18",
+        "launch_order": "17",
         "size": "400_000"
     },
     {
@@ -725,7 +720,7 @@
         "launchpad": "Arken",
         "project_name": "Arken",
         "sale_type": "Whitelist $500",
-        "launch_order": "18",
+        "launch_order": "17",
         "size": "625_000"
     },
     {
@@ -734,7 +729,7 @@
         "launchpad": "Arken",
         "project_name": "Arken",
         "sale_type": "Whitelist $600",
-        "launch_order": "18",
+        "launch_order": "17",
         "size": "150_000"
     },
     {
@@ -743,7 +738,7 @@
         "launchpad": "Arken",
         "project_name": "Arken",
         "sale_type": "Whitelist $700",
-        "launch_order": "18",
+        "launch_order": "17",
         "size": "350_000"
     },
     {
@@ -752,7 +747,7 @@
         "launchpad": "Arken",
         "project_name": "Arken",
         "sale_type": "Whitelist $800",
-        "launch_order": "18",
+        "launch_order": "17",
         "size": "400_000"
     },
     {
@@ -761,7 +756,7 @@
         "launchpad": "Arken",
         "project_name": "Arken",
         "sale_type": "IDIA standard (Arbitrum)",
-        "launch_order": "18",
+        "launch_order": "17",
         "size": "12_500_000"
     },
     {
@@ -770,7 +765,7 @@
         "launchpad": "Arken",
         "project_name": "Arken",
         "sale_type": "IDIA unlimited (Arbitrum)",
-        "launch_order": "18",
+        "launch_order": "17",
         "size": "50_000_000"
     }
 ]

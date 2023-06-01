@@ -1,8 +1,6 @@
 from dash import html, dcc, Input, Output, State, ClientsideFunction, callback
 import dash
 
-from scripts.prices import *
-
 from scripts.Functions import *
 from scripts.local_functions import *
 

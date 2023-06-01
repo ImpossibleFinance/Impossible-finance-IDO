@@ -7,6 +7,69 @@ from scripts.Functions import *
 from scripts.local_functions import *
 
 
+class UploadPrices():
+
+    def __init__(self):
+
+        self.params = {
+            'vs_currency': 'usd',
+            'days': 'max',
+            'interval': 'daily'
+        }
+
+
+        f = open('config/IDO_token_contracts.json')
+        self.IDO_token_contracts = json.load(f)
+        f.close()
+
+        self.file_path = 'data/Prices.csv'
+
+
+    def get_price(self, token):
+        url = 'https://api.coingecko.com/api/v3/coins/'+ token +'/market_chart'
+
+        response = requests.get(url, params = self.params)
+
+        print(token)
+
+        data = response.json()
+        data = pd.DataFrame(data['prices'], columns=['Uni_time', 'Price'])
+        data['date'] = pd.to_datetime(data['Uni_time']/1000, unit = 's')
+        data = data.sort_values(by = ['date'], ascending = True)
+
+
+        first_two_year_data = pd.DataFrame(data[:720]['Price'], columns=['Price'])
+        first_two_year_data['Price'] = first_two_year_data['Price'].astype(float)
+        first_two_year_data['days_from_ido'] = first_two_year_data.index
+        first_two_year_data.round(3)
+
+        return first_two_year_data
+
+    def upload_prices(self):
+
+        k = 0
+        for item in self.IDO_token_contracts:
+
+            print(str(k) + '/' + str(len(self.IDO_token_contracts)))
+
+            token = str(item['api_token'])
+            ido_price = float(item['ido_price'])
+
+            csv_data = pd.DataFrame()
+
+            if token != '-':
+                price_data = self.get_price(token)
+                price_data['roi'] = price_data['Price']/ido_price
+
+                data = pd.concat([csv_data, price_data])
+
+                data.to_csv('data/Prices.csv', index = False)
+
+                time.sleep(0.5)
+
+            k += 1
+
+
 def unique_currency(item):
     if item['sale_type'] == 'Unlimited IDIA Sale' and item['launchpad'] == 'Ouro':
         return 'IDIA'
@@ -85,71 +148,14 @@ def upload_transactions():
 
     f.close()
 
-
-def get_price(token):
-    url = 'https://api.coingecko.com/api/v3/coins/'+ token +'/market_chart'
-    params = {
-        'vs_currency': 'usd',
-        'days': 'max',
-        'interval': 'daily'
-    }
-
-    response = requests.get(url, params=params)
-    print(token)
-    data = response.json()
-    data = pd.DataFrame(data['prices'], columns=['Uni_time', 'Price'])
-    data['date'] = pd.to_datetime(data['Uni_time']/1000, unit = 's')
-    data = data.sort_values(by = ['date'], ascending = True)
-    first_half_year_data = pd.DataFrame(data[:180]['Price'], columns=['Price'])
-    first_half_year_data['Price'] = first_half_year_data['Price'].astype(float)
-    first_half_year_data['token'] = token
-    first_half_year_data['days_from_ido'] = first_half_year_data.index
-    first_half_year_data.round(3)
-
-    return first_half_year_data
-
-def upload_prices():
-
-    f = open('config/IDO_token_contracts.json')
-    IDO_token_contracts = json.load(f)
-
-    k = 0
-    for item in IDO_token_contracts:
-
-        print(str(k) + '/' + str(len(IDO_token_contracts)))
-
-        token = str(item['api_token'])
-        ido_price = float(item['ido_price'])
-
-        file_path = 'data/Prices.csv'
-        if os.stat(file_path).st_size == 0 or os.stat(file_path).st_size == 1:
-            csv_data = pd.DataFrame()
-            existing_tokens = []
-        else:
-            csv_data = pd.read_csv(file_path)
-            existing_tokens = csv_data['token'].unique()
-
-        if token not in existing_tokens:
-            if token != '-':
-                price_data = get_price(token)
-                price_data['roi'] = price_data['Price']/ido_price
-
-                data = pd.concat([csv_data, price_data])
-
-                data.to_csv('data/Prices.csv', index = False)
-
-                time.sleep(0.5)
-
-
-        k += 1
-
-
 print ('Option (1) - Upload Transactions Data' )
 print ('Option (2) - Upload Prices Data' )
 print ('Option (3) - Exit' )
 opt = input('Your option: ')
 
+prices = UploadPrices()
+
 if opt == '1':
     upload_transactions()
 if opt == '2':
-    upload_prices()
+    prices.upload_prices()

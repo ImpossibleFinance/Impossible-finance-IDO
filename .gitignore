@@ -7,3 +7,5 @@ scripts/__pycache__
 pages/__pycache__
 test.py
 Test.ipynb
+upload_data_web3_test.py
+config/Contract_ABI.txt

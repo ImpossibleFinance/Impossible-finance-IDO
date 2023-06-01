@@ -80,8 +80,8 @@
     padding: 8px;
     margin: 8px;
     position: absolute;
-    right: 100px;
-    top: 100px;
+    right: 25px;
+    top: 50px;
 }
 
 .user_rank_card h1 {
@@ -113,6 +113,6 @@
 
 .arken_idia_swap {
     position: absolute;
-    right: 50px;
-    top: 50px;
+    right: 10px;
+    top: 20px;
 }
