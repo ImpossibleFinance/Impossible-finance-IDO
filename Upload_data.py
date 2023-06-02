@@ -1,8 +1,11 @@
 import json
 import requests
-import pathlib
+import pandas as pd
+import time
+from dotenv import load_dotenv
+import os
+from tqdm import tqdm
 
-from scripts.upload_functions import *
 from scripts.Functions import *
 from scripts.local_functions import *
 
@@ -48,7 +51,7 @@ class UploadPrices():
     def upload_prices(self):
 
         k = 0
-        for item in self.IDO_token_contracts:
+        for item in tqdm(self.IDO_token_contracts):
 
             print(str(k) + '/' + str(len(self.IDO_token_contracts)))
 
@@ -70,83 +73,200 @@ class UploadPrices():
             k += 1
 
 
-def unique_currency(item):
-    if item['sale_type'] == 'Unlimited IDIA Sale' and item['launchpad'] == 'Ouro':
-        return 'IDIA'
-    if item['blockchain'] == 'arbitrum' and item['launchpad'] == 'Arken':
-        return 'USDC'
+
+class UploadTransactions():
+
+    def __init__(self):
+
+        load_dotenv()
+        self.API_KEY_BNB = os.getenv('API_KEY_BNB')
+        self.API_KEY_ARB = os.getenv('API_KEY_ARB')
+
+        self.file_path = 'data/full_transactions_data.csv'
+
+        self.pool_addresses = []
+        self.accepted_currency = []
+        self.launchpad = []
+        self.blockchain = []
+
+        f = open('config/IDO_pools.json')
+        self.IDO_pools = json.load(f)
+        f.close()
+
+        f2 = open('config/Currency_addresses.json')
+        self.Currency_addresses = json.load(f2)
+        f2.close()
+
+        csv_data = load_full_csv_data_ido()
+        if csv_data.empty == False:
+            self.all_uploaded_IDOs = csv_data['launchpad'].unique()
+        else:
+            self.all_uploaded_IDOs = []
+
+        ##############################################################################
+        ###################### Check upload option ###################################
+        ##############################################################################
+
+        print('----------------------------')
+        print('Current uploaded IDOs: ', self.all_uploaded_IDOs)
+        print('Please select upload option:')
+        print('(a) Upload new IDOs')
+        print('(b) Upload specific IDO')
+        print('[Example: if you want to upload Pine IDO: "b Pine" or upload Pine and Arken IDO: "b Pine,Arken" - with no space!]')
+        self.option = input('Type your option: ')
+
+        self.get_launchpads = (self.option[2:]).split(',')
+
+    def remove_IDO(self, name):
+        if os.stat(self.file_path).st_size == 0 or os.stat(self.file_path).st_size == 1:
+            csv_data = pd.DataFrame()
+        else:
+            csv_data = pd.read_csv(self.file_path)
+
+            csv_data = csv_data[csv_data['launchpad'] != name]
+
+            csv_data.to_csv(self.file_path, index = False)
+
+        return True
+
+    def unique_currency(self, item):
+        if item['sale_type'] == 'Unlimited IDIA Sale' and item['launchpad'] == 'Ouro':
+            return 'IDIA'
+        if item['blockchain'] == 'arbitrum' and item['launchpad'] == 'Arken':
+            return 'USDC'
+            
+        return 'BUSD'
     
-    return 'BUSD'
+    def upload_transactions(self):
+        for item in self.IDO_pools:
+            if str(item['launchpad']) not in self.all_uploaded_IDOs and self.option == 'a':
+                self.pool_addresses.append((item['pool_address']).lower())
+                self.blockchain.append(item['blockchain'])
+                self.launchpad.append(item['launchpad'])
 
-def remove_IDO(name):
-    desktop = pathlib.Path("data")
+                self.accepted_currency.append(self.unique_currency(item))
 
-    for item in desktop.iterdir():
-        if str(item) != 'data/.DS_Store' and str(item) != 'data/Prices.csv':
-            file_path = str(item)
-            if os.stat(file_path).st_size == 0 or os.stat(file_path).st_size == 1:
-                csv_data = pd.DataFrame()
+            if (self.option.split())[0] == 'b' and str(item['launchpad']) in self.get_launchpads:
+                self.pool_addresses.append((item['pool_address']).lower())
+                self.blockchain.append(item['blockchain'])
+                self.launchpad.append(item['launchpad'])
+
+                self.accepted_currency.append(self.unique_currency(item))
+
+                self.remove_IDO(item['launchpad'])
+
+        self.pools_info = pd.DataFrame({
+            'accepted_currency': self.accepted_currency, 
+            'pool_addresses': self.pool_addresses, 
+            'launchpad': self.launchpad, 
+            'blockchain': self.blockchain
+        })
+
+        for blockchain in self.pools_info['blockchain'].unique():
+            pools_array = (self.pools_info[self.pools_info["blockchain"] == blockchain])
+            for token in pools_array['accepted_currency'].unique():
+                _pools_array = (pools_array[pools_array["accepted_currency"] == token])['pool_addresses'].to_numpy()
+                self.get_transactions(_pools_array, token, blockchain)
+
+    def get_transactions(self, pool_addresses, token, blockchain):
+
+        for item in self.Currency_addresses:
+            if item['name'] == token and item['blockchain'] == blockchain:
+                _token_contract = item['contract_address']
+
+        for j in tqdm(range(len(pool_addresses))):
+            
+            _address = pool_addresses[j]
+
+            if os.stat(self.file_path).st_size == 0 or os.stat(self.file_path).st_size == 1:
+                _csv_data = pd.DataFrame()
             else:
-                csv_data = pd.read_csv(file_path)
+                _csv_data = pd.read_csv(self.file_path)
 
-                csv_data = csv_data[csv_data['launchpad'] != name]
+            _full_data = pd.concat([_csv_data, self.transactions_to_csv(blockchain, _token_contract, _address)])
 
-                csv_data.to_csv(file_path, index = False)
+            _full_data.to_csv(self.file_path, index = False)
 
+            time.sleep(0.3)
 
-def upload_transactions():
-    pool_addresses = []
-    accepted_currency = []
-    launchpad = []
-    blockchain = []
+    def transactions_to_csv(self, blockchain, token_contract ,address):
 
-    f = open('config/IDO_pools.json')
-    IDO_pools = json.load(f)
+        df = self.get_transactions_raw(blockchain, token_contract, address)
+        df = pd.DataFrame(df)
 
-    csv_data = load_full_csv_data_ido()
-    if csv_data.empty == False:
-        all_uploaded_IDOs = csv_data['launchpad'].unique()
-    else:
-        all_uploaded_IDOs = []
+        if df.empty:
+            return df
+        else:
+            df['date'] = pd.to_datetime(df['timeStamp'],unit = 's')
+            df = df[df.value != '0']
+            df['amount'] = df['value'].astype(float)/10**(df['tokenDecimal'].astype(int))
 
-    ##############################################################################
-    ###################### Check upload option ###################################
-    ##############################################################################
+            df = df[df['to'].str.lower() == address.lower()]
 
-    print('----------------------------')
-    print('Please select upload option:')
-    print('(a) Upload new IDOs')
-    print('(b) Upload specific IDO (Example, if you want to upload PINE IDO: "b PINE")')
-    option = input('Type your option: ')
+            if address.lower() == ('0x0c8dF3f968eC9F2bf182C41C9D42d79dF4a31857').lower():
+                df['token_price'] = 1.838
+            else:
+                df['token_price'] = 1
 
-    for item in IDO_pools:
-        if str(item['launchpad']) not in all_uploaded_IDOs and option == 'a':
-            pool_addresses.append((item['pool_address']).lower())
-            blockchain.append(item['blockchain'])
-            launchpad.append(item['launchpad'])
+            df = df.drop([
+                'contractAddress',
+                'blockNumber', 
+                'timeStamp', 
+                'nonce', 
+                'blockHash', 
+                'tokenName', 
+                'transactionIndex', 
+                'gas', 
+                'gasPrice', 
+                'gasUsed', 
+                'cumulativeGasUsed', 
+                'input', 
+                'confirmations', 
+                'value', 
+                'tokenDecimal'
+            ], axis=1)
 
-            accepted_currency.append(unique_currency(item))
+            df['launchpad'] = ((list(filter(lambda x:(x["pool_address"]).lower() == address and x["blockchain"] == blockchain, self.IDO_pools)))[0]["launchpad"])
+            df['sale_type'] = ((list(filter(lambda x:(x["pool_address"]).lower() == address and x["blockchain"] == blockchain, self.IDO_pools)))[0]["sale_type"])
 
-        if (option.split())[0] == 'b' and str(item['launchpad']) == (option.split())[1]:
-            pool_addresses.append((item['pool_address']).lower())
-            blockchain.append(item['blockchain'])
-            launchpad.append(item['launchpad'])
+            df['blockchain'] = blockchain
 
-            accepted_currency.append(unique_currency(item))
+            return df
+        
+    
+    def get_transactions_raw(self, blockchain, token_contract, address):
 
-            remove_IDO((option.split())[1])
+        transactions_url = self.make_api_url(
+            blockchain,
+            token_contract,
+            address, 
+            startblock = 0, 
+            endblock = 99999999, 
+            page = 1,
+            sort = "asc"
+        )
 
-    pools_info = pd.DataFrame({'accepted_currency':accepted_currency, 'pool_addresses':pool_addresses, 'launchpad': launchpad, 'blockchain': blockchain})
+        response = requests.get(transactions_url)
+        data = response.json()["result"]
 
-    for blockchains in pools_info['blockchain'].unique():
-        pools_array = (pools_info[pools_info["blockchain"] == blockchains])
+        return data
+    
+    def make_api_url(self, blockchain, token_contract, address, **kwargs):
+        if blockchain == 'bnb':
+            BASE_URL = "https://api.bscscan.com/api"
+            url = BASE_URL + f"?module=account&action=tokentx&contractaddress={token_contract}&address={address}&apikey={self.API_KEY_BNB}"
 
-        for token in pools_array['accepted_currency'].unique():
-            pools_array = (pools_array[pools_array["accepted_currency"] == token])['pool_addresses'].to_numpy()
+            for key, value in kwargs.items():
+                url += f"&{key}={value}"
+        
+        if blockchain == 'arbitrum':
+            BASE_URL = "https://api.arbiscan.io/api"
+            url = BASE_URL + f"?module=account&action=tokentx&contractaddress={token_contract}&address={address}&apikey={self.API_KEY_ARB}"
 
-            transactions_to_pools(pools_array, token, blockchains)
+            for key, value in kwargs.items():
+                url += f"&{key}={value}"
+        return url
 
-    f.close()
 
 print ('Option (1) - Upload Transactions Data' )
 print ('Option (2) - Upload Prices Data' )
@@ -154,8 +274,9 @@ print ('Option (3) - Exit' )
 opt = input('Your option: ')
 
 prices = UploadPrices()
+transactions = UploadTransactions()
 
 if opt == '1':
-    upload_transactions()
+    transactions.upload_transactions()
 if opt == '2':
     prices.upload_prices()
