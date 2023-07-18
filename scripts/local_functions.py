@@ -1,7 +1,4 @@
 from scripts.Functions import *
-import pathlib
-
-import numpy as np
 
 def load_full_csv_data_ido():
     pool_addresses = []
@@ -29,6 +26,34 @@ def load_full_csv_data_ido():
 
     return full_data
 
+def load_prices_csv_data():
+    path = 'data/Prices.csv'
+
+    prices_data = read_data_from_csv(path)
+
+    prices_data = prices_data.rename(columns = {
+        "days_from_ido": "Days after IDO", 
+        "roi": "ROI",
+        "token": "Token"
+    })
+
+    return prices_data
+
+def load_staking_csv_data():
+
+    path = 'data/staking_transactions_data.csv'
+
+    staking_data = read_data_from_csv(path)
+    staking_data = staking_data.sort_values(by = ['date'], ascending = True)
+    staking_data = staking_data.reset_index(drop = True)
+    staking_data['value'] = staking_data['value'].astype(float)
+    staking_data['net_amt'] = np.where(staking_data['category'] == 'Stake', +1*staking_data['value']/10**18, -1*staking_data['value']/10**18)
+    staking_data['token'] = np.where(staking_data['sale_type'].str.contains('vIDIA'), 'vIDIA', 'IDIA')
+
+
+    return staking_data
+
+
 ########################################################
 ################## KPI calculation #####################
 ########################################################
@@ -54,6 +79,9 @@ class Main_Purchased_Info():
     def __init__(self, full_data):
 
         self.data = full_data
+
+        #print(full_data['launchpad'][1])
+        #print(full_data['launchpad'][72243])
         
         self.data = self.data.rename(
             columns = {
@@ -61,22 +89,30 @@ class Main_Purchased_Info():
                 "from": "Buyer", 
                 "sale_type": "Sale type"
             })
-
-        # MAIN
-
-        self.df_USD_by_launchpad = pd.DataFrame(self.data.groupby('launchpad')['USD amount'].sum())
-        self.df_USD_by_launchpad['Launchpad (IDO)'] = self.df_USD_by_launchpad.index.get_level_values(0)
-        self.df = self.df_USD_by_launchpad.reset_index(drop=True)
-
-        self.df_Participants_by_launchpad = pd.DataFrame(self.data.groupby('launchpad')['Buyer'].nunique())
-        self.df_Participants_by_launchpad['Launchpad (IDO)'] = self.df_Participants_by_launchpad.index.get_level_values(0)
-        self.df_Participants_by_launchpad = self.df_Participants_by_launchpad.reset_index(drop=True)
-
-        # BY SALE TYPE
-
+        
         f = open('config/IDO_pools.json')
         self.sales_config = json.load(f)
         f.close()
+
+        # MAIN
+
+        _df_USD_by_launchpad = pd.DataFrame(self.data.groupby('launchpad')['USD amount'].sum())
+        _df_USD_by_launchpad['Launchpad (IDO)'] = _df_USD_by_launchpad.index.get_level_values(0)
+        _df_USD_by_launchpad = _df_USD_by_launchpad.reset_index(drop = True)
+
+        _df_Participants_by_launchpad = pd.DataFrame(self.data.groupby('launchpad')['Buyer'].nunique())
+        _df_Participants_by_launchpad['Launchpad (IDO)'] = _df_Participants_by_launchpad.index.get_level_values(0)
+        _df_Participants_by_launchpad = _df_Participants_by_launchpad.reset_index(drop = True)
+
+
+        self.df_USD_and_Participants = _df_USD_by_launchpad.merge(_df_Participants_by_launchpad, on = 'Launchpad (IDO)', how = 'left')
+        #print(self.df_USD_and_Participants)
+        self.df_USD_and_Participants['order'] = [(list(filter(lambda x:x["launchpad"] == y, self.sales_config)))[0]['launch_order'] for y in self.df_USD_and_Participants['Launchpad (IDO)']]
+        self.df_USD_and_Participants['order'] = self.df_USD_and_Participants['order'].astype('int')
+        self.df_USD_and_Participants = self.df_USD_and_Participants.sort_values(by = ['order'], ascending = True)
+
+
+        # BY SALE TYPE
 
         self.df_USD_by_sale_type = pd.DataFrame(self.data.groupby(['launchpad', 'Sale type'])['USD amount'].sum())
         self.df_USD_by_sale_type['Launchpad (IDO)'] = self.df_USD_by_sale_type.index.get_level_values(0)
@@ -108,35 +144,45 @@ class Main_Purchased_Info():
 
     def by_launchpad(self):
 
-        USD_fig = pie_distribution(self.df_USD_by_launchpad, 'Launchpad (IDO)', 'USD amount', '{text:,.2f}$')
+        USD_and_participants = create_ez_bar(
+            self.df_USD_and_Participants,
+            'Launchpad (IDO)',
+            'USD amount',
+            'Buyer',
+            None,
+            None,
+            False,
+            ['#DAA520', '#8A2BE2']
+        )
 
-        Participants_fig = pie_distribution(self.df_Participants_by_launchpad, 'Launchpad (IDO)', 'Buyer', '{text:,.0f}')
-
-        return USD_fig, Participants_fig
+        return USD_and_participants
     
 
     def by_sale_type(self):
 
-        fig_USD_by_sale = distribution_bars(
-            self.result_data_by_sale_type, 
-            'Launchpad (IDO)', 
-            'USD amount', 
-            'Sale type', 
-            False,
-            'stack'
+        fig_USD_by_sale = create_ez_bar(
+            self.result_data_by_sale_type,
+            'Launchpad (IDO)',
+            'USD amount',
+            None,
+            'Sale type',
+            None,
+            True,
+            []
+        )
+
+        fig_participants_by_sale = create_ez_bar(
+            self.result_data_by_sale_type,
+            'Launchpad (IDO)',
+            'Buyer',
+            None,
+            'Sale type',
+            None,
+            True,
+            []
         )
 
         fig_USD_by_sale.update_xaxes(categoryorder = 'array', categoryarray = self.result_data_by_sale_type['Launchpad (IDO)'])
-
-        fig_participants_by_sale = distribution_bars(
-            self.result_data_by_sale_type, 
-            'Launchpad (IDO)', 
-            'Buyer', 
-            'Sale type',
-            False,
-            'stack'
-        )
-
         fig_participants_by_sale.update_xaxes(categoryorder = 'array', categoryarray = self.result_data_by_sale_type['Launchpad (IDO)'])
 
         return fig_USD_by_sale, fig_participants_by_sale
@@ -163,22 +209,26 @@ class Main_Purchased_Info():
         result_data = pd.merge(users_usd, users, on = ['Launchpad (IDO)','state'])
         result_data = result_data.sort_values(by=['order'], ascending = True)
 
-        fig_USD_by_sale = distribution_bars(
-            result_data, 
-            'Launchpad (IDO)', 
-            'USD amount', 
-            'state', 
+        fig_USD_by_sale = create_ez_bar(
+            result_data,
+            'Launchpad (IDO)',
+            'USD amount',
+            None,
+            'state',
+            None,
             False,
-            False
+            []
         )
         
-        fig_participants_by_sale = distribution_bars(
-            result_data, 
-            'Launchpad (IDO)', 
-            'Buyer', 
-            'state', 
+        fig_participants_by_sale = create_ez_bar(
+            result_data,
+            'Launchpad (IDO)',
+            'Buyer',
+            None,
+            'state',
+            None,
             False,
-            False
+            []
         )
 
         fig_USD_by_sale.update_xaxes(categoryorder = 'array', categoryarray = self.result_data_by_sale_type['Launchpad (IDO)'])
@@ -218,9 +268,15 @@ class Purchase_Rate():
 
         self.data['purchased_rate'] = 100*self.data['USD_amount']/self.data['max_size']
 
-        self.unique_sale_type = self.data['sale_type'].unique()
-
         self.data = self.data.sort_values(by = ['order'], ascending = True)
+        self.data = self.data.reset_index(drop = True)
+
+        self.data = self.data.rename(
+            columns = {
+                "purchased_rate": "Purchase Rate", 
+                "launchpad": "Launchpad (IDO)", 
+                "sale_type": "Sale type"
+            })
 
     def add_max_size(self, config):
 
@@ -243,89 +299,100 @@ class Purchase_Rate():
         self.data = pd.merge(self.data, pool_size, on = ['launchpad', 'sale_type'])
 
     def total_rate(self):
-        self.fig_max_pool_size = go.Figure()
-        self.fig_purchased_rate = go.Figure()
 
-        for sale in self.unique_sale_type:
-            data_sale = self.data[self.data["sale_type"] == sale]
-
-            if sale == 'Standard Sale' or sale == 'Unlimited Sale':
-            
-                self.fig_max_pool_size.add_trace(go.Bar(
-                    x = data_sale["launchpad"], 
-                    y = data_sale["max_size"],
-                    name = sale,
-                    marker_color = 'blue 'if sale == 'Standard Sale' else 'red',
-                    hovertemplate = sale + ': $%{y:,.1f}<extra></extra>'
-                    ))
-                
-                self.fig_purchased_rate.add_trace(go.Scatter(
-                    x = data_sale["launchpad"], 
-                    y = data_sale["purchased_rate"],
-                    mode = 'markers',
-                    name = sale,
-                    marker_size = 12,
-                    marker_color = 'blue 'if sale == 'Standard Sale' else 'red',
-                    hovertemplate = sale + ': %{y:,.1f} %<extra></extra>'
-                    ))
-            else:
-
-                self.fig_max_pool_size.add_trace(go.Bar(
-                    x = data_sale["launchpad"], 
-                    y = data_sale["max_size"],
-                    name = sale,
-                    hovertemplate = sale + ': $%{y:,.1f}<extra></extra>'
-                    ))
-                
-                self.fig_purchased_rate.add_trace(go.Scatter(
-                    x = data_sale["launchpad"], 
-                    y = data_sale["purchased_rate"],
-                    mode = 'markers',
-                    name = sale,
-                    marker_size = 12,
-                    hovertemplate = sale + ': %{y:,.1f} %<extra></extra>'
-                    ))
-                
-        self.fig_max_pool_size.update_layout(
-            title = 'Total Token for Sale',
-            barmode = 'stack',
-            height = 600,
-            hovermode = "x unified",
-            plot_bgcolor = '#171730',
-            paper_bgcolor = '#171730',
-            font = dict(color = 'white'),
-            showlegend = False
+        self.fig_purchased_rate = create_ez_scatters(
+            self.data,
+            'Launchpad (IDO)',
+            'Purchase Rate',
+            None,
+            'Sale type',
+            None,
+            []
         )
 
-        self.fig_purchased_rate.update_layout(
-            title = 'Launchpad purchased rate',
-            height = 600,
-            hovermode = "x unified",
-            plot_bgcolor = '#171730',
-            paper_bgcolor = '#171730',
-            font = dict(color = 'white'),
-            showlegend = False
-        )
+        self.fig_purchased_rate.update_xaxes(categoryorder = 'array', categoryarray = self.data['Launchpad (IDO)'])
 
-        self.fig_max_pool_size.update_xaxes(
-            categoryorder = 'array', 
-            categoryarray = self.data['launchpad'].unique()
-        )
-
-        self.fig_purchased_rate.update_xaxes(
-            categoryorder = 'array', 
-            categoryarray = self.data['launchpad'].unique()
-        )
-
-        return self.fig_purchased_rate, self.fig_max_pool_size
+        return self.fig_purchased_rate
     
     def rate_per_pool(self):
-        total_data = pd.DataFrame(self.data.groupby(['launchpad']).sum())
+        total_data = pd.DataFrame(self.data.groupby(['Launchpad (IDO)']).sum())
         total_data['launchpad'] = total_data.index.get_level_values(0)
         total_data = total_data.reset_index(drop=True)
 
         total_data['rate'] = 100*total_data['USD_amount']/total_data['max_size']
 
-        total_data = total_data.sort_values(by = ['rate'], ascending = True)
+        total_data = total_data.sort_values(by = ['order'], ascending = True)
+        total_data = total_data.reset_index(drop = True)
 
-        return kpi(total_data['launchpad'], total_data['rate'], '', '')
+        return create_ez_kpi(total_data['launchpad'], total_data['rate'], '', '', True)
+    
+
+
+
+########################################################
+################# Staking main #########################
+########################################################
+
+
+class Staking():
+
+    def __init__(self, full_data):
+
+        self.staking_data = full_data.copy()
+
+
+
+    def main_kpi(self):
+
+        self.total_unique_stakers = self.staking_data['user'].nunique()
+        self.staking_peak = self.staking_data['net_amt'].cumsum().max()
+
+        return create_ez_kpi(self.total_unique_stakers, [], 'Total unique IDO stakers', '', False), create_ez_kpi(self.staking_peak, [], 'Total amount staked at peak', '', False)
+    
+
+    def IDIA_vIDIA_kpis(self):
+
+        IDIA_data = self.staking_data[self.staking_data['token'] == 'IDIA']
+        vIDIA_data = self.staking_data[self.staking_data['token'] == 'vIDIA']
+
+        IDIA_staking_peak = IDIA_data['net_amt'].cumsum().max()
+        vIDIA_staking_peak = vIDIA_data['net_amt'].cumsum().max()
+
+        IDIA_staking_now = IDIA_data['net_amt'].sum()
+        vIDIA_staking_now = vIDIA_data['net_amt'].sum()
+
+        ######################### IDIA ###########################
+
+        IDIA_discription = pd.concat([
+            pd.DataFrame({
+                'net_amt': [IDIA_staking_peak],
+                'contract': 'At Peak'
+            }),
+
+            pd.DataFrame({
+                'net_amt': [IDIA_staking_now],
+                'contract': 'Total Now'
+            })
+        ])
+
+        IDIA_discription = pd.concat([IDIA_discription, (total_sum(IDIA_data, 'net_amt', 'contract')).drop(['value', 'trackID'], axis=1)])
+        IDIA_discription = IDIA_discription.reset_index(drop = True)
+
+        ######################### vIDIA ###########################
+
+        vIDIA_discription = pd.concat([
+            pd.DataFrame({
+                'net_amt': [vIDIA_staking_peak],
+                'contract': 'At Peak'
+            }),
+
+            pd.DataFrame({
+                'net_amt': [vIDIA_staking_now],
+                'contract': 'Total Now'
+            })
+        ])
+
+        vIDIA_discription = pd.concat([vIDIA_discription, (total_sum(vIDIA_data, 'net_amt', 'contract')).drop(['value', 'trackID'], axis=1)])
+        vIDIA_discription = vIDIA_discription.reset_index(drop = True)
+
+        return create_ez_kpi(IDIA_discription['contract'], IDIA_discription['net_amt'], 'IDIA', '', False), create_ez_kpi(vIDIA_discription['contract'], vIDIA_discription['net_amt'], 'vIDIA', '', False)

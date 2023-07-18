@@ -7,21 +7,21 @@
         "status": "Claim"
     },
     {
-        "launchpad": "Openswap",
+        "launchpad": "OpenSwap",
         "purchase_date": "2021-08-30",
         "start_staking_period": "2021-08-26",
         "end_staking_period": "2021-08-26",
         "status": "Claim"
     },
     {
-        "launchpad": "BLT",
+        "launchpad": "Blocto",
         "purchase_date": "2021-09-28",
         "start_staking_period": "2021-09-14",
         "end_staking_period": "2021-09-24",
         "status": "Claim"
     },
     {
-        "launchpad": "HIGH",
+        "launchpad": "Highstreet",
         "purchase_date": "2021-10-13",
         "start_staking_period": "2021-09-27",
         "end_staking_period": "2021-10-09",
@@ -29,7 +29,7 @@
         "airdrop_date": "2021-10-14"
     },
     {
-        "launchpad": "ARDN",
+        "launchpad": "Ariadne",
         "purchase_date": "2021-11-03",
         "start_staking_period": "2021-10-13",
         "end_staking_period": "2021-10-31",
@@ -128,6 +128,21 @@
         "purchase_date": "2023-04-04",
         "start_staking_period": "2023-03-15",
         "end_staking_period": "2023-04-04",
+        "status": "Claim"
+    },
+    {
+        "launchpad": "Cruize",
+        "purchase_date": "2023-07-07",
+        "start_staking_period": "2023-06-22",
+        "end_staking_period": "2023-07-07",
+        "status": "Airdrop",
+        "airdrop_date": "2023-07-11"
+    },
+    {
+        "launchpad": "Brickken",
+        "purchase_date": "2023-07-17",
+        "start_staking_period": "2023-06-27",
+        "end_staking_period": "2023-07-17",
         "status": "Claim"
     }
 ]

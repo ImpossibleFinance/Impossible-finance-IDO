@@ -88,5 +88,15 @@
         "launchpad": "Arken",
         "ido_price": "0.004",
         "api_token": "arken-finance"
+    },
+    {
+        "launchpad": "Cruize",
+        "ido_price": "0.11",
+        "api_token": "-"
+    },
+    {
+        "launchpad": "Brickken",
+        "ido_price": "0.13",
+        "api_token": "-"
     }
 ]

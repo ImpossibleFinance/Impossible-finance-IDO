@@ -8,11 +8,17 @@ class TopUsers():
     def __init__(self, wallet, data, full_data):
         self.main_kpis = main_kpis(data)
 
-        self.pieces_stats = Main_Purchased_Info(data)
+        self.hashes = data['hash'].tolist()
+        self.launchpad = data['launchpad'].tolist()
+        self.sale_type = data['sale_type'].tolist()
+        self.blockchain = data['blockchain'].tolist()
+        self.USD_amount = data['USD_amount'].tolist()
 
-        self.data_by_launchpad = self.pieces_stats.by_launchpad()
+        self.description = []
 
-        self.data_by_sale = self.pieces_stats.by_sale_type()
+        for j in range(len(self.USD_amount)):
+            self.description.append(str(self.sale_type[j] + ' : ' + str(number_format(self.USD_amount[j])) + ' USD'))
+
 
         ##################################################
         #################### TOP LIST ####################
@@ -39,14 +45,9 @@ class TopUsers():
 
         children = html.Div([
 
-            html.Div([
-                html.Iframe(
-                    src = "assets/arken_idia_swap.html"
-                )
-            ], id = 'buy-more-idia', className = "arken_idia_swap"),
-
             html.Div(
                 html.Div([
+                    html.Iframe(src = "assets/arken_idia_swap.html"),
                     html.H1(children = 'Your Impossible Rank:'),
                     html.P(children = self.top_rank),
 
@@ -57,31 +58,35 @@ class TopUsers():
             html.H1('Analysis of wallet:', className = "main-header-title"),
 
             html.Div(
-                children = kpi_single(self.main_kpis[1], 'Total USD spent', ''), 
-                className = "kpi_container"
+                children = create_ez_kpi(self.main_kpis[1], [], 'Total USD spent', '', False), 
+                className = "kpi_container",
+                style = {'width': '33%', 'display': 'inline-block'}
             ),
 
             html.Div(
-                children = kpi_single(self.main_kpis[2], 'IDO participated', ''), 
-                className = "kpi_container"
+                children = create_ez_kpi(self.main_kpis[2], [], 'IDO participated', '', False), 
+                className = "kpi_container",
+                style = {'width': '33%', 'display': 'inline-block'}
             ),
 
             html.Div(
-                children = kpi_single(self.main_kpis[3], 'Total purchase transactions', ''), 
-                className = "kpi_container"
+                children = create_ez_kpi(self.main_kpis[3], [], 'Total purchase transactions', '', False), 
+                className = "kpi_container",
+                style = {'width': '33%', 'display': 'inline-block'}
             ),
 
-            dcc.Graph(
-                id = 'user-usd-by-launchpad',
-                figure = self.data_by_launchpad[0],
-                config = config,
-            ),
+            html.Div([
+                html.P(["Explorer"],className = "title_small"),
+                html.Div([
+                    html.Div(
+                        children = create_ez_kpi(self.launchpad, self.description, '', 'Explore purchase transactions for specific wallet', True),
+                        className = "kpi_container", 
+                        id = 'explorer-idos',
+                        style = {'width': '100%', 'display': 'inline-block'}
+                    ),
+                ],),
+            ], className = "single_column"),
 
-            dcc.Graph(
-                id = 'usd-by-launchpad-by-sale',
-                figure = self.data_by_sale[0],
-                config = config,
-            )
         ]),
 
         return children
@@ -90,17 +95,29 @@ class TopUsers():
 layout = html.Div(children = [
 
     html.Div([
-        dcc.Link(
-            "Home", href = '/'
+        html.Img(src = "assets/DataLab.svg", alt = " ", className = "if-ico"),
+    ],className = "header-title"),
+
+    html.Div([
+        html.Iframe(
+            src = "assets/other_dashboards_list.html",
+            className = "list-dash"
         )
-    ], className = "home_button"),
+    ], id = 'dashboard-list'),
+
+    html.Div([
+        html.Iframe(
+            src = "assets/subtabs_dashboards.html",
+            className = "list-dash"
+        )
+    ], id = 'dashboard-list'),
 
     html.H6(children = "Enter your wallet to continue:", className = "main-header-title"),
 
     html.Div([
         dcc.Input(id = 'wallet-address', value = '0x...', type = 'text'),
         html.Button('Submit', id = 'submit-wallet', n_clicks = 0),
-    ]),
+    ], className = "web_style_input"),
     
     html.Div(id = 'output-render-user'),
 ])
@@ -123,4 +140,4 @@ def update_rerender_user(n_clicks, input_wallet):
         return topClass.rerender()
     
     else:
-        return 'Enter address: 0x...'
+        return ''

@@ -6,7 +6,9 @@
         "project_name": "IDIA",
         "sale_type": "Unlimited Sale",
         "launch_order": "0",
-        "size": "4_000_000"
+        "size": "4_000_000",
+        "staking_contract": "0x1aBd0067f60513F152ff14E9cD26a62c820d022C",
+        "trackId": "0"
     },
     {
         "blockchain": "bnb",
@@ -27,14 +29,18 @@
         "size": "628_000"
     },
 
+
+
     {
-      "blockchain": "bnb",
-      "pool_address": "0x69b9737aff26bc528ffee4cc3257407be6a13252",
-      "launchpad": "OpenSwap",
-      "project_name": "OpenSwap",
-      "sale_type": "Standard Sale",
-      "launch_order": "1",
-      "size": "4_112_500"
+        "blockchain": "bnb",
+        "pool_address": "0x69b9737aff26bc528ffee4cc3257407be6a13252",
+        "launchpad": "OpenSwap",
+        "project_name": "OpenSwap",
+        "sale_type": "Standard Sale",
+        "launch_order": "1",
+        "size": "4_112_500",
+        "staking_contract": "0x1aBd0067f60513F152ff14E9cD26a62c820d022C",
+        "trackId": "1"
     },
     {
         "blockchain": "bnb",
@@ -43,7 +49,9 @@
         "project_name": "OpenSwap",
         "sale_type": "Unlimited Sale",
         "launch_order": "1",
-        "size": "4_112_500"
+        "size": "4_112_500",
+        "staking_contract": "0x1aBd0067f60513F152ff14E9cD26a62c820d022C",
+        "trackId": "2"
     },
     {
         "blockchain": "bnb",
@@ -73,7 +81,9 @@
         "project_name": "Blocto",
         "sale_type": "Standard Sale",
         "launch_order": "2",
-        "size": "250_000"
+        "size": "250_000",
+        "staking_contract": "0x1aBd0067f60513F152ff14E9cD26a62c820d022C",
+        "trackId": "3"
     },
     {
         "blockchain": "bnb",
@@ -82,7 +92,9 @@
         "project_name": "Blocto",
         "sale_type": "Unlimited Sale",
         "launch_order": "2",
-        "size": "250_000"
+        "size": "250_000",
+        "staking_contract": "0x1aBd0067f60513F152ff14E9cD26a62c820d022C",
+        "trackId": "4"
     },
 
 
@@ -94,7 +106,9 @@
         "project_name": "Highstreet",
         "sale_type": "Standard Sale",
         "launch_order": "3",
-        "size": "500_000"
+        "size": "500_000",
+        "staking_contract": "0x1aBd0067f60513F152ff14E9cD26a62c820d022C",
+        "trackId": "5"
     },
     {
         "blockchain": "bnb",
@@ -103,7 +117,9 @@
         "project_name": "Highstreet",
         "sale_type": "Unlimited Sale",
         "launch_order": "3",
-        "size": "500_000"
+        "size": "500_000",
+        "staking_contract": "0x1aBd0067f60513F152ff14E9cD26a62c820d022C",
+        "trackId": "6"
     },
     {
         "blockchain": "bnb",
@@ -151,7 +167,9 @@
         "project_name": "Ariadne",
         "sale_type": "Standard Sale",
         "launch_order": "4",
-        "size": "200_000"
+        "size": "200_000",
+        "staking_contract": "0x1aBd0067f60513F152ff14E9cD26a62c820d022C",
+        "trackId": "7"
     },
     {
         "blockchain": "bnb",
@@ -160,7 +178,9 @@
         "project_name": "Ariadne",
         "sale_type": "Unlimited Sale",
         "launch_order": "4",
-        "size": "200_000"
+        "size": "200_000",
+        "staking_contract": "0x1aBd0067f60513F152ff14E9cD26a62c820d022C",
+        "trackId": "8"
     },
 
 
@@ -171,7 +191,9 @@
         "project_name": "Genopets",
         "sale_type": "Standard Sale",
         "launch_order": "5",
-        "size": "225_000"
+        "size": "225_000",
+        "staking_contract": "0x1aBd0067f60513F152ff14E9cD26a62c820d022C",
+        "trackId": "12"
     },
     {
         "blockchain": "bnb",
@@ -180,7 +202,9 @@
         "project_name": "Genopets",
         "sale_type": "Unlimited Sale",
         "launch_order": "5",
-        "size": "225_000"
+        "size": "225_000",
+        "staking_contract": "0x1aBd0067f60513F152ff14E9cD26a62c820d022C",
+        "trackId": "13"
     },
     {
         "blockchain": "bnb",
@@ -201,7 +225,9 @@
         "project_name": "Sportium",
         "sale_type": "Standard Sale",
         "launch_order": "6",
-        "size": "5_000_000"
+        "size": "5_000_000",
+        "staking_contract": "0x1d37f1e6f0cce814f367d2765ebad5448e59b91b",
+        "trackId": "4"
     },
     {
         "blockchain": "bnb",
@@ -210,7 +236,9 @@
         "project_name": "Sportium",
         "sale_type": "Unlimited Sale",
         "launch_order": "6",
-        "size": "5_000_000"
+        "size": "5_000_000",
+        "staking_contract": "0x1d37f1e6f0cce814f367d2765ebad5448e59b91b",
+        "trackId": "5"
     },
     {
         "blockchain": "bnb",
@@ -230,7 +258,9 @@
         "project_name": "Fancy Games",
         "sale_type": "Standard Sale",
         "launch_order": "7",
-        "size": "3_000_000"
+        "size": "3_000_000",
+        "staking_contract": "0x1d37f1e6f0cce814f367d2765ebad5448e59b91b",
+        "trackId": "6"
     },
     {
         "blockchain": "bnb",
@@ -239,7 +269,9 @@
         "project_name": "Fancy Games",
         "sale_type": "Unlimited Sale",
         "launch_order": "7",
-        "size": "3_000_000"
+        "size": "3_000_000",
+        "staking_contract": "0x1d37f1e6f0cce814f367d2765ebad5448e59b91b",
+        "trackId": "7"
     },
     {
         "blockchain": "bnb",
@@ -260,7 +292,9 @@
         "project_name": "Ouro",
         "sale_type": "Standard Sale",
         "launch_order": "8",
-        "size": "20_000_000"
+        "size": "20_000_000",
+        "staking_contract": "0x1d37f1e6f0cce814f367d2765ebad5448e59b91b",
+        "trackId": "0"
     },
     {
         "blockchain": "bnb",
@@ -269,7 +303,9 @@
         "project_name": "Ouro",
         "sale_type": "Unlimited BUSD Sale",
         "launch_order": "8",
-        "size": "15_000_000"
+        "size": "15_000_000",
+        "staking_contract": "0x1d37f1e6f0cce814f367d2765ebad5448e59b91b",
+        "trackId": "1"
     },
     {
         "blockchain": "bnb",
@@ -278,7 +314,9 @@
         "project_name": "Ouro",
         "sale_type": "Unlimited IDIA Sale",
         "launch_order": "8",
-        "size": "15_000_000"
+        "size": "15_000_000",
+        "staking_contract": "0x1d37f1e6f0cce814f367d2765ebad5448e59b91b",
+        "trackId": "2"
     },
     {
         "blockchain": "bnb",
@@ -299,6 +337,9 @@
         "size": "1_200_000"
     },
 
+
+
+
     {
         "blockchain": "bnb",
         "pool_address": "0xBAbC012D1be33e8Ae15aD0034f20eaE07359Fe36",
@@ -306,7 +347,9 @@
         "project_name": "Starbots",
         "sale_type": "Standard Sale",
         "launch_order": "9",
-        "size": "2_250_000"
+        "size": "2_250_000",
+        "staking_contract": "0x1d37f1e6f0cce814f367d2765ebad5448e59b91b",
+        "trackId": "9"
     },
     {
         "blockchain": "bnb",
@@ -315,7 +358,9 @@
         "project_name": "Starbots",
         "sale_type": "Unlimited Sale",
         "launch_order": "9",
-        "size": "2_250_000"
+        "size": "2_250_000",
+        "staking_contract": "0x1d37f1e6f0cce814f367d2765ebad5448e59b91b",
+        "trackId": "10"
     },
     {
         "blockchain": "bnb",
@@ -327,6 +372,9 @@
         "size": "250_000"
     },
 
+
+
+
     {
         "blockchain": "bnb",
         "pool_address": "0x2bEf414A3Ec52B5426b8b9bac329D8CD95dfc916",
@@ -334,7 +382,9 @@
         "project_name": "Basketballverse",
         "sale_type": "Standard Sale",
         "launch_order": "10",
-        "size": "1_000_000"
+        "size": "1_000_000",
+        "staking_contract": "0x1d37f1e6f0cce814f367d2765ebad5448e59b91b",
+        "trackId": "13"
     },
     {
         "blockchain": "bnb",
@@ -343,7 +393,9 @@
         "project_name": "Basketballverse",
         "sale_type": "Unlimited Sale",
         "launch_order": "10",
-        "size": "1_000_000"
+        "size": "1_000_000",
+        "staking_contract": "0x1d37f1e6f0cce814f367d2765ebad5448e59b91b",
+        "trackId": "14"
     },
     {
         "blockchain": "bnb",
@@ -372,7 +424,9 @@
         "project_name": "Aurigami",
         "sale_type": "Standard Sale",
         "launch_order": "11",
-        "size": "50_000_000"
+        "size": "50_000_000",
+        "staking_contract": "0x1d37f1e6f0cce814f367d2765ebad5448e59b91b",
+        "trackId": "15"
     },
     {
         "blockchain": "bnb",
@@ -381,7 +435,9 @@
         "project_name": "Aurigami",
         "sale_type": "Unlimited Sale",
         "launch_order": "11",
-        "size": "50_000_000"
+        "size": "50_000_000",
+        "staking_contract": "0x1d37f1e6f0cce814f367d2765ebad5448e59b91b",
+        "trackId": "16"
     },
     {
         "blockchain": "bnb",
@@ -401,7 +457,9 @@
         "project_name": "Ruby",
         "sale_type": "Standard Sale",
         "launch_order": "12",
-        "size": "1_000_000"
+        "size": "1_000_000",
+        "staking_contract": "0xfC652Ea2E8A373C16f3d8c5BD25E9898b9699ECB",
+        "trackId": "0"
     },
     {
         "blockchain": "bnb",
@@ -410,7 +468,9 @@
         "project_name": "Ruby",
         "sale_type": "Unlimited Sale",
         "launch_order": "12",
-        "size": "1_000_000"
+        "size": "1_000_000",
+        "staking_contract": "0xfC652Ea2E8A373C16f3d8c5BD25E9898b9699ECB",
+        "trackId": "1"
     },
     {
         "blockchain": "bnb",
@@ -431,7 +491,9 @@
         "project_name": "Aura",
         "sale_type": "Standard Sale",
         "launch_order": "13",
-        "size": "6_000_000"
+        "size": "6_000_000",
+        "staking_contract": "0xfC652Ea2E8A373C16f3d8c5BD25E9898b9699ECB",
+        "trackId": "2"
     },
     {
         "blockchain": "bnb",
@@ -440,7 +502,9 @@
         "project_name": "Aura",
         "sale_type": "Unlimited Sale",
         "launch_order": "13",
-        "size": "4_000_000"
+        "size": "4_000_000",
+        "staking_contract": "0xfC652Ea2E8A373C16f3d8c5BD25E9898b9699ECB",
+        "trackId": "3"
     },
     {
         "blockchain": "bnb",
@@ -449,7 +513,9 @@
         "project_name": "Aura",
         "sale_type": "vIDIA Sale",
         "launch_order": "13",
-        "size": "1_000_000"
+        "size": "1_000_000",
+        "staking_contract": "0xfC652Ea2E8A373C16f3d8c5BD25E9898b9699ECB",
+        "trackId": "4"
     },
 
 
@@ -460,7 +526,9 @@
         "project_name": "Quoll Finance",
         "sale_type": "Standard Sale",
         "launch_order": "14",
-        "size": "2_500_000"
+        "size": "2_500_000",
+        "staking_contract": "0xfC652Ea2E8A373C16f3d8c5BD25E9898b9699ECB",
+        "trackId": "7"
     },
     {
         "blockchain": "bnb",
@@ -469,7 +537,9 @@
         "project_name": "Quoll Finance",
         "sale_type": "vIDIA Standart Sale",
         "launch_order": "14",
-        "size": "24_500_000"
+        "size": "24_500_000",
+        "staking_contract": "0xfC652Ea2E8A373C16f3d8c5BD25E9898b9699ECB",
+        "trackId": "8"
     },
     {
         "blockchain": "bnb",
@@ -478,7 +548,9 @@
         "project_name": "Quoll Finance",
         "sale_type": "vIDIA Unlimited Sale",
         "launch_order": "14",
-        "size": "18_000_000"
+        "size": "18_000_000",
+        "staking_contract": "0xfC652Ea2E8A373C16f3d8c5BD25E9898b9699ECB",
+        "trackId": "9"
     },
     {
         "blockchain": "bnb",
@@ -500,7 +572,9 @@
         "project_name": "Pine Protocol",
         "sale_type": "IDIA Standard Sale",
         "launch_order": "15",
-        "size": "65_000"
+        "size": "65_000",
+        "staking_contract": "0xfC652Ea2E8A373C16f3d8c5BD25E9898b9699ECB",
+        "trackId": "10"
     },
     {
         "blockchain": "bnb",
@@ -509,7 +583,9 @@
         "project_name": "Pine Protocol",
         "sale_type": "vIDIA Standard Sale",
         "launch_order": "15",
-        "size": "600_000"
+        "size": "600_000",
+        "staking_contract": "0xfC652Ea2E8A373C16f3d8c5BD25E9898b9699ECB",
+        "trackId": "11"
     },
     {
         "blockchain": "bnb",
@@ -518,7 +594,9 @@
         "project_name": "Pine Protocol",
         "sale_type": "vIDIA Unlimited Sale",
         "launch_order": "15",
-        "size": "475_000"
+        "size": "475_000",
+        "staking_contract": "0xfC652Ea2E8A373C16f3d8c5BD25E9898b9699ECB",
+        "trackId": "12"
     },
     {
         "blockchain": "bnb",
@@ -584,7 +662,9 @@
         "project_name": "Humanode",
         "sale_type": "IDIA standard",
         "launch_order": "16",
-        "size": "800_000"
+        "size": "80_000",
+        "staking_contract": "0xfC652Ea2E8A373C16f3d8c5BD25E9898b9699ECB",
+        "trackId": "17"
     },
     {
         "blockchain": "bnb",
@@ -593,7 +673,9 @@
         "project_name": "Humanode",
         "sale_type": "vIDIA standard",
         "launch_order": "16",
-        "size": "1_040_000"
+        "size": "1_040_000",
+        "staking_contract": "0xfC652Ea2E8A373C16f3d8c5BD25E9898b9699ECB",
+        "trackId": "18"
     },
     {
         "blockchain": "bnb",
@@ -602,7 +684,9 @@
         "project_name": "Humanode",
         "sale_type": "vIDIA unlimited",
         "launch_order": "16",
-        "size": "800_000"
+        "size": "800_000",
+        "staking_contract": "0xfC652Ea2E8A373C16f3d8c5BD25E9898b9699ECB",
+        "trackId": "19"
     },
     {
         "blockchain": "bnb",
@@ -611,7 +695,9 @@
         "project_name": "Humanode",
         "sale_type": "c98 unlimited",
         "launch_order": "16",
-        "size": "666_666"
+        "size": "666_666",
+        "staking_contract": "0xfC652Ea2E8A373C16f3d8c5BD25E9898b9699ECB",
+        "trackId": "20"
     },
     {
         "blockchain": "bnb",
@@ -649,7 +735,9 @@
         "project_name": "Arken",
         "sale_type": "IDIA standard (BNB Chain)",
         "launch_order": "17",
-        "size": "5_000_000"
+        "size": "5_000_000",
+        "staking_contract": "0xfC652Ea2E8A373C16f3d8c5BD25E9898b9699ECB",
+        "trackId": "13"
     },
     {
         "blockchain": "bnb",
@@ -658,7 +746,9 @@
         "project_name": "Arken",
         "sale_type": "vIDIA standard (BNB Chain)",
         "launch_order": "17",
-        "size": "100_000_000"
+        "size": "100_000_000",
+        "staking_contract": "0xfC652Ea2E8A373C16f3d8c5BD25E9898b9699ECB",
+        "trackId": "14"
     },
     {
         "blockchain": "bnb",
@@ -667,7 +757,9 @@
         "project_name": "Arken",
         "sale_type": "vIDIA unlimited (BNB Chain)",
         "launch_order": "17",
-        "size": "70_000_000"
+        "size": "70_000_000",
+        "staking_contract": "0xfC652Ea2E8A373C16f3d8c5BD25E9898b9699ECB",
+        "trackId": "15"
     },
     {
         "blockchain": "bnb",
@@ -676,7 +768,9 @@
         "project_name": "Arken",
         "sale_type": "C98 unlimited (BNB Chain)",
         "launch_order": "17",
-        "size": "75_000_000"
+        "size": "75_000_000",
+        "staking_contract": "0xfC652Ea2E8A373C16f3d8c5BD25E9898b9699ECB",
+        "trackId": "16"
     },
     {
         "blockchain": "bnb",
@@ -757,7 +851,9 @@
         "project_name": "Arken",
         "sale_type": "IDIA standard (Arbitrum)",
         "launch_order": "17",
-        "size": "12_500_000"
+        "size": "12_500_000",
+        "staking_contract": "0xa9898C3E008d7a6F9DB82Ca18e40437b7e4bEAa4",
+        "trackId": "0"
     },
     {
         "blockchain": "arbitrum",
@@ -766,6 +862,159 @@
         "project_name": "Arken",
         "sale_type": "IDIA unlimited (Arbitrum)",
         "launch_order": "17",
-        "size": "50_000_000"
+        "size": "50_000_000",
+        "staking_contract": "0xa9898C3E008d7a6F9DB82Ca18e40437b7e4bEAa4",
+        "trackId": "1"
+    },
+
+
+
+
+    {
+        "blockchain": "bnb",
+        "pool_address": "0x32F8BaB58891deDc226Ce760f155362ab44C1920",
+        "launchpad": "Cruize",
+        "project_name": "Cruize",
+        "sale_type": "IDIA standard (BNB Chain)",
+        "launch_order": "18",
+        "size": "90_909",
+        "staking_contract": "0xfC652Ea2E8A373C16f3d8c5BD25E9898b9699ECB",
+        "trackId": "21"
+    },
+    {
+        "blockchain": "bnb",
+        "pool_address": "0x18c6255Dc4C724FA434bd85F15Ba94E9739b556D",
+        "launchpad": "Cruize",
+        "project_name": "Cruize",
+        "sale_type": "vIDIA standard (BNB Chain)",
+        "launch_order": "18",
+        "size": "2_181_818",
+        "staking_contract": "0xfC652Ea2E8A373C16f3d8c5BD25E9898b9699ECB",
+        "trackId": "22"
+    },
+    {
+        "blockchain": "bnb",
+        "pool_address": "0x288910AeFd8fCC99F7D6b4181154120aC00Ca85B",
+        "launchpad": "Cruize",
+        "project_name": "Cruize",
+        "sale_type": "vIDIA unlimited (BNB Chain)",
+        "launch_order": "18",
+        "size": "1_500_000",
+        "staking_contract": "0xfC652Ea2E8A373C16f3d8c5BD25E9898b9699ECB",
+        "trackId": "23"
+    },
+    {
+        "blockchain": "bnb",
+        "pool_address": "0x61114DC4b724beE3dFE8D61eC1B6146F1549c027",
+        "launchpad": "Cruize",
+        "project_name": "Cruize",
+        "sale_type": "Whitelist $50",
+        "launch_order": "18",
+        "size": "35_135"
+    },
+    {
+        "blockchain": "bnb",
+        "pool_address": "0x55834FD9AdB389992341D79048732B2CAfb1BB87",
+        "launchpad": "Cruize",
+        "project_name": "Cruize",
+        "sale_type": "Whitelist $150",
+        "launch_order": "18",
+        "size": "10_810"
+    },
+    {
+        "blockchain": "bnb",
+        "pool_address": "0x8062B74d14EfCD25A554eD04eD9be67Ae5F9E1A7",
+        "launchpad": "Cruize",
+        "project_name": "Cruize",
+        "sale_type": "Whitelist $100",
+        "launch_order": "18",
+        "size": "119_819"
+    },
+    {
+        "blockchain": "bnb",
+        "pool_address": "0x8CB23526F3e86533F825d40f661572Fa5Cb0C994",
+        "launchpad": "Cruize",
+        "project_name": "Cruize",
+        "sale_type": "Whitelist $200",
+        "launch_order": "18",
+        "size": "21_621"
+    },
+    {
+        "blockchain": "bnb",
+        "pool_address": "0x47E72666B840f2Ec30e2322D26B766dd9e8d525f",
+        "launchpad": "Cruize",
+        "project_name": "Cruize",
+        "sale_type": "Whitelist $400",
+        "launch_order": "18",
+        "size": "61_261"
+    },
+    {
+        "blockchain": "arbitrum",
+        "pool_address": "0xa0445faa507B0dB311B3ab2549c27f12c1CF7792",
+        "launchpad": "Cruize",
+        "project_name": "Cruize",
+        "sale_type": "IDIA standard (Arbitrum)",
+        "launch_order": "18",
+        "size": "181_818",
+        "staking_contract": "0xa9898C3E008d7a6F9DB82Ca18e40437b7e4bEAa4",
+        "trackId": "2"
+    },
+    {
+        "blockchain": "arbitrum",
+        "pool_address": "0x0F63351b3BcF77f36c51EeDbb1bD9417458046ee",
+        "launchpad": "Cruize",
+        "project_name": "Cruize",
+        "sale_type": "IDIA unlimited (Arbitrum)",
+        "launch_order": "18",
+        "size": "272_727",
+        "staking_contract": "0xa9898C3E008d7a6F9DB82Ca18e40437b7e4bEAa4",
+        "trackId": "3"
+    },
+
+
+
+
+
+    {
+        "blockchain": "bnb",
+        "pool_address": "0x1ccBF402baBeB5304ebC7a6f089d1d351e5076d8",
+        "launchpad": "Brickken",
+        "project_name": "Brickken",
+        "sale_type": "IDIA standard",
+        "launch_order": "19",
+        "size": "230_769",
+        "staking_contract": "0x7a63846D7c1F2718Cd548Df853746Ca2e81B61d2",
+        "trackId": "0"
+    },
+    {
+        "blockchain": "bnb",
+        "pool_address": "0xD2a41F8b537Bc859e1f85315954789383a74D9ea",
+        "launchpad": "Brickken",
+        "project_name": "Brickken",
+        "sale_type": "vIDIA standard",
+        "launch_order": "19",
+        "size": "2_461_538",
+        "staking_contract": "0x7a63846D7c1F2718Cd548Df853746Ca2e81B61d2",
+        "trackId": "1"
+    },
+    {
+        "blockchain": "bnb",
+        "pool_address": "0x7C23332D4B58E56DCE93276Fe683d98E95BD45D4",
+        "launchpad": "Brickken",
+        "project_name": "Brickken",
+        "sale_type": "vIDIA unlimited",
+        "launch_order": "19",
+        "size": "1_615_384",
+        "staking_contract": "0x7a63846D7c1F2718Cd548Df853746Ca2e81B61d2",
+        "trackId": "2"
+    },
+    {
+        "blockchain": "bnb",
+        "pool_address": "0xE8e7B5564a1Bc0d6061e48a55532f4b03a948C87",
+        "launchpad": "Brickken",
+        "project_name": "Brickken",
+        "sale_type": "Whitelist $100",
+        "launch_order": "19",
+        "size": "265_385"
     }
 ]

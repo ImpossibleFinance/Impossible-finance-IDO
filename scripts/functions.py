@@ -3,9 +3,18 @@ import pandas as pd
 from plotly.subplots import make_subplots
 import json
 import os
+import numpy as np
+import pathlib
+from random import randint
 
-from dash import html
+from dash import html, Dash
 import plotly.graph_objs as go
+
+from dune_client.types import QueryParameter
+from dune_client.client import DuneClient
+from dune_client.query import Query
+
+
 
 kpi_style = {
     'display': 'flex', 
@@ -15,28 +24,41 @@ kpi_style = {
 }
 
 def number_format(number):
-    units = ['', 'K', 'M', 'B', 'T', 'P']
-    k = 1000.0
-    magnitude = int(floor(log(number, k)))
-    return '%.2f%s' % (number / k**magnitude, units[magnitude])
+    if abs(float(number)) > 1:
+        units = ['', 'K', 'M', 'B', 'T', 'P']
+        k = 1000.0
+        magnitude = int(floor(log(number, k)))
+        if isinstance(number, float):
+            return '%.2f%s' % (number / k**magnitude, units[magnitude])
+        if isinstance(number, int):
+            return '%d%s' % (number / k**magnitude, units[magnitude])
+    else:
+        dist = int(('%e' %number).partition('-')[2]) - 1
+        format = '%.' + str(dist + 2) + 'f'
+        return format %number
+
+
+
+
+
 
 def read_data_from_csv(path):
     df = pd.read_csv(path)
 
+    lower_columns = ['hash', 'from', 'to']
+
     if 'Date(UTC)' in df:
         df['Date(UTC)'] = pd.to_datetime(pd.to_datetime(df['Date(UTC)']).dt.strftime('%Y-%m-%d'))
+
+    for low in lower_columns:
+        if low in df:
+            df[low] = df[low].str.lower()
     
-    if 'hash' in df:
-        df['hash'] = df['hash'].str.lower()
-
-    if 'from' in df:
-        df['from'] = df['from'].str.lower()
-
-    if 'to' in df:
-        df['to'] = df['to'].str.lower()
-    
-
     return df
+
+
+
+
 
 
 def total_sum(data, value, group_by):
@@ -56,23 +78,11 @@ def average(data, value, group_by):
 
     return data_average
 
-def find_ath(data, group_by, max_index, max_over_index, title):
 
-    groups = data[group_by].unique()
-    
-    ath = []
-    chains = []
 
-    for group in groups:
-        data_group = data[data[group_by] == group]
-
-        idmax = data_group[max_index].idxmax()
-
-        ath_stat = number_format(float(data_group[max_index][idmax])) + ' - ' + (str(data_group[max_over_index][idmax])).replace('00:00:00', '')
-        ath.append(ath_stat)
-        chains.append(group)
-
-    return kpi(chains, ath, title, '')
+#################################################################################################################
+################################################# MAIN CHARTS ###################################################
+#################################################################################################################
 
 
 def creal_graph():
@@ -89,217 +99,476 @@ def creal_graph():
 
     return fig
 
-def kpi_single(value, title, subtitle):
 
-    div_output = (
-        html.Span([
-            html.H3(number_format(float(value)), className = "values_single_kpi") if type(value) != str else html.Span(value, className = "values_single_kpi"),
-        ], style = kpi_style
-        ),
-    )
+######################################################################
+############################### KPI ##################################
+######################################################################
 
-    counter = html.Div([
-        html.H1(children = title),
-        html.H3(children = subtitle),
-        html.Div(children = div_output)
-    ], className = "card_container"),
 
-    return counter
 
-def kpi(chains, values, title, subtitle):
+class KPI():
 
-    if len(chains) != len(values):
-        print("errorrrrr")
-        return None
+    def __init__(self, column_A, column_B, title, subtitle, pics):
+        
+        self.column_A = column_A
+        self.column_B = column_B
 
-    div_output = []
+        self.pics = pics
 
-    for j in range(len(chains)):
-        div_output.append(
+        if len(self.column_B) == 0:
+
+            self.div_output = self.single()
+
+            self.counter = html.Div([
+                html.H2(children = title),
+                html.H3(children = subtitle),
+                html.Div(children = self.div_output)
+            ], className = "card_container"),
+
+        else:
+
+            self.div_output = self.double()
+
+            self.counter = html.Div([
+                html.H1(children = title),
+                html.H3(children = subtitle),
+                html.Div(children = self.div_output)
+            ], className = "card_container"),
+
+    def single(self):
+
+        div_output = (
             html.Span([
-                html.Img(src = "assets/" + (chains[j]).lower() + ".png", height = 22),
-                html.Span(chains[j], className = "chains_list_kpi"),
-                html.Span(number_format(float(values[j])), className = "values_list_kpi") if type(values[j]) != str else html.Span(values[j], className = "values_list_kpi"),
+                html.A(number_format(self.column_A)) if type(self.column_A) != str else html.A(self.column_A),
             ], style = kpi_style
             ),
         )
 
-    counter = html.Div([
-        html.H1(children = title),
-        html.H3(children = subtitle),
-        html.Div(children = div_output)
-    ], className = "card_container"),
+        return div_output
+    
+    def double(self):
 
-    return counter
+        div_output = []
 
-def fig_line_over_time_secondary_y(data, x, y, group_by, right_axis_data, config):
+        for j in range(len(self.column_A)):
+            if self.pics == True:
+                div_output.append(
+                    html.Span([
+                        html.Img(src = "assets/" + (self.column_A[j]).lower() + ".png", height = 22),
+                        html.Span(self.column_A[j], className = "a_list_kpi"),
+                        html.Span(number_format(self.column_B[j]), className = "b_list_kpi") if type(self.column_B[j]) != str else html.Span(self.column_B[j], className = "b_list_kpi"),
+                    ], style = kpi_style
+                    ),
+                )
+                
+            else:
+                div_output.append(
+                    html.Span([
+                        html.Span(self.column_A[j], className = "a_list_kpi"),
+                        html.Span(number_format(self.column_B[j]), className = "b_list_kpi") if type(self.column_B[j]) != str else html.Span(self.column_B[j], className = "b_list_kpi"),
+                    ], style = kpi_style
+                    ),
+                )
 
-    if config != False:
-        for item in config:
-            if item[group_by.lower()] == (data[group_by].unique())[0]:
-                first_color = item['colors']
-            if item[group_by.lower()] == (right_axis_data[group_by].unique())[0]:
-                second_color = item['colors']
+        return div_output
 
-    fig = make_subplots(specs = [[{"secondary_y": True}]])
+    def get_figure(self):
+        return self.counter
 
-    fig.add_trace(
-        go.Scatter(
-            x = data[x],
-            y = data[y],
-            showlegend = False,
-            name = (data[group_by].unique())[0],
-            marker_color = first_color
-        ),
-        secondary_y = False,
-    )
+def create_ez_kpi(column_A, column_B, title, subtitle, pics):
 
-    fig.add_trace(
-        go.Scatter(
-            x = right_axis_data[x],
-            y = right_axis_data[y],
-            showlegend = False,
-            name = (right_axis_data[group_by].unique())[0],
-            marker_color = second_color
-        ),
-        secondary_y = True,
-    )
+    ez_kpi = KPI(column_A, column_B, title, subtitle, pics)
 
-    fig.update_layout(
-        xaxis_title = x, 
-        yaxis_title = y,
-        height = 500,
-        hovermode = "x unified",
-        plot_bgcolor = '#171730',
-        paper_bgcolor = '#171730',
-        font = dict(color = 'white'),
-    )
+    return ez_kpi.get_figure()
 
-    return fig
+######################################################################
+############################### LINE #################################
+######################################################################
 
 
-def fig_line_over_time(data, x, y, group_by, config, log_scale):
-    fig_line = go.Figure()
+class Line():
+    def __init__(self, data, x, y1, y2, _group_by, _config, _log_scale, _colors):
 
-    groups = data[group_by].unique()
+        self.log_scale = _log_scale
 
-    if config != False:
-        for group in groups:
-            data_group = data[data[group_by] == group]
-            fig_line.add_trace(go.Scatter(
-                x = data_group[x], 
-                y = data_group[y],
-                name = group,
-                showlegend = False,
-                marker_color = ((list(filter(lambda xx:xx["chain_name"] == group, config)))[0]["colors"])
-                ))
-    else:
-        for group in groups:
-            data_group = data[data[group_by] == group]
-            fig_line.add_trace(go.Scatter(
-                x = data_group[x], 
-                y = data_group[y],
-                name = group,
-                showlegend = False,
-                ))
-            
-    fig_line.update_layout(
-        xaxis_title = x, 
-        yaxis_title = y,
-        height = 500,
-        hovermode = "x unified",
-        plot_bgcolor = '#171730',
-        paper_bgcolor = '#171730',
-        font = dict(color = 'white'),
-    )
+        if y2 == None:
+            self.ez_lines = go.Figure()
+            if _group_by == None:
+                self.make_simple_line(data, x, y1, _colors[0])
+            else:
+                self.make_single_line(data, x, y1, _group_by, _config)
 
-    for i, d in enumerate(fig_line.data):
-        fig_line.add_scatter(
-            x = [d.x[-1]], 
-            y = [d.y[-1]],
-            mode = 'markers',
-            marker = dict(color = d.marker.color, size = 10),
-            hoverinfo = 'skip',
-            showlegend = False,
+
+            for i, d in enumerate(self.ez_lines.data):
+                self.ez_lines.add_scatter(
+                    x = [d.x[-1]], 
+                    y = [d.y[-1]],
+                    mode = 'markers',
+                    marker = dict(color = d.marker.color, size = 10),
+                    hoverinfo = 'skip',
+                    showlegend = False,
+                )
+
+        else:
+            self.ez_lines = make_subplots(specs = [[{"secondary_y": True}]])
+            self.make_sub_line(data, x, y1, y2, _colors)
+
+
+        self.ez_lines.update_layout(
+            xaxis_title = x, 
+            yaxis_title = y1,
+            height = 500,
+            hovermode = "x unified",
+            plot_bgcolor = '#171730',
+            paper_bgcolor = '#171730',
+            font = dict(color = 'white'),
+            showlegend = False
         )
-    if log_scale == True:
-        fig_line.update_yaxes(type = "log")
+
+        if y2 != None:
+            self.ez_lines.update_layout(
+                yaxis2_title = y2
+            )
             
-    return fig_line
+        self.ez_lines.update_xaxes(tickangle = 45)
+
+        self.check_if_log()
+
+    def add_figure(self, _data, _x, _y, _name, _color):
+
+        if _color != None:
+            self.ez_lines.add_trace(go.Scatter(
+                x = _data[_x],
+                y = _data[_y],
+                name = _name,
+                marker_color = _color,
+                showlegend = False
+            ))
+
+        else:
+            self.ez_lines.add_trace(go.Scatter(
+                x = _data[_x],
+                y = _data[_y],
+                name = _name,
+                showlegend = False
+            ))
+
+        return True
+    
+    def make_simple_line(self, data, x, y1, _color):
+
+        self.add_figure(data, x, y1, y1, _color)
+
+        return True
+
+    def make_single_line(self, data, x, y1, _group_by, _config):
+        
+        self.groups = data[_group_by].unique()
+
+        for group in self.groups:
+            data_group = data[data[_group_by] == group]
+
+            if _config == None:
+                self.add_figure(data_group, x, y1, group, None)
+            else:
+                self.add_figure(data_group, x, y1, group, ((list(filter(lambda xx:xx["chain_name"] == group, _config)))[0]["colors"]))
 
 
+        return True
 
-def distribution_bars(data, x, y, group_by, config, stack):
+    def make_sub_line(self, data, x, y1, y2, _colors):
 
-    groups = data[group_by].unique()
+        self.ez_lines.add_trace(
+            go.Scatter(
+                x = data[x],
+                y = data[y1],
+                showlegend = False,
+                name = y1,
+                legendgroup = 1,
+                marker_color = _colors[0]
+            ),
+            secondary_y = False,
+        )
 
-    fig_distribution = go.Figure()
+        self.ez_lines.add_trace(
+            go.Scatter(
+                x = data[x],
+                y = data[y2],
+                showlegend = False,
+                name = y2,
+                legendgroup = 2,
+                marker_color = _colors[1]
+            ),
+            secondary_y = True,
+        )
 
-    if config != False:
-        for group in groups:
-            data_group = data[data[group_by] == group]
-            fig_distribution.add_trace(go.Bar(
-                x = data_group[x], 
-                y = data_group[y],
-                name = group,
-                marker_color = ((list(filter(lambda xx:xx["chain_name"] == group, config)))[0]["colors"])
-                ))
+    def check_if_log(self):
+
+        if self.log_scale:
+            self.ez_lines.update_yaxes(type = "log")
+
+        return True
+    
+    def get_figure(self):
+        return self.ez_lines
+
+
+def create_ez_line(data, x, y1, y2, _group_by, _config, _log, _colors):
+
+    ez_lines = Line(data, x, y1, y2, _group_by, _config, _log, _colors)
+
+    return ez_lines.get_figure()
+
+
+#######################################################################
+############################### BARS ##################################
+#######################################################################
+
+class Bar():
+
+    def __init__(self, data, x, y1, y2, _group_by, _config, _stack, _colors):
+
+        self.stack = _stack
+
+        if y2 == None:
+            self.ez_bars = go.Figure()
+            if _group_by == None:
+                self.make_simple_bar(data, x, y1, _colors[0])
+            else:
+                self.make_single_bars(data, x, y1, _group_by, _config)
+
+        else:
+            self.ez_bars = make_subplots(specs = [[{"secondary_y": True}]])
+            self.make_sub_bars(data, x, y1, y2, _colors)
+
+
+        self.ez_bars.update_layout(
+            xaxis_title = x, 
+            yaxis_title = y1,
+            height = 500,
+            hovermode = "x unified",
+            plot_bgcolor = '#171730',
+            paper_bgcolor = '#171730',
+            font = dict(color = 'white'),
+            showlegend = False
+        )
+
+        if y2 != None:
+            self.ez_bars.update_layout(
+                yaxis2_title = y2
+            )
             
-    else:
-        for group in groups:
-            data_group = data[data[group_by] == group]
-            fig_distribution.add_trace(go.Bar(
-                x = data_group[x], 
-                y = data_group[y],
-                name = group,
-                ))
-            
-    fig_distribution.update_layout(
-        xaxis_title = x, 
-        yaxis_title = y,
-        height = 500,
-        hovermode = "x unified",
-        plot_bgcolor = '#171730',
-        paper_bgcolor = '#171730',
-        font = dict(color = 'white'),
-        showlegend = False
-    )
 
-    fig_distribution.update_xaxes(tickangle = 45)
+        self.ez_bars.update_xaxes(tickangle = 45)
 
-    if stack == 'stack':
-        fig_distribution.update_layout(barmode='stack')
+        self.check_if_stacked()
+        
+    def make_sub_bars(self, data, x, y1, y2, _colors):
 
-    return fig_distribution
+        self.ez_bars.add_trace(
+            go.Bar(
+                x = data[x],
+                y = data[y1],
+                showlegend = False,
+                name = y1,
+                offsetgroup = 1,
+                marker_color = _colors[0]
+            ),
+            secondary_y = False,
+        )
 
-def pie_distribution(data, x, y, formated):
+        self.ez_bars.add_trace(
+            go.Bar(
+                x = data[x],
+                y = data[y2],
+                showlegend = False,
+                name = y2,
+                offsetgroup = 2,
+                marker_color = _colors[1]
+            ),
+            secondary_y = True,
+        )
 
-    fig_pie = go.Figure(data=[
-        go.Pie(
+        self.ez_bars.update_layout(
+            barmode = 'group',
+        )
+
+    def make_single_bars(self, data, x, y1, _group_by, _config):
+        
+        self.groups = data[_group_by].unique()
+
+        for group in self.groups:
+            data_group = data[data[_group_by] == group]
+
+            if _config == None:
+                self.add_figure(data_group, x, y1, group, None)
+            else:
+                self.add_figure(data_group, x, y1, group, ((list(filter(lambda xx:xx["chain_name"] == group, _config)))[0]["colors"]))
+
+
+        return True
+    
+    def make_simple_bar(self, data, x, y1, _color):
+
+        self.add_figure(data, x, y1, y1, _color)
+
+        return True
+
+    def add_figure(self, _data, _x, _y, _name, _color):
+
+        if _color != None:
+            self.ez_bars.add_trace(go.Bar(
+                x = _data[_x],
+                y = _data[_y],
+                name = _name,
+                marker_color = _color
+            ))
+
+        else:
+            self.ez_bars.add_trace(go.Bar(
+                x = _data[_x],
+                y = _data[_y],
+                name = _name
+            ))
+
+        return True
+    
+    def check_if_stacked(self):
+
+        if self.stack:
+            self.ez_bars.update_layout(barmode = 'stack')
+
+        return True
+
+    def get_figure(self):
+        return self.ez_bars
+        
+
+def create_ez_bar(data, x, y1, y2, _group_by, _config, _stack, _colors):
+
+    ez_bars = Bar(data, x, y1, y2, _group_by, _config, _stack, _colors)
+
+    return ez_bars.get_figure()
+
+
+
+######################################################################
+############################### PIE ##################################
+######################################################################
+
+
+class Pie():
+
+    def __init__(self, data, x, y):
+        
+        self.ez_pies = go.Figure(data=[go.Pie(
             labels = data[x], 
             values = data[y],
             text = data[y],
             textinfo = 'label',
             textfont = dict(size = 13),
             hole = 0.7,
-            hovertemplate = '%' + formated + '<extra></extra>',
-            rotation = 90)
-        ])
-    
-    fig_pie.update_layout(
-        height = 600,
-        plot_bgcolor = '#171730',
-        paper_bgcolor = '#171730',
-        font = dict(color = 'white'),
-        hovermode = 'closest',
-        showlegend = False
-        #legend = {
-        #    'orientation': 'h',
-        #    'xanchor': 'center',
-        #    'yanchor': 'top',
-        #    'x': 0.5,
-        #    'y': 1.25
-        #}
-    )
+            rotation = 90
+        )])
 
-    return fig_pie
+        self.ez_pies.update_layout(
+            height = 600,
+            plot_bgcolor = '#171730',
+            paper_bgcolor = '#171730',
+            font = dict(color = 'white'),
+            hovermode = 'closest',
+            showlegend = False
+        )
+
+    def get_figure(self):
+        return self.ez_pies
+    
+
+######################################################################
+############################# SCATTER ################################
+######################################################################
+
+
+class Scatter():
+
+    def __init__(self, data, x, y1, y2, _group_by, _config, _colors):
+
+        if y2 == None:
+            self.ez_scatters = go.Figure()
+            if _group_by == None:
+                #self.make_simple_scatter(data, x, y1, _colors[0])
+                pass
+            else:
+                self.make_single_scatter(data, x, y1, _group_by, _config)
+
+        else:
+            pass
+            #self.ez_scatters = make_subplots(specs = [[{"secondary_y": True}]])
+            #self.make_sub_scatters(data, x, y1, y2, _colors)
+
+
+        self.ez_scatters.update_layout(
+            xaxis_title = x, 
+            yaxis_title = y1,
+            height = 500,
+            hovermode = "x unified",
+            plot_bgcolor = '#171730',
+            paper_bgcolor = '#171730',
+            font = dict(color = 'white'),
+            showlegend = False
+        )
+
+        if y2 != None:
+            self.ez_scatters.update_layout(
+                yaxis2_title = y2
+            )
+            
+        self.ez_scatters.update_xaxes(tickangle = 45)
+
+    def make_single_scatter(self, data, x, y1, _group_by, _config):
+        
+        self.groups = data[_group_by].unique()
+
+        for group in self.groups:
+            data_group = data[data[_group_by] == group]
+
+            if _config == None:
+                self.add_figure(data_group, x, y1, group, None)
+            else:
+                self.add_figure(data_group, x, y1, group, ((list(filter(lambda xx:xx["chain_name"] == group, _config)))[0]["colors"]))
+
+
+        return True
+    
+    def add_figure(self, _data, _x, _y, _name, _color):
+
+        if _color != None:
+            self.ez_scatters.add_trace(go.Scatter(
+                x = _data[_x],
+                y = _data[_y],
+                mode = 'markers',
+                marker_size = 12,
+                name = _name,
+                marker_color = _color
+            ))
+
+        else:
+            self.ez_scatters.add_trace(go.Scatter(
+                x = _data[_x],
+                y = _data[_y],
+                mode = 'markers',
+                marker_size = 12,
+                name = _name
+            ))
+
+        return True
+    
+    def get_figure(self):
+        return self.ez_scatters
+    
+
+def create_ez_scatters(data, x, y1, y2, _group_by, _config, _colors):
+
+    ez_scatters = Scatter(data, x, y1, y2, _group_by, _config, _colors)
+
+    return ez_scatters.get_figure()

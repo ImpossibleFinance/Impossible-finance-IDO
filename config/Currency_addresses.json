@@ -16,5 +16,17 @@
         "name": "USDC",
         "contract_address": "0xFF970A61A04b1cA14834A43f5dE4533eBDDB5CC8",
         "decimals": "6"
+    },
+    {
+        "blockchain": "bnb",
+        "name": "USDT",
+        "contract_address": "0x55d398326f99059fF775485246999027B3197955",
+        "decimals": "18"
+    },
+    {
+        "blockchain": "arbitrum",
+        "name": "USDT",
+        "contract_address": "0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9",
+        "decimals": "6"
     }
 ]

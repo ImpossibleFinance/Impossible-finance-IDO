@@ -41,12 +41,12 @@ class UploadPrices():
         data = data.sort_values(by = ['date'], ascending = True)
 
 
-        first_two_year_data = pd.DataFrame(data[:720]['Price'], columns=['Price'])
-        first_two_year_data['Price'] = first_two_year_data['Price'].astype(float)
-        first_two_year_data['days_from_ido'] = first_two_year_data.index
-        first_two_year_data.round(3)
+        #first_two_year_data = pd.DataFrame(data[:720]['Price'], columns=['Price'])
+        #first_two_year_data['Price'] = first_two_year_data['Price'].astype(float)
+        #first_two_year_data['days_from_ido'] = first_two_year_data.index
+        data.round(3)
 
-        return first_two_year_data
+        return data
 
     def upload_prices(self):
 
@@ -63,12 +63,13 @@ class UploadPrices():
             if token != '-':
                 price_data = self.get_price(token)
                 price_data['roi'] = price_data['Price']/ido_price
+                price_data['token'] = token
 
                 data = pd.concat([csv_data, price_data])
 
                 data.to_csv('data/Prices.csv', index = False)
 
-                time.sleep(0.5)
+                time.sleep(1.5)
 
             k += 1
 
@@ -134,6 +135,8 @@ class UploadTransactions():
             return 'IDIA'
         if item['blockchain'] == 'arbitrum' and item['launchpad'] == 'Arken':
             return 'USDC'
+        if item['launch_order'] in ['18', '19']:
+            return 'USDT'
             
         return 'BUSD'
     
@@ -192,10 +195,94 @@ class UploadTransactions():
     def transactions_to_csv(self, blockchain, token_contract ,address):
 
         df = self.get_transactions_raw(blockchain, token_contract, address)
-        df = pd.DataFrame(df)
+
+        ########################################################
+        ############ More than 10k txs optimizer ###############
+        ########################################################
+
+
+        _df = df.copy()
+
+        if len(df) == 10000:
+            while len(df) == 10000:
+
+                max_blocknumber = df['blockNumber'][len(df)-1]
+
+                df = pd.DataFrame(self.add_transactions_raw(blockchain, token_contract, address, max_blocknumber))
+
+                _df = pd.concat([_df, df])
+
+                time.sleep(0.2)
+
+        df = _df.copy()
+        df = df.drop_duplicates(subset = ['hash'])
+        df = df.reset_index(drop = True)
+
+        ########################################################
+        ############## USDT on Arbitrum issues #################
+        ########################################################
 
         if df.empty:
-            return df
+            df = self.get_transactions_raw_issue(blockchain, address)
+
+            ########################################################
+            ############ More than 10k txs optimizer ###############
+            ########################################################
+
+
+            _df = df.copy()
+
+            if len(df) == 10000:
+                while len(df) == 10000:
+
+                    max_blocknumber = df['blockNumber'][len(df)-1]
+
+                    df = pd.DataFrame(self.add_transactions_raw_issue(blockchain, address, max_blocknumber))
+
+                    _df = pd.concat([_df, df])
+
+                    time.sleep(0.2)
+
+            df = _df.copy()
+            df = df.drop_duplicates(subset = ['hash'])
+            df = df.reset_index(drop = True)
+
+            df = df[df['methodId'] == '0x01fc191c']
+            df = df[df['txreceipt_status'] == '1']
+            df = df.reset_index(drop = True)
+
+            df['date'] = pd.to_datetime(df['timeStamp'],unit = 's')
+            df['tokenSymbol'] = 'USDT'
+            df['token_price'] = '1'
+            
+            df['launchpad'] = ((list(filter(lambda x:(x["pool_address"]).lower() == address and x["blockchain"] == blockchain, self.IDO_pools)))[0]["launchpad"])
+            df['sale_type'] = ((list(filter(lambda x:(x["pool_address"]).lower() == address and x["blockchain"] == blockchain, self.IDO_pools)))[0]["sale_type"])
+
+            df['blockchain'] = blockchain
+            df['amount'] = ('0x' + df['input'].str[10:74]).apply(int, base = 16)/10**6
+
+            df = df.drop([
+                'blockNumber',
+                'timeStamp', 
+                'nonce', 
+                'blockHash',
+                'transactionIndex',
+                'gas',
+                'contractAddress',
+                'cumulativeGasUsed',
+                'gasUsed',
+                'confirmations',
+                'methodId',
+                'functionName',
+                'gasPrice',
+                'isError',
+                'txreceipt_status',
+                'input',
+                'value',
+                'gasPriceBid'
+            ], axis = 1)
+
+            df = df.reindex(['hash','from','to','tokenSymbol','date','amount','token_price','launchpad','sale_type','blockchain'], axis=1)
         else:
             df['date'] = pd.to_datetime(df['timeStamp'],unit = 's')
             df = df[df.value != '0']
@@ -231,8 +318,24 @@ class UploadTransactions():
 
             df['blockchain'] = blockchain
 
-            return df
-        
+        return df
+    
+    def add_transactions_raw(self, blockchain, token_contract, address, start_block):
+
+        transactions_url = self.make_api_url(
+            blockchain,
+            token_contract,
+            address, 
+            startblock = start_block, 
+            endblock = 99999999, 
+            page = 1,
+            sort = "asc"
+        )
+
+        response = requests.get(transactions_url)
+        data = response.json()["result"]
+
+        return pd.DataFrame(data)
     
     def get_transactions_raw(self, blockchain, token_contract, address):
 
@@ -249,7 +352,9 @@ class UploadTransactions():
         response = requests.get(transactions_url)
         data = response.json()["result"]
 
-        return data
+        print(blockchain, token_contract, address, data)
+
+        return pd.DataFrame(data)
     
     def make_api_url(self, blockchain, token_contract, address, **kwargs):
         if blockchain == 'bnb':
@@ -266,17 +371,291 @@ class UploadTransactions():
             for key, value in kwargs.items():
                 url += f"&{key}={value}"
         return url
+    
+    ########################################################
+    ####################### IF ISSUE #######################
+    ########################################################
+    
+    def add_transactions_raw_issue(self, blockchain, address, start_block):
+
+        transactions_url = self.make_api_url_issue(
+            blockchain,
+            address, 
+            startblock = start_block, 
+            endblock = 99999999, 
+            page = 1,
+            sort = "asc"
+        )
+
+        response = requests.get(transactions_url)
+        data = response.json()["result"]
+
+        return pd.DataFrame(data)
+
+
+    def get_transactions_raw_issue(self, blockchain, address):
+
+        transactions_url = self.make_api_url_issue(
+            blockchain,
+            address, 
+            startblock = 0, 
+            endblock = 99999999, 
+            page = 1,
+            sort = "asc"
+        )
+
+        response = requests.get(transactions_url)
+        data = response.json()["result"]
+
+        print(blockchain, address, data)
+
+        return pd.DataFrame(data)
+    
+    def make_api_url_issue(self, blockchain, address, **kwargs):
+        if blockchain == 'bnb':
+            BASE_URL = "https://api.bscscan.com/api"
+            url = BASE_URL + f"?module=account&action=txlist&address={address}&apikey={self.API_KEY_BNB}"
+
+            for key, value in kwargs.items():
+                url += f"&{key}={value}"
+
+        if blockchain == 'arbitrum':
+            BASE_URL = "https://api.arbiscan.io/api"
+            url = BASE_URL + f"?module=account&action=txlist&address={address}&apikey={self.API_KEY_ARB}"
+
+            for key, value in kwargs.items():
+                url += f"&{key}={value}"
+        return url
+
+
+class UploadStaking():
+
+    def __init__(self):
+        
+        load_dotenv()
+        self.API_KEY_BNB = os.getenv('API_KEY_BNB')
+        self.API_KEY_ARB = os.getenv('API_KEY_ARB')
+
+
+        f = open('config/IDO_pools.json')
+        self.IDO_pools = json.load(f)
+        f.close()
+
+        self.file_path = 'data/staking_transactions_data.csv'
+
+    
+    def make_api_url(self, blockchain, address, **kwargs):
+        if blockchain == 'bnb':
+            BASE_URL = "https://api.bscscan.com/api"
+            url = BASE_URL + f"?module=account&action=txlist&address={address}&apikey={self.API_KEY_BNB}"
+
+            for key, value in kwargs.items():
+                url += f"&{key}={value}"
+
+        if blockchain == 'arbitrum':
+            BASE_URL = "https://api.arbiscan.io/api"
+            url = BASE_URL + f"?module=account&action=txlist&address={address}&apikey={self.API_KEY_ARB}"
+
+            for key, value in kwargs.items():
+                url += f"&{key}={value}"
+        return url
+    
+    def get_transactions_raw(self, blockchain, address):
+
+        transactions_url = self.make_api_url(
+            blockchain,
+            address, 
+            startblock = 0, 
+            endblock = 99999999, 
+            page = 1,
+            sort = "asc"
+        )
+
+        response = requests.get(transactions_url)
+        data = response.json()["result"]
+
+        return data
+
+    def add_transactions_raw(self, blockchain, address, start_block):
+
+        transactions_url = self.make_api_url(
+            blockchain,
+            address, 
+            startblock = start_block, 
+            endblock = 99999999, 
+            page = 1,
+            sort = "asc"
+        )
+
+        response = requests.get(transactions_url)
+        data = response.json()["result"]
+
+        return data
+    
+    def get_unique_contracts(self, contracts, chains):
+
+        _a = []
+
+        for i in range(len(contracts)):
+            _a.append(str(contracts[i]) + '/' + str(chains[i]))
+
+        check_old = input('Would you like to remove Old contracts and dont load it?[y/n] ')
+        print('*'*80)
+
+
+        if check_old == 'y':
+            with open('config/Old_staking_contracts.txt') as f_old:
+                old_contracts = [line.rstrip('\n') for line in f_old]
+        else:
+            old_contracts = []
+
+        if len(old_contracts) != 0:
+            return list(set(_a).difference(old_contracts))
+        else:
+            return list(set(_a))
+
+    def transactions_from_api(self, chain, wallet):
+
+        df = pd.DataFrame(self.get_transactions_raw(chain, wallet))
+
+        _df = df.copy()
+
+        if len(df) == 10000:
+            while len(df) == 10000:
+
+                max_blocknumber = df['blockNumber'][len(df)-1]
+
+                df = pd.DataFrame(self.add_transactions_raw(chain, wallet, max_blocknumber))
+
+                _df = pd.concat([_df, df])
+
+                time.sleep(0.1)
+
+        _df['date'] = pd.to_datetime(_df['timeStamp'],unit = 's')
+        df = _df.copy()
+        df = df.drop_duplicates(subset = ['hash'])
+        df = (df.loc[df['methodId'].isin(['0x770c5c12', '0xcbc50245'])])
+        df = df[df['txreceipt_status'] == '1']
+        df = df.reset_index(drop = True)
+
+        df['chain'] = chain
+        df['category'] = np.where(df['methodId'] == '0x770c5c12', 'Stake', np.where(df['methodId'] == '0xcbc50245', 'Unstake', 'Undefined'))
+        df['user'] = df['from']
+        df['value'] = ('0x' + df['input'].str[74:139]).apply(int, base = 16)
+        df['trackID'] = ('0x' + df['input'].str[10:74]).apply(int, base = 16)
+        df['contract'] = wallet.lower()
+        df = df.drop([
+            'blockNumber',
+            'timeStamp', 
+            'nonce', 
+            'blockHash',
+            'transactionIndex',
+            'from',
+            'to',
+            'gas',
+            'contractAddress',
+            'cumulativeGasUsed',
+            'gasUsed',
+            'confirmations',
+            'methodId',
+            'functionName',
+            'gasPrice',
+            'isError',
+            'txreceipt_status',
+            'input'
+        ], axis = 1)
+
+        return df
+
+    def upload_transactions(self):
+
+        staking_contracts = []
+        blockchains = []
+        trackIds = []
+        launchpad = []
+        sale_type = []
+
+        for item in self.IDO_pools:
+            try:
+                staking_contracts.append(item['staking_contract'].lower())
+                blockchains.append(item['blockchain'])
+                trackIds.append(int(item['trackId']))
+                launchpad.append(item['launchpad'])
+                sale_type.append(item['sale_type'])
+            except:
+                pass
+            
+        pools_info = pd.DataFrame({
+            'contract': staking_contracts, 
+            'chain': blockchains, 
+            'trackID': trackIds,
+            'launchpad': launchpad,
+            'sale_type': sale_type
+        })
+
+        
+        unique_contracts = self.get_unique_contracts(staking_contracts, blockchains)
+
+        unique_contracts_addresses = []
+        for address in unique_contracts:
+            unique_contracts_addresses.append(address.split('/')[0])
+
+        if os.stat(self.file_path).st_size == 0 or os.stat(self.file_path).st_size == 1:
+            self.full_data = pd.DataFrame()
+        else:
+            self.full_data = pd.read_csv(self.file_path)
+
+            self.full_data = self.full_data.loc[~self.full_data['contract'].isin(unique_contracts_addresses)]
+
+        for contract in tqdm(unique_contracts):
+
+            _chain = contract.split('/')[1]
+            _contract = contract.split('/')[0]
+            self.full_data = pd.concat([self.full_data, self.transactions_from_api(_chain, _contract)])
+
+        self.full_data = self.full_data.merge(pools_info, on = ['chain', 'contract', 'trackID'], how = 'left', indicator = True)
+        
+        self.full_data = self.full_data[self.full_data['_merge'] == 'both']
+        self.full_data = self.full_data.drop([
+            'gasPriceBid',
+            '_merge'
+        ], axis = 1)
+
+        if 'launchpad_x' in self.full_data:
+
+            self.full_data = self.full_data.drop([
+                'launchpad_x',
+                'sale_type_x'
+            ], axis = 1)
+
+            self.full_data = self.full_data.rename(columns = {
+                "launchpad_y": "launchpad", 
+                "sale_type_y": "sale_type"
+            })
+
+        self.full_data.to_csv(self.file_path, index = False)
+
 
 
 print ('Option (1) - Upload Transactions Data' )
 print ('Option (2) - Upload Prices Data' )
-print ('Option (3) - Exit' )
+print ('Option (3) - Upload Staking Data [WIP]' )
+print ('Option (4) - Exit' )
 opt = input('Your option: ')
+print("="*80)
 
-prices = UploadPrices()
-transactions = UploadTransactions()
 
 if opt == '1':
+    transactions = UploadTransactions()
     transactions.upload_transactions()
 if opt == '2':
+    prices = UploadPrices()
     prices.upload_prices()
+if opt == '3':
+    staking = UploadStaking()
+    staking.upload_transactions()
+
+
+print("="*80)
+print("Upload is done")
+print("="*80)
