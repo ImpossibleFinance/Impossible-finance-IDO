@@ -42,8 +42,8 @@ class UploadPrices():
 
 
         #first_two_year_data = pd.DataFrame(data[:720]['Price'], columns=['Price'])
-        #first_two_year_data['Price'] = first_two_year_data['Price'].astype(float)
-        #first_two_year_data['days_from_ido'] = first_two_year_data.index
+        data['Price'] = data['Price'].astype(float)
+        data['days_from_ido'] = data.index
         data.round(3)
 
         return data
@@ -639,7 +639,7 @@ class UploadStaking():
 
 print ('Option (1) - Upload Transactions Data' )
 print ('Option (2) - Upload Prices Data' )
-print ('Option (3) - Upload Staking Data [WIP]' )
+print ('Option (3) - Upload Staking Data' )
 print ('Option (4) - Exit' )
 opt = input('Your option: ')
 print("="*80)
