@@ -86,7 +86,7 @@ class Staking_render():
         users_data = users_data.sort_values(by = ['tvl_by_staker'], ascending = False)
         users_data = users_data.reset_index(drop = True)
 
-        users_data = users_data.head(20)
+        users_data = users_data.head(15)
 
         #print(users_data)
         #print(users_data[users_data['Staker'] == '0xC194aEDDB83DeFD5dBE7213Cb4fD64962c4ADcDC'.lower()])
