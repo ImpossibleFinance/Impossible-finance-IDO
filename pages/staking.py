@@ -172,12 +172,12 @@ layout = html.Div(children = [
 )
 def display_clicked_content(*click_info):
 
-    _ido = None
     render = []
 
-    for item in unique_IDO_names:
-        if (item + '-click-button') == ctx.triggered_id:
-            _ido = item
+    if not ctx.triggered:
+        _ido = None
+    else:
+        _ido = (ctx.triggered[0]['prop_id'].split('.')[0]).replace('-click-button', '')
 
     if _ido != None:
         strender = Staking_render(staking_data[staking_data['launchpad'] == _ido], _ido)

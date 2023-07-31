@@ -115,7 +115,7 @@ layout = html.Div(children = [
     html.H6(children = "Enter your wallet to continue:", className = "main-header-title"),
 
     html.Div([
-        dcc.Input(id = 'wallet-address', value = '0x...', type = 'text'),
+        dcc.Input(id = 'wallet-address', placeholder = '0x...', type = 'text'),
         html.Button('Submit', id = 'submit-wallet', n_clicks = 0),
     ], className = "web_style_input"),
     
@@ -130,14 +130,18 @@ layout = html.Div(children = [
 )
 def update_rerender_user(n_clicks, input_wallet):
 
-    if len(input_wallet) == 42:
+    if input_wallet != None:
+        if len(input_wallet) == 42:
 
-        wallet = input_wallet.lower()
+            wallet = input_wallet.lower()
 
-        wallet_data = full_data[full_data['from'] == wallet]
+            wallet_data = full_data[full_data['from'] == wallet]
 
-        topClass = TopUsers(wallet, wallet_data, full_data)
-        return topClass.rerender()
-    
+            topClass = TopUsers(wallet, wallet_data, full_data)
+            return topClass.rerender()
+
+        else:
+            return ''
+        
     else:
         return ''
