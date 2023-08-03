@@ -156,7 +156,7 @@ layout = html.Div(children = [
 
 
     html.Div([
-        html.Ul(list_of_unique_idos, className = "list")
+        html.Ul(list_of_unique_idos, className = "list", id = 'unique_idos')
     ], className = "viewport"),
 
     html.Div(
