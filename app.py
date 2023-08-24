@@ -12,6 +12,17 @@ app = Dash(
     use_pages = True
 )
 
+@app.after_request
+def apply_caching(response):
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["X-Frame-Options"] = "SAMEORIGIN"
+    response.headers["X-XSS-Protection"] = "1; mode=block"
+    response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubdomains"
+    response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+    response.headers["X-Frame-Options"] = "SAMEORIGIN"
+
+    return response
+
 @app.server.errorhandler(500)
 def handle_internal_server_error(e):
     return flask.render_template("404.html", code=e.code, name=e.name, description="Something went wrong")
