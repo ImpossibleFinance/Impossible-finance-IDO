@@ -12,6 +12,11 @@ app = Dash(
     use_pages = True
 )
 
+@app.server.errorhandler(InternalServerError)
+def handle_internal_server_error(e):
+    dialog_err = f'INTERNAL SERVER ERROR - code={e.code}, name={e.name}, description={e.description}'
+    return render_template("exception.html", code=e.code, name=e.name, description=e.description)
+
 
 app.layout = html.Div([])
 
