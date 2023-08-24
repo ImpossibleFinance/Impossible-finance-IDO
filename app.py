@@ -14,7 +14,7 @@ app = Dash(
 
 @app.server.errorhandler(500)
 def handle_internal_server_error(e):
-    return render_template("404.html", code=e.code, name=e.name, description="Something went wrong")
+    return flask.render_template("404.html", code=e.code, name=e.name, description="Something went wrong")
 
 
 app.layout = html.Div([])
