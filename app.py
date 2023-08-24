@@ -14,11 +14,12 @@ app = Dash(
 
 @app.server.errorhandler(500)
 def handle_internal_server_error(e):
-    dialog_err = f'INTERNAL SERVER ERROR - code={e.code}, name={e.name}, description={e.description}'
-    return render_template("exception.html", code=e.code, name=e.name, description=e.description)
+    return render_template("404.html", code=e.code, name=e.name, description="Something went wrong")
 
 
 app.layout = html.Div([])
 
 if __name__ == '__main__':
     app.run_server(debug = True)
+
+    
