@@ -31,7 +31,7 @@ layout = html.Div([
     ], id = 'dashboard-list'),
 
     html.Div([
-        html.H1([' Impossible IDO Launchpad'], 
+        html.H1([' Impossible IDO Launchpads'], 
                 className = "main-header-title"),
         html.H2(["The dashboard provides investors with a seamless and transparent IDO process. It allows investors to view all the available IDOs and their details, including the start and end dates of the IDO, the amount being raised, the price of the token, and the allocation limits. Investors can also participate in the IDO through the dashboard by connecting their wallets to the platform."],
                 className = "description-main"),
