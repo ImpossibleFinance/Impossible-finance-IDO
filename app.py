@@ -12,7 +12,7 @@ app = Dash(
     use_pages = True
 )
 
-@app.after_request
+@app.server.after_request
 def apply_caching(response):
     response.headers["X-Content-Type-Options"] = "nosniff"
     response.headers["X-Frame-Options"] = "SAMEORIGIN"
